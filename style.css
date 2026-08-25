@@ -784,6 +784,12 @@ body.modal-open {
   background: #0d1520;
   box-shadow: 0 30px 80px rgba(0,0,0,.7);
   animation: dashboardIn .3s ease;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.dashboard-box::-webkit-scrollbar {
+  display: none;
 }
 
 @keyframes dashboardIn {
