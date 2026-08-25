@@ -277,6 +277,20 @@ function showLoggedInUser(user) {
     };
   }
 
+  const heroBtn =
+    document.getElementById("heroGetStarted");
+
+  if (heroBtn) {
+    heroBtn.innerHTML = 'My Account <span>→</span>';
+    heroBtn.onclick = function() {
+      openDashboard();
+    };
+  }
+
+}
+
+function heroGetStartedClick() {
+  openAuth("signup");
 }
 
 // ==============================
@@ -478,6 +492,26 @@ async function logoutUser() {
   navLogin.onclick = function () {
     openAuth("login");
   };
+
+  const mobileBtn =
+    document.getElementById("mobileAccountBtn");
+
+  if (mobileBtn) {
+    mobileBtn.textContent = "Login";
+    mobileBtn.onclick = function() {
+      handleMobileAccount();
+    };
+  }
+
+  const heroBtn =
+    document.getElementById("heroGetStarted");
+
+  if (heroBtn) {
+    heroBtn.innerHTML = 'Get Started <span>→</span>';
+    heroBtn.onclick = function() {
+      heroGetStartedClick();
+    };
+  }
 
 }
 
