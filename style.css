@@ -1418,10 +1418,14 @@ body::before {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
   background: rgba(2, 6, 12, .78);
   backdrop-filter: blur(10px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 20px;
 }
 
 .security-photo-modal.hidden {
@@ -1430,7 +1434,8 @@ body::before {
 
 .security-photo-box {
   position: relative;
-  width: min(440px, calc(100% - 40px));
+  width: min(440px, 100%);
+  margin: auto;
   padding: 35px;
   border: 1px solid #293957;
   border-radius: 22px;
@@ -1457,6 +1462,8 @@ body::before {
   background: #000;
   display: block;
   margin: 0 auto;
+  max-height: 250px;
+  object-fit: cover;
 }
 
 #securityPreview {
@@ -2046,4 +2053,26 @@ body.light .mobile-menu a:hover { color: #000; }
 @media (max-width: 600px) {
   .team-grid { grid-template-columns: 1fr; }
   .nav-right { gap: 8px; }
+
+  .security-photo-modal {
+    padding: 10px;
+  }
+
+  .security-photo-box {
+    padding: 20px 15px;
+    margin: 10px auto;
+  }
+
+  .security-photo-actions {
+    flex-direction: column;
+  }
+
+  .security-photo-actions button {
+    width: 100%;
+  }
+
+  #securityCamera,
+  #securityPhotoPreview {
+    max-height: 200px;
+  }
 }
