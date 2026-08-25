@@ -775,7 +775,7 @@ body.modal-open {
 
 .dashboard-box {
   width: min(520px, 95%);
-  max-height: 88vh;
+  max-height: 92vh;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   position: relative;
@@ -1017,7 +1017,7 @@ body.modal-open {
 }
 
 @media (max-width: 600px) {
-  .dashboard-box { width: 96%; max-height: 90vh; border-radius: 18px; }
+  .dashboard-box { width: 96%; max-height: 94vh; border-radius: 18px; }
   .dash-banner { height: 70px; border-radius: 18px 18px 0 0; }
   .dash-profile { flex-direction: column; text-align: center; padding: 0 18px; margin-top: -32px; }
   .dash-profile-info h2 { font-size: 17px; }
