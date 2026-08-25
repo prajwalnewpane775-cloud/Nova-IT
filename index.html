@@ -389,10 +389,10 @@
       </div>
     </div>
     <form class="contact-form" id="contactForm" onsubmit="handleContact(event)">
-      <input type="text" placeholder="Your Name" required>
-      <input type="email" placeholder="Your Email" required>
-      <input type="text" placeholder="Subject">
-      <textarea placeholder="Your Message" rows="5" required></textarea>
+      <input type="text" id="contactName" placeholder="Your Name" required>
+      <input type="email" id="contactEmail" placeholder="Your Email" required>
+      <input type="text" id="contactSubject" placeholder="Subject">
+      <textarea id="contactMessage" placeholder="Your Message" rows="5" required></textarea>
       <button type="submit" class="primary-btn">Send Message →</button>
       <p class="contact-status" id="contactStatus"></p>
     </form>

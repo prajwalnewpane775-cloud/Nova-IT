@@ -1075,20 +1075,45 @@ function toggleTheme() {
 // CONTACT FORM
 // ==============================
 
-function handleContact(event) {
+async function handleContact(event) {
   event.preventDefault();
 
   const status = document.getElementById("contactStatus");
+  const name = document.getElementById("contactName").value.trim();
+  const email = document.getElementById("contactEmail").value.trim();
+  const subject = document.getElementById("contactSubject").value.trim();
+  const message = document.getElementById("contactMessage").value.trim();
+
+  if (!name || !email || !message) {
+    status.textContent = "Please fill all required fields.";
+    status.style.color = "#f87171";
+    return;
+  }
+
   status.textContent = "Sending...";
+  status.style.color = "#7188ff";
+
+  const { error } = await supabaseClient
+    .from("messages")
+    .insert({
+      name: name,
+      email: email,
+      message: (subject ? "[" + subject + "] " : "") + message
+    });
+
+  if (error) {
+    status.textContent = "Failed to send. Try again.";
+    status.style.color = "#f87171";
+    return;
+  }
+
+  status.textContent = "Message sent successfully! We'll get back to you soon.";
+  status.style.color = "#4ade80";
+  event.target.reset();
 
   setTimeout(function () {
-    status.textContent = "Message sent successfully! We'll get back to you soon.";
-    event.target.reset();
-
-    setTimeout(function () {
-      status.textContent = "";
-    }, 5000);
-  }, 1500);
+    status.textContent = "";
+  }, 5000);
 }
 
 // ==============================
