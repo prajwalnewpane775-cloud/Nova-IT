@@ -529,56 +529,39 @@ if (avatarInput) {
       const { error: uploadError } =
         await supabaseClient.storage
           .from("avatars")
-          .upload(
-            filePath,
-            file,
-            {
-              upsert: true,
-              contentType: file.type
-            }
-          );
+          .upload(filePath, file, {
+            upsert: true,
+            contentType: file.type
+          });
 
       if (uploadError) {
-
         alert(uploadError.message);
         return;
-
       }
 
       const {
         data: signedData,
         error: signedError
-      } =
-        await supabaseClient.storage
-          .from("avatars")
-          .createSignedUrl(
-            filePath,
-            3600
-          );
+      } = await supabaseClient.storage
+        .from("avatars")
+        .createSignedUrl(filePath, 3600);
 
       if (signedError) {
-
         alert(signedError.message);
         return;
-
       }
 
-      const signedUrl =
-        signedData.signedUrl;
+      const signedUrl = signedData.signedUrl;
 
       const { error: dbError } =
         await supabaseClient
           .from("profiles")
-          .update({
-            avatar_url: signedUrl
-          })
+          .update({ avatar_url: signedUrl })
           .eq("id", user.id);
 
       if (dbError) {
-
         alert(dbError.message);
         return;
-
       }
 
       document
@@ -940,10 +923,10 @@ async function continueAfterSecurityPhoto() {
     .classList.add("hidden");
 
 
-  // OPEN ACCOUNT
+  // GO TO HOME PAGE
   showLoggedInUser(user);
 
-  openDashboard();
+  document.getElementById("home").scrollIntoView({ behavior: "smooth" });
 
 }
 
