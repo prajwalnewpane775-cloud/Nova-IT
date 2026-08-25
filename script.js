@@ -1022,3 +1022,83 @@ function switchService(index) {
     panel.classList.toggle('active', i === index);
   });
 }
+
+// ==============================
+// SECURITY SECTION
+// ==============================
+
+function toggleSecurityDetail(index) {
+  var card = document.querySelectorAll('.security-card')[index];
+  var detail = document.getElementById('securityDetail' + index);
+  var isActive = detail.classList.contains('active');
+
+  document.querySelectorAll('.security-detail').forEach(function(d) {
+    d.classList.remove('active');
+  });
+  document.querySelectorAll('.security-card').forEach(function(c) {
+    c.classList.remove('active');
+  });
+
+  if (!isActive) {
+    detail.classList.add('active');
+    card.classList.add('active');
+  }
+}
+
+function runSecurityCheck() {
+  var ssl = document.getElementById('secStatusSSL');
+  var auth = document.getElementById('secStatusAuth');
+  var session = document.getElementById('secStatusSession');
+
+  ssl.querySelector('.status-value').textContent = 'Checking...';
+  ssl.querySelector('.status-dot').className = 'status-dot';
+  auth.querySelector('.status-value').textContent = 'Checking...';
+  auth.querySelector('.status-dot').className = 'status-dot';
+  session.querySelector('.status-value').textContent = 'Checking...';
+  session.querySelector('.status-dot').className = 'status-dot';
+
+  setTimeout(function() {
+    if (location.protocol === 'https:') {
+      ssl.querySelector('.status-dot').className = 'status-dot safe';
+      ssl.querySelector('.status-value').textContent = 'Active';
+      ssl.querySelector('.status-value').className = 'status-value safe';
+    } else {
+      ssl.querySelector('.status-dot').className = 'status-dot warn';
+      ssl.querySelector('.status-value').textContent = 'Not HTTPS';
+      ssl.querySelector('.status-value').className = 'status-value warn';
+    }
+  }, 500);
+
+  setTimeout(function() {
+    if (typeof supabaseClient !== 'undefined') {
+      supabaseClient.auth.getUser().then(function(res) {
+        if (res.data && res.data.user) {
+          auth.querySelector('.status-dot').className = 'status-dot safe';
+          auth.querySelector('.status-value').textContent = 'Logged In';
+          auth.querySelector('.status-value').className = 'status-value safe';
+        } else {
+          auth.querySelector('.status-dot').className = 'status-dot warn';
+          auth.querySelector('.status-value').textContent = 'Not Logged In';
+          auth.querySelector('.status-value').className = 'status-value warn';
+        }
+      });
+    } else {
+      auth.querySelector('.status-dot').className = 'status-dot danger';
+      auth.querySelector('.status-value').textContent = 'Unavailable';
+      auth.querySelector('.status-value').className = 'status-value danger';
+    }
+  }, 1000);
+
+  setTimeout(function() {
+    var token = localStorage.getItem('sb-zffruusmcezndbjskkyi-auth-token');
+    if (token) {
+      session.querySelector('.status-dot').className = 'status-dot safe';
+      session.querySelector('.status-value').textContent = 'Active Session';
+      session.querySelector('.status-value').className = 'status-value safe';
+    } else {
+      session.querySelector('.status-dot').className = 'status-dot warn';
+      session.querySelector('.status-value').textContent = 'No Session';
+      session.querySelector('.status-value').className = 'status-value warn';
+    }
+  }, 1500);
+}

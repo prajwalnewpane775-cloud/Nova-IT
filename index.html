@@ -423,30 +423,61 @@
 
     <div class="security-features">
 
-      <div class="security-card">
+      <div class="security-card" onclick="toggleSecurityDetail(0)">
         <div class="security-icon">🔐</div>
         <div>
           <h3>Secure Authentication</h3>
-          <p>Your account is protected with secure authentication.</p>
+          <p>Your account is protected with encrypted authentication.</p>
         </div>
+        <span class="security-expand">+</span>
+      </div>
+      <div class="security-detail" id="securityDetail0">
+        <p>Every login is secured with Supabase Auth using encrypted tokens. Your password is never stored in plain text — it's hashed with bcrypt before saving. Session tokens expire automatically for your protection.</p>
       </div>
 
-      <div class="security-card">
+      <div class="security-card" onclick="toggleSecurityDetail(1)">
         <div class="security-icon">👤</div>
         <div>
           <h3>Private Profile</h3>
-          <p>Your personal profile information stays protected.</p>
+          <p>Your personal data stays private and protected.</p>
         </div>
+        <span class="security-expand">+</span>
+      </div>
+      <div class="security-detail" id="securityDetail1">
+        <p>Your profile data is stored in Supabase with Row Level Security (RLS). Only you can read and edit your own information. No other user or third party can access your private data.</p>
       </div>
 
-      <div class="security-card">
+      <div class="security-card" onclick="toggleSecurityDetail(2)">
         <div class="security-icon">🛡️</div>
         <div>
           <h3>Protected Access</h3>
-          <p>Users can access only their own account information.</p>
+          <p>Users can only access their own account data.</p>
         </div>
+        <span class="security-expand">+</span>
+      </div>
+      <div class="security-detail" id="securityDetail2">
+        <p>Row Level Security policies ensure each user can only query their own rows. API keys are scoped and rate-limited. Your account cannot be accessed by anyone without your credentials.</p>
       </div>
 
+    </div>
+
+    <div class="security-status-box">
+      <div class="status-row" id="secStatusSSL">
+        <span class="status-dot"></span>
+        <span>SSL Encryption</span>
+        <span class="status-value">Checking...</span>
+      </div>
+      <div class="status-row" id="secStatusAuth">
+        <span class="status-dot"></span>
+        <span>Authentication</span>
+        <span class="status-value">Checking...</span>
+      </div>
+      <div class="status-row" id="secStatusSession">
+        <span class="status-dot"></span>
+        <span>Session Status</span>
+        <span class="status-value">Checking...</span>
+      </div>
+      <button class="security-check-btn" onclick="runSecurityCheck()">Run Security Check</button>
     </div>
 
   </div>
