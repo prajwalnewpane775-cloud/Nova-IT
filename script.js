@@ -260,15 +260,22 @@ function showLoggedInUser(user) {
   const navLogin =
     document.querySelector(".nav-login");
 
-  if (!navLogin) return;
+  if (navLogin) {
+    navLogin.textContent = "Account";
+    navLogin.onclick = function() {
+      openDashboard();
+    };
+  }
 
-  navLogin.textContent = "Account";
+  const mobileBtn =
+    document.getElementById("mobileAccountBtn");
 
-  navLogin.onclick = function() {
-
-    openDashboard();
-
-  };
+  if (mobileBtn) {
+    mobileBtn.textContent = "Account";
+    mobileBtn.onclick = function() {
+      handleMobileAccount();
+    };
+  }
 
 }
 
@@ -977,6 +984,7 @@ function toggleMobileMenu() {
       <a href="#team" onclick="closeMobileMenu()">Team</a>
       <a href="#blog" onclick="closeMobileMenu()">Blog</a>
       <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+      <a href="javascript:void(0)" id="mobileAccountBtn" onclick="handleMobileAccount()">Login</a>
     `;
     document.body.appendChild(mobileMenu);
   }
@@ -989,6 +997,16 @@ function closeMobileMenu() {
   const mobileMenu = document.querySelector(".mobile-menu");
   if (hamburger) hamburger.classList.remove("active");
   if (mobileMenu) mobileMenu.classList.remove("active");
+}
+
+async function handleMobileAccount() {
+  closeMobileMenu();
+  const { data: { user } } = await supabaseClient.auth.getUser();
+  if (user) {
+    openDashboard();
+  } else {
+    openAuth("login");
+  }
 }
 
 // ==============================
