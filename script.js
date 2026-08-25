@@ -637,6 +637,44 @@ async function saveProfile() {
   alert("Profile updated successfully!");
 }
 
+async function changePassword() {
+  const current = document.getElementById("currentPassword").value;
+  const newPass = document.getElementById("newPassword").value;
+  const msg = document.getElementById("passwordMessage");
+
+  if (!current || !newPass) {
+    msg.textContent = "Please fill both fields.";
+    msg.style.color = "#f87171";
+    return;
+  }
+
+  if (newPass.length < 6) {
+    msg.textContent = "New password must be at least 6 characters.";
+    msg.style.color = "#f87171";
+    return;
+  }
+
+  msg.textContent = "Updating password...";
+  msg.style.color = "#7188ff";
+
+  const { error } = await supabaseClient.auth.updateUser({
+    password: newPass
+  });
+
+  if (error) {
+    msg.textContent = error.message;
+    msg.style.color = "#f87171";
+    return;
+  }
+
+  msg.textContent = "Password updated successfully!";
+  msg.style.color = "#4ade80";
+  document.getElementById("currentPassword").value = "";
+  document.getElementById("newPassword").value = "";
+
+  setTimeout(function() { msg.textContent = ""; }, 4000);
+}
+
 async function forgotPassword() {
 
   const emailInput = document.getElementById("email");

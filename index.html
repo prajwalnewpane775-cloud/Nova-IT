@@ -618,16 +618,21 @@
       ×
     </button>
 
-    <div class="profile-header">
+    <!-- GRADIENT BANNER -->
+    <div class="dash-banner">
+      <div class="dash-banner-pattern"></div>
+      <div class="dash-banner-glow"></div>
+    </div>
 
-      <div class="avatar-wrapper">
+    <!-- PROFILE -->
+    <div class="dash-profile">
 
+      <div class="avatar-wrapper dash-avatar">
         <img
           id="profileAvatar"
           src="https://placehold.co/90x90/111827/8ea5ff?text=N"
           alt="Profile photo"
         >
-
         <label
           for="avatarInput"
           class="avatar-edit"
@@ -635,133 +640,126 @@
         >
           ✎
         </label>
-
         <input
           type="file"
           id="avatarInput"
           accept="image/png,image/jpeg,image/webp"
           hidden
         >
-
+        <div class="avatar-status-dot"></div>
       </div>
 
+      <div class="dash-profile-info">
+        <div class="mini-label">MY ACCOUNT</div>
+        <h2 id="profileName">User</h2>
+        <p id="profileEmail">email@example.com</p>
+      </div>
 
-      <div>
+      <div class="dash-profile-actions">
+        <button type="button" class="dash-action-btn primary" onclick="editProfile()">✎ Edit</button>
+        <button type="button" class="dash-action-btn danger" onclick="logoutUser()">↪ Logout</button>
+      </div>
 
-        <div class="mini-label">
-          MY ACCOUNT
+    </div>
+
+    <!-- STATS -->
+    <div class="dash-stats">
+      <div class="dash-stat-card">
+        <div class="dash-stat-icon">👤</div>
+        <div>
+          <div class="dash-stat-value" id="detailName">—</div>
+          <div class="dash-stat-label">FULL NAME</div>
         </div>
-
-        <h2 id="profileName">
-          User
-        </h2>
-
-        <p id="profileEmail">
-          email@example.com
-        </p>
-
       </div>
-
+      <div class="dash-stat-card">
+        <div class="dash-stat-icon">📧</div>
+        <div>
+          <div class="dash-stat-value" id="detailEmail">—</div>
+          <div class="dash-stat-label">EMAIL</div>
+        </div>
+      </div>
+      <div class="dash-stat-card">
+        <div class="dash-stat-icon">✅</div>
+        <div>
+          <div class="dash-stat-value status-active">Active</div>
+          <div class="dash-stat-label">STATUS</div>
+        </div>
+      </div>
     </div>
 
-
-    <div class="profile-details">
-
-      <div class="detail-card">
-
-        <span>FULL NAME</span>
-
-        <strong id="detailName">
-          —
-        </strong>
-
+    <!-- QUICK ACTIONS -->
+    <div class="dash-section-title">Quick Actions</div>
+    <div class="dash-quick-actions">
+      <div class="dash-quick-card" onclick="editProfile()">
+        <span>✎</span>
+        <span>Edit Profile</span>
       </div>
-
-
-      <div class="detail-card">
-
-        <span>EMAIL</span>
-
-        <strong id="detailEmail">
-          —
-        </strong>
-
+      <div class="dash-quick-card" onclick="document.querySelector('.security-section').scrollIntoView({behavior:'smooth'})">
+        <span>🔐</span>
+        <span>Security</span>
       </div>
-
-
-      <div class="detail-card">
-
-        <span>ACCOUNT STATUS</span>
-
-        <strong class="status-active">
-          ● Active
-        </strong>
-
+      <div class="dash-quick-card" onclick="document.getElementById('editFullName').value=document.getElementById('detailName').textContent;editProfile()">
+        <span>👤</span>
+        <span>Change Name</span>
       </div>
-
     </div>
 
+    <!-- RECENT ACTIVITY -->
+    <div class="dash-section-title">Recent Activity</div>
+    <div class="dash-activity">
+      <div class="dash-activity-item">
+        <div class="dash-activity-dot safe"></div>
+        <div>
+          <div class="dash-activity-text">Account created successfully</div>
+          <div class="dash-activity-time">Welcome to NovaIT!</div>
+        </div>
+      </div>
+      <div class="dash-activity-item">
+        <div class="dash-activity-dot safe"></div>
+        <div>
+          <div class="dash-activity-text">Session secured with SSL</div>
+          <div class="dash-activity-time">All data encrypted</div>
+        </div>
+      </div>
+      <div class="dash-activity-item">
+        <div class="dash-activity-dot warn"></div>
+        <div>
+          <div class="dash-activity-text">Profile photo not set</div>
+          <div class="dash-activity-time">Upload a photo to personalize</div>
+        </div>
+      </div>
+    </div>
 
-    <div class="dashboard-actions">
-
-      <button
-        type="button"
-        class="dashboard-btn"
-        onclick="editProfile()"
+    <!-- EDIT PROFILE FORM -->
+    <div id="editProfileForm" class="edit-profile-form hidden">
+      <h3>Edit Profile</h3>
+      <label for="editFullName">Full Name</label>
+      <input
+        type="text"
+        id="editFullName"
+        placeholder="Enter your full name"
+        maxlength="80"
       >
-        ✎ Edit Profile
-      </button>
-
-
-      <button
-        type="button"
-        class="dashboard-btn logout-btn"
-        onclick="logoutUser()"
-      >
-        ↪ Logout
-      </button>
-      <div id="editProfileForm" class="edit-profile-form hidden">
-
-  <h3>Edit Profile</h3>
-
-  <label for="editFullName">Full Name</label>
-
-  <input
-    type="text"
-    id="editFullName"
-    placeholder="Enter your full name"
-    maxlength="80"
-  >
-
-  <div class="edit-actions">
-
-    <button
-      type="button"
-      class="dashboard-btn"
-      onclick="saveProfile()"
-    >
-      Save Changes
-    </button>
-
-    <button
-      type="button"
-      class="dashboard-btn"
-      onclick="cancelEditProfile()"
-    >
-      Cancel
-    </button>
-
-  </div>
-
-</div>
-
+      <div class="edit-actions">
+        <button type="button" class="dashboard-btn" onclick="saveProfile()">Save Changes</button>
+        <button type="button" class="dashboard-btn" onclick="cancelEditProfile()">Cancel</button>
+      </div>
     </div>
 
+    <!-- SECURITY SECTION -->
+    <div class="security-section">
+      <div class="security-title">
+        <h3>🔐 Account Security</h3>
+      </div>
+      <div class="password-form">
+        <input type="password" id="currentPassword" placeholder="Current password">
+        <input type="password" id="newPassword" placeholder="New password (min 6 characters)">
+        <button type="button" class="dashboard-btn" onclick="changePassword()">Update Password</button>
+      </div>
+      <p id="passwordMessage"></p>
+    </div>
 
-    <p
-      id="dashboardMessage"
-      class="auth-message"
-    ></p>
+    <p id="dashboardMessage" class="auth-message"></p>
 
   </div>
 
