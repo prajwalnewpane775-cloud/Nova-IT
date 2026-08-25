@@ -29,6 +29,8 @@ function openAuth(mode) {
 
   modal.classList.remove("hidden");
 
+  document.body.classList.add("modal-open");
+
   updateAuthUI();
 }
 
@@ -42,6 +44,8 @@ function closeAuth() {
   document
     .getElementById("authModal")
     .classList.add("hidden");
+
+  document.body.classList.remove("modal-open");
 
   document.getElementById("authMessage").textContent = "";
 }
@@ -348,6 +352,8 @@ async function openDashboard() {
     .getElementById("dashboardModal")
     .classList.remove("hidden");
 
+  document.body.classList.add("modal-open");
+
   await loadProfile(user);
 }
 
@@ -361,6 +367,8 @@ function closeDashboard() {
   document
     .getElementById("dashboardModal")
     .classList.add("hidden");
+
+  document.body.classList.remove("modal-open");
 }
 
 

@@ -519,6 +519,12 @@ body::before {
   background: rgba(0,0,0,.75);
   backdrop-filter: blur(12px);
   padding: 20px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+body.modal-open {
+  overflow: hidden;
 }
 
 .hidden {
