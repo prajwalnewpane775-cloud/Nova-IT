@@ -1225,3 +1225,18 @@ function runSecurityCheck() {
     }
   }, 1500);
 }
+
+// ==============================
+// MOUSE GLOW ON BUTTONS
+// ==============================
+
+document.addEventListener("mousemove", function(e) {
+  var btns = document.querySelectorAll(".primary-btn");
+  btns.forEach(function(btn) {
+    var rect = btn.getBoundingClientRect();
+    var x = ((e.clientX - rect.left) / rect.width) * 100;
+    var y = ((e.clientY - rect.top) / rect.height) * 100;
+    btn.style.setProperty("--mx", x + "%");
+    btn.style.setProperty("--my", y + "%");
+  });
+});

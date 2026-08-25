@@ -181,14 +181,32 @@ body::before {
   color: white;
   background: linear-gradient(135deg, #5477ff, #7d59ff);
   box-shadow: 0 12px 35px rgba(76,104,255,.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.primary-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity .3s;
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), #ff6b9d, #c44dff, #5477ff);
+}
+
+.primary-btn:hover::before {
+  opacity: 1;
+}
+
+.primary-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 16px 45px rgba(120,80,255,.4);
 }
 
 .primary-btn span {
   margin-left: 12px;
-}
-
-.primary-btn:hover {
-  transform: translateY(-3px);
+  position: relative;
+  z-index: 1;
 }
 
 .secondary-btn {
