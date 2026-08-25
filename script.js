@@ -770,6 +770,10 @@ function captureSecurityPhoto() {
         .classList.remove("hidden");
 
       document
+        .getElementById("securityCamera")
+        .classList.add("hidden");
+
+      document
         .getElementById("capturePhotoBtn")
         .classList.add("hidden");
 
@@ -785,6 +789,10 @@ function captureSecurityPhoto() {
         .getElementById("securityPhotoMessage")
         .textContent =
         "Photo captured. Confirm to continue.";
+
+      if (securityStream) {
+        securityStream.getTracks().forEach(t => t.stop());
+      }
 
     },
     "image/jpeg",
@@ -814,6 +822,7 @@ function retakeSecurityPhoto() {
     .getElementById("capturePhotoBtn")
     .classList.remove("hidden");
 
+  startSecurityCamera();
 }
 
 
