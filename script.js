@@ -1009,3 +1009,16 @@ function handleContact(event) {
     }, 5000);
   }, 1500);
 }
+
+// ==============================
+// SERVICE TABS
+// ==============================
+
+function switchService(index) {
+  document.querySelectorAll('.service-tab-btn').forEach(function(btn, i) {
+    btn.classList.toggle('active', i === index);
+  });
+  document.querySelectorAll('.service-tab-panel').forEach(function(panel, i) {
+    panel.classList.toggle('active', i === index);
+  });
+}

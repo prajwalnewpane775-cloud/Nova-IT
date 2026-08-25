@@ -136,50 +136,105 @@
         </p>
       </div>
 
+      <div class="service-tabs">
 
-      <div class="service-grid">
-
-        <div class="service-card">
-          <div class="service-icon">⌘</div>
-          <h3>Digital Technology</h3>
-          <p>
-            Learn and explore modern technologies shaping
-            the digital world.
-          </p>
-          <span class="card-number">01</span>
+        <div class="service-tab-buttons">
+          <button class="service-tab-btn active" onclick="switchService(0)">
+            <span class="tab-icon">⌘</span>
+            <span class="tab-label">Digital Technology</span>
+          </button>
+          <button class="service-tab-btn" onclick="switchService(1)">
+            <span class="tab-icon">⌬</span>
+            <span class="tab-label">Cyber Security</span>
+          </button>
+          <button class="service-tab-btn" onclick="switchService(2)">
+            <span class="tab-icon">◈</span>
+            <span class="tab-label">Cloud Systems</span>
+          </button>
+          <button class="service-tab-btn" onclick="switchService(3)">
+            <span class="tab-icon">AI</span>
+            <span class="tab-label">Artificial Intelligence</span>
+          </button>
         </div>
 
+        <div class="service-tab-panels">
 
-        <div class="service-card">
-          <div class="service-icon">⌬</div>
-          <h3>Cyber Security</h3>
-          <p>
-            Understand digital security, privacy and
-            responsible technology.
-          </p>
-          <span class="card-number">02</span>
-        </div>
+          <div class="service-tab-panel active" id="servicePanel0">
+            <div class="panel-header">
+              <div class="panel-icon">⌘</div>
+              <div>
+                <h3>Digital Technology</h3>
+                <span class="panel-tag">01 — FOUNDATION</span>
+              </div>
+            </div>
+            <p>Learn and explore modern technologies shaping the digital world. From web development to mobile applications, master the tools that power today's digital landscape.</p>
+            <div class="panel-features">
+              <div class="panel-feature">Web Development</div>
+              <div class="panel-feature">Mobile Apps</div>
+              <div class="panel-feature">UI/UX Design</div>
+              <div class="panel-feature">Version Control</div>
+              <div class="panel-feature">API Integration</div>
+              <div class="panel-feature">Responsive Design</div>
+            </div>
+          </div>
 
+          <div class="service-tab-panel" id="servicePanel1">
+            <div class="panel-header">
+              <div class="panel-icon">⌬</div>
+              <div>
+                <h3>Cyber Security</h3>
+                <span class="panel-tag">02 — PROTECTION</span>
+              </div>
+            </div>
+            <p>Understand digital security, privacy and responsible technology. Protect systems and data from modern cyber threats with industry-standard practices.</p>
+            <div class="panel-features">
+              <div class="panel-feature">Network Security</div>
+              <div class="panel-feature">Ethical Hacking</div>
+              <div class="panel-feature">Data Encryption</div>
+              <div class="panel-feature">Threat Analysis</div>
+              <div class="panel-feature">Security Audits</div>
+              <div class="panel-feature">Privacy Compliance</div>
+            </div>
+          </div>
 
-        <div class="service-card">
-          <div class="service-icon">◈</div>
-          <h3>Cloud Systems</h3>
-          <p>
-            Discover databases, cloud platforms and
-            modern application infrastructure.
-          </p>
-          <span class="card-number">03</span>
-        </div>
+          <div class="service-tab-panel" id="servicePanel2">
+            <div class="panel-header">
+              <div class="panel-icon">◈</div>
+              <div>
+                <h3>Cloud Systems</h3>
+                <span class="panel-tag">03 — INFRASTRUCTURE</span>
+              </div>
+            </div>
+            <p>Discover databases, cloud platforms and modern application infrastructure. Scale your applications with reliable cloud solutions.</p>
+            <div class="panel-features">
+              <div class="panel-feature">AWS / Azure</div>
+              <div class="panel-feature">Databases</div>
+              <div class="panel-feature">DevOps</div>
+              <div class="panel-feature">Containerization</div>
+              <div class="panel-feature">CI/CD Pipelines</div>
+              <div class="panel-feature">Server Management</div>
+            </div>
+          </div>
 
+          <div class="service-tab-panel" id="servicePanel3">
+            <div class="panel-header">
+              <div class="panel-icon">AI</div>
+              <div>
+                <h3>Artificial Intelligence</h3>
+                <span class="panel-tag">04 — INTELLIGENCE</span>
+              </div>
+            </div>
+            <p>Explore intelligent systems and the future of AI-powered applications. Build smart solutions using machine learning and automation.</p>
+            <div class="panel-features">
+              <div class="panel-feature">Machine Learning</div>
+              <div class="panel-feature">Deep Learning</div>
+              <div class="panel-feature">NLP</div>
+              <div class="panel-feature">Computer Vision</div>
+              <div class="panel-feature">Data Science</div>
+              <div class="panel-feature">Automation</div>
+            </div>
+          </div>
 
-        <div class="service-card">
-          <div class="service-icon">AI</div>
-          <h3>Artificial Intelligence</h3>
-          <p>
-            Explore intelligent systems and the future
-            of AI-powered applications.
-          </p>
-          <span class="card-number">04</span>
         </div>
 
       </div>
