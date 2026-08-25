@@ -26,9 +26,26 @@ function openAuth(mode) {
   authMode = mode;
 
   const modal = document.getElementById("authModal");
+  const authBox = modal.querySelector(".auth-box");
+
+  authBox.classList.remove(
+    "slide-from-top", "slide-from-bottom",
+    "slide-from-left", "slide-from-right",
+    "login-mode", "signup-mode"
+  );
+
+  const directions = [
+    "slide-from-top", "slide-from-bottom",
+    "slide-from-left", "slide-from-right"
+  ];
+  const randomDir = directions[Math.floor(Math.random() * 4)];
+
+  void authBox.offsetWidth;
+
+  authBox.classList.add(randomDir);
+  authBox.classList.add(mode === "login" ? "login-mode" : "signup-mode");
 
   modal.classList.remove("hidden");
-
   document.body.classList.add("modal-open");
 
   updateAuthUI();

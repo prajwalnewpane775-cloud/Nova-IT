@@ -517,10 +517,17 @@ body::before {
   display: grid;
   place-items: center;
   background: rgba(0,0,0,.75);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(0px);
   padding: 20px;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  animation: modalBgIn .4s ease forwards;
+}
+
+@keyframes modalBgIn {
+  0% { backdrop-filter: blur(0px); background: rgba(0,0,0,0); }
+  50% { backdrop-filter: blur(6px); background: rgba(0,0,0,.5); }
+  100% { backdrop-filter: blur(14px); background: rgba(0,0,0,.78); }
 }
 
 body.modal-open {
@@ -539,6 +546,56 @@ body.modal-open {
   border-radius: 22px;
   background: #0c121d;
   box-shadow: 0 40px 100px rgba(0,0,0,.6);
+}
+
+.auth-box.slide-from-top {
+  animation: slideFromTop .5s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+.auth-box.slide-from-bottom {
+  animation: slideFromBottom .5s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+.auth-box.slide-from-left {
+  animation: slideFromLeft .5s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+.auth-box.slide-from-right {
+  animation: slideFromRight .5s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+@keyframes slideFromTop {
+  0% { opacity: 0; transform: translateY(-80px) scale(.92); filter: blur(6px); }
+  60% { filter: blur(0px); }
+  100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0px); }
+}
+
+@keyframes slideFromBottom {
+  0% { opacity: 0; transform: translateY(80px) scale(.92); filter: blur(6px); }
+  60% { filter: blur(0px); }
+  100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0px); }
+}
+
+@keyframes slideFromLeft {
+  0% { opacity: 0; transform: translateX(-80px) scale(.92); filter: blur(6px); }
+  60% { filter: blur(0px); }
+  100% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0px); }
+}
+
+@keyframes slideFromRight {
+  0% { opacity: 0; transform: translateX(80px) scale(.92); filter: blur(6px); }
+  60% { filter: blur(0px); }
+  100% { opacity: 1; transform: translateX(0) scale(1); filter: blur(0px); }
+}
+
+.auth-box.login-mode {
+  border-color: #264080;
+  background: linear-gradient(160deg, #0c1a30, #0c121d);
+}
+
+.auth-box.signup-mode {
+  border-color: #3a2860;
+  background: linear-gradient(160deg, #140e28, #0c121d);
 }
 
 .close-btn {
