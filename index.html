@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>NovaIT — Digital Technology Platform</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+ <nav class="navbar">
+  <div class="logo">
+    <span class="logo-icon">N</span>
+    <span>Nova<span>IT</span></span>
+  </div>
+
+  <div class="nav-links" id="navLinks">
+    <a href="#home">Home</a>
+    <a href="#services">Services</a>
+    <a href="#about">About</a>
+    <a href="#team">Team</a>
+    <a href="#blog">Blog</a>
+    <a href="#contact">Contact</a>
+  </div>
+
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">🌙</button>
+    <button class="nav-login" onclick="openAuth('login')">Login</button>
+    <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+
+      <div class="hero-content">
+
+        <div class="badge">
+          <span></span>
+          NEXT-GENERATION IT PLATFORM
+        </div>
+
+        <h1>
+          Build the
+          <span>Digital Future.</span>
+        </h1>
+
+        <p>
+          Explore technology, digital tools and intelligent solutions
+          designed for the modern world.
+        </p>
+
+        <div class="hero-buttons">
+          <button class="primary-btn" onclick="openAuth('signup')">
+            Get Started
+            <span>→</span>
+          </button>
+
+          <button class="secondary-btn" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">
+            Explore Platform
+          </button>
+        </div>
+
+        <div class="stats">
+          <div>
+            <strong>01</strong>
+            <small>Secure Platform</small>
+          </div>
+
+          <div>
+            <strong>24/7</strong>
+            <small>Digital Access</small>
+          </div>
+
+          <div>
+            <strong>∞</strong>
+            <small>Possibilities</small>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="hero-visual">
+
+        <div class="glow"></div>
+
+        <div class="tech-card main-card">
+
+          <div class="card-top">
+            <span class="status-dot"></span>
+            SYSTEM ONLINE
+          </div>
+
+          <div class="code-lines">
+            <div><i>01</i> technology<span>{</span></div>
+            <div><i>02</i> security: <b>true</b></div>
+            <div><i>03</i> innovation: <b>∞</b></div>
+            <div><i>04</i> future: <b>"ready"</b></div>
+            <div><i>05</i> <span>}</span></div>
+          </div>
+
+          <div class="card-footer">
+            <span>● Connected</span>
+            <span>NovaIT Core</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- SERVICES -->
+    <section class="services" id="services">
+
+      <div class="section-heading">
+        <div class="mini-label">WHAT WE OFFER</div>
+
+        <h2>
+          Technology without
+          <span>limits.</span>
+        </h2>
+
+        <p>
+          A digital environment built around technology,
+          security and continuous learning.
+        </p>
+      </div>
+
+
+      <div class="service-grid">
+
+        <div class="service-card">
+          <div class="service-icon">⌘</div>
+          <h3>Digital Technology</h3>
+          <p>
+            Learn and explore modern technologies shaping
+            the digital world.
+          </p>
+          <span class="card-number">01</span>
+        </div>
+
+
+        <div class="service-card">
+          <div class="service-icon">⌬</div>
+          <h3>Cyber Security</h3>
+          <p>
+            Understand digital security, privacy and
+            responsible technology.
+          </p>
+          <span class="card-number">02</span>
+        </div>
+
+
+        <div class="service-card">
+          <div class="service-icon">◈</div>
+          <h3>Cloud Systems</h3>
+          <p>
+            Discover databases, cloud platforms and
+            modern application infrastructure.
+          </p>
+          <span class="card-number">03</span>
+        </div>
+
+
+        <div class="service-card">
+          <div class="service-icon">AI</div>
+          <h3>Artificial Intelligence</h3>
+          <p>
+            Explore intelligent systems and the future
+            of AI-powered applications.
+          </p>
+          <span class="card-number">04</span>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ABOUT -->
+    <section class="about" id="about">
+
+      <div class="about-box">
+
+        <div>
+          <div class="mini-label">THE PLATFORM</div>
+
+          <h2>
+            Technology should be
+            <span>accessible.</span>
+          </h2>
+        </div>
+
+        <p>
+          NovaIT is designed as a modern digital platform
+          where users can explore technology, manage their
+          own profile and securely interact with digital services.
+        </p>
+      
+      </div>
+
+    </section>
+
+  </main>
+  <!-- TEAM -->
+<section class="team" id="team">
+  <div class="section-heading">
+    <div class="mini-label">OUR TEAM</div>
+    <h2>Meet the <span>minds.</span></h2>
+    <p>The talented people behind NovaIT.</p>
+  </div>
+  <div class="team-grid">
+    <div class="team-card">
+      <img src="https://placehold.co/300x300/0c121d/8ea5ff?text=AK" alt="Amit">
+      <h3>Prajwal Neupane</h3>
+      <p>Founder & CEO</p>
+      <div class="team-socials">
+        <a href="#">Twitter</a>
+        <a href="#">LinkedIn</a>
+      </div>
+    </div>
+    <div class="team-card">
+      <img src="https://placehold.co/300x300/0c121d/8ea5ff?text=SR" alt="Sita">
+      <h3>Sita R.</h3>
+      <p>Lead Developer</p>
+      <div class="team-socials">
+        <a href="#">Twitter</a>
+        <a href="#">LinkedIn</a>
+      </div>
+    </div>
+    <div class="team-card">
+      <img src="https://placehold.co/300x300/0c121d/8ea5ff?text=RP" alt="Rajan">
+      <h3>Rajan P.</h3>
+      <p>UI/UX Designer</p>
+      <div class="team-socials">
+        <a href="#">Twitter</a>
+        <a href="#">LinkedIn</a>
+      </div>
+    </div>
+    <div class="team-card">
+      <img src="https://placehold.co/300x300/0c121d/8ea5ff?text=NS" alt="Nisha">
+      <h3>sabin khatiwada</h3>
+      <p>Marketing Head</p>
+      <div class="team-socials">
+        <a href="https://www.facebook.com/sa.veen.630603">facebook</a>
+        <a href="#">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section class="blog" id="blog">
+  <div class="section-heading">
+    <div class="mini-label">LATEST POSTS</div>
+    <h2>From our <span>blog.</span></h2>
+    <p>Stay updated with the latest in technology.</p>
+  </div>
+  <div class="blog-grid">
+    <div class="blog-card">
+      <img src="https://placehold.co/600x300/0c121d/8ea5ff?text=AI+Future" alt="Blog">
+      <div class="blog-content">
+        <span class="blog-tag">AI</span>
+        <h3>The Future of AI in 2026</h3>
+        <p>Explore how artificial intelligence is shaping the next generation of technology.</p>
+        <div class="blog-meta">
+          <span>Aug 15, 2026</span>
+          <span>5 min read</span>
+        </div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <img src="https://placehold.co/600x300/0c121d/8ea5ff?text=Cyber+Security" alt="Blog">
+      <div class="blog-content">
+        <span class="blog-tag">Security</span>
+        <h3>Cyber Security Best Practices</h3>
+        <p>Learn how to protect your digital assets in an increasingly connected world.</p>
+        <div class="blog-meta">
+          <span>Aug 10, 2026</span>
+          <span>7 min read</span>
+        </div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <img src="https://placehold.co/600x300/0c121d/8ea5ff?text=Cloud" alt="Blog">
+      <div class="blog-content">
+        <span class="blog-tag">Cloud</span>
+        <h3>Cloud Computing Guide</h3>
+        <p>A beginner's guide to understanding cloud platforms and modern infrastructure.</p>
+        <div class="blog-meta">
+          <span>Aug 5, 2026</span>
+          <span>4 min read</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="section-heading">
+    <div class="mini-label">GET IN TOUCH</div>
+    <h2>Contact <span>us.</span></h2>
+    <p>Have a question? We'd love to hear from you.</p>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <div class="contact-item">
+        <span class="contact-icon">📍</span>
+        <div>
+          <h3>Location</h3>
+          <p>Kathmandu, Nepal</p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <span class="contact-icon">📧</span>
+        <div>
+          <h3>Email</h3>
+          <p>prajwalnewpane775@gmail.com</p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <span class="contact-icon">📞</span>
+        <div>
+          <h3>Phone</h3>
+          <p>+977 9804335063</p>
+        </div>
+      </div>
+    </div>
+    <form class="contact-form" id="contactForm" onsubmit="handleContact(event)">
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <input type="text" placeholder="Subject">
+      <textarea placeholder="Your Message" rows="5" required></textarea>
+      <button type="submit" class="primary-btn">Send Message →</button>
+      <p class="contact-status" id="contactStatus"></p>
+    </form>
+  </div>
+</section>
+
+  <!-- SECURITY / ACCOUNT SECTION -->
+
+<section class="security-showcase">
+
+  <div class="security-content">
+
+    <span class="section-tag">SECURITY FIRST</span>
+
+    <h2>
+      Your account.<br>
+      <span>Your control.</span>
+    </h2>
+
+    <p>
+      Manage your account securely with modern authentication,
+      private profile data and protected user access.
+    </p>
+
+    <div class="security-features">
+
+      <div class="security-card">
+        <div class="security-icon">🔐</div>
+        <div>
+          <h3>Secure Authentication</h3>
+          <p>Your account is protected with secure authentication.</p>
+        </div>
+      </div>
+
+      <div class="security-card">
+        <div class="security-icon">👤</div>
+        <div>
+          <h3>Private Profile</h3>
+          <p>Your personal profile information stays protected.</p>
+        </div>
+      </div>
+
+      <div class="security-card">
+        <div class="security-icon">🛡️</div>
+        <div>
+          <h3>Protected Access</h3>
+          <p>Users can access only their own account information.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="security-visual">
+
+    <div class="security-orbit"></div>
+
+    <div class="security-core">
+      <span>🔒</span>
+      <small>SECURE</small>
+    </div>
+
+    <div class="security-badge badge-one">
+      ✓ AUTH
+    </div>
+
+    <div class="security-badge badge-two">
+      ✓ PRIVATE
+    </div>
+
+    <div class="security-badge badge-three">
+      ✓ PROTECTED
+    </div>
+
+  </div>
+
+</section>
+
+
+  <!-- AUTH MODAL -->
+
+  <div class="modal hidden" id="authModal">
+
+    <div class="auth-box">
+
+      <button class="close-btn" onclick="closeAuth()">×</button>
+
+      <div class="auth-logo">N</div>
+
+      <h2 id="authTitle">Welcome Back</h2>
+
+      <p class="auth-subtitle" id="authSubtitle">
+        Sign in to continue to NovaIT.
+      </p>
+
+
+      <form id="authForm">
+
+        <div class="input-group signup-only hidden-field">
+          <label>Full Name</label>
+          <input
+            type="text"
+            id="fullName"
+            placeholder="Your name"
+          >
+        </div>
+
+
+        <div class="input-group">
+          <label>Email</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="you@example.com"
+            required
+          >
+        </div>
+
+
+        <div class="input-group">
+  <label>Password</label>
+
+  <div class="password-wrapper">
+    <input
+      type="password"
+      id="password"
+      placeholder="Minimum 6 characters"
+      minlength="6"
+      required
+    >
+    <button
+  type="button"
+  id="togglePassword"
+  class="password-toggle"
+  aria-label="Show password"
+>
+  <span id="eyeIcon">👁</span>
+</button>
+
+    
+  </div>
+</div>
+
+
+    
+
+<button
+  type="button"
+  class="forgot-password"
+  onclick="forgotPassword()"
+>
+  Forgot password?
+</button>
+
+<button class="auth-btn" type="submit" id="authButton">
+  Sign In
+</button>
+
+      </form>
+
+
+      <p class="auth-message" id="authMessage"></p>
+
+
+      <div class="switch-auth">
+        <span id="switchText">Don't have an account?</span>
+
+        <button type="button" onclick="switchAuth()" id="switchButton">
+          Create account
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+  <!-- USER DASHBOARD -->
+
+<div class="modal hidden" id="dashboardModal">
+
+  <div class="dashboard-box">
+
+    <button
+      class="close-btn"
+      type="button"
+      onclick="closeDashboard()"
+    >
+      ×
+    </button>
+
+    <div class="profile-header">
+
+      <div class="avatar-wrapper">
+
+        <img
+          id="profileAvatar"
+          src="https://placehold.co/90x90/111827/8ea5ff?text=N"
+          alt="Profile photo"
+        >
+
+        <label
+          for="avatarInput"
+          class="avatar-edit"
+          title="Change profile photo"
+        >
+          ✎
+        </label>
+
+        <input
+          type="file"
+          id="avatarInput"
+          accept="image/png,image/jpeg,image/webp"
+          hidden
+        >
+
+      </div>
+
+
+      <div>
+
+        <div class="mini-label">
+          MY ACCOUNT
+        </div>
+
+        <h2 id="profileName">
+          User
+        </h2>
+
+        <p id="profileEmail">
+          email@example.com
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="profile-details">
+
+      <div class="detail-card">
+
+        <span>FULL NAME</span>
+
+        <strong id="detailName">
+          —
+        </strong>
+
+      </div>
+
+
+      <div class="detail-card">
+
+        <span>EMAIL</span>
+
+        <strong id="detailEmail">
+          —
+        </strong>
+
+      </div>
+
+
+      <div class="detail-card">
+
+        <span>ACCOUNT STATUS</span>
+
+        <strong class="status-active">
+          ● Active
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <div class="dashboard-actions">
+
+      <button
+        type="button"
+        class="dashboard-btn"
+        onclick="editProfile()"
+      >
+        ✎ Edit Profile
+      </button>
+
+
+      <button
+        type="button"
+        class="dashboard-btn logout-btn"
+        onclick="logoutUser()"
+      >
+        ↪ Logout
+      </button>
+      <div id="editProfileForm" class="edit-profile-form hidden">
+
+  <h3>Edit Profile</h3>
+
+  <label for="editFullName">Full Name</label>
+
+  <input
+    type="text"
+    id="editFullName"
+    placeholder="Enter your full name"
+    maxlength="80"
+  >
+
+  <div class="edit-actions">
+
+    <button
+      type="button"
+      class="dashboard-btn"
+      onclick="saveProfile()"
+    >
+      Save Changes
+    </button>
+
+    <button
+      type="button"
+      class="dashboard-btn"
+      onclick="cancelEditProfile()"
+    >
+      Cancel
+    </button>
+
+  </div>
+
+</div>
+
+    </div>
+
+
+    <p
+      id="dashboardMessage"
+      class="auth-message"
+    ></p>
+
+  </div>
+
+</div>
+
+
+
+  <!-- SUPABASE -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
+
+  <script src="script.js"></script>
+
+  <!-- LOGIN SECURITY PHOTO -->
+
+<div id="securityPhotoModal" class="security-photo-modal hidden">
+
+  <div class="security-photo-box">
+
+    <span class="section-tag">SECURITY VERIFICATION</span>
+
+    <h2>Verify it's you</h2>
+
+    <p>
+      Take a photo to continue to your NovaIT account.
+    </p>
+
+    <video
+      id="securityCamera"
+      autoplay
+      playsinline
+    ></video>
+
+    <canvas id="securityCanvas" class="hidden"></canvas>
+
+    <div id="securityPreview" class="hidden">
+      <img id="securityPhotoPreview" alt="Security photo preview">
+    </div>
+
+    <div class="security-photo-actions">
+
+      <button
+        type="button"
+        id="startCameraBtn"
+        onclick="startSecurityCamera()"
+      >
+        📷 Open Camera
+      </button>
+
+      <button
+        type="button"
+        id="capturePhotoBtn"
+        onclick="captureSecurityPhoto()"
+        class="hidden"
+      >
+        Take Photo
+      </button>
+
+      <button
+        type="button"
+        id="retakePhotoBtn"
+        onclick="retakeSecurityPhoto()"
+        class="hidden"
+      >
+        Retake
+      </button>
+
+      <button
+        type="button"
+        id="continueSecurityBtn"
+        onclick="continueAfterSecurityPhoto()"
+        class="hidden"
+      >
+        Continue
+      </button>
+
+    </div>
+
+    <p id="securityPhotoMessage"></p>
+
+  </div>
+
+</div>
+<!-- LOADER -->
+<div class="loader" id="loader">
+  <div class="loader-inner">
+    <div class="loader-logo">N</div>
+    <div class="loader-bar"><div class="loader-progress"></div></div>
+    <p>Loading NovaIT...</p>
+  </div>
+</div>
+</body>
+</html>
