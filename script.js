@@ -568,7 +568,7 @@ async function loadProfile(user) {
 async function loadAdminUsers() {
   var { data, error } = await supabaseClient
     .from("profiles")
-    .select("id, full_name, avatar_url, last_ip, created_at")
+    .select("id, full_name, avatar_url, last_ip, device_info, created_at")
     .order("created_at", { ascending: false });
 
   if (error) {
@@ -588,7 +588,7 @@ async function loadAdminUsers() {
   data.forEach(function(u) {
     var name = u.full_name || "Unknown";
     var ip = u.last_ip || "—";
-    var device = u.device_info || "";
+    var device = u.device_info || "—";
     var lastSeen = u.created_at ? new Date(u.created_at).toLocaleString() : "—";
     var initials = name.charAt(0).toUpperCase();
 
@@ -598,7 +598,7 @@ async function loadAdminUsers() {
     html += '<span>' + name + '</span>';
     html += '</div></td>';
     html += '<td style="color:#9ca3af;font-size:12px">' + (u.id ? u.id.substring(0,8) + '...' : '—') + '</td>';
-    html += '<td style="font-size:12px;color:#8ea5ff">' + (device || '—') + '</td>';
+    html += '<td style="font-size:12px;color:#8ea5ff">' + device + '</td>';
     html += '<td><span class="ip-badge">' + ip + '</span></td>';
     html += '<td style="font-size:12px;color:#9ca3af">' + lastSeen + '</td>';
     html += '</tr>';
