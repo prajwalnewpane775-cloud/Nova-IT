@@ -1183,6 +1183,7 @@ function toggleMobileMenu() {
       <a href="#about" onclick="closeMobileMenu()">About</a>
       <a href="#team" onclick="closeMobileMenu()">Team</a>
       <a href="#blog" onclick="closeMobileMenu()">Blog</a>
+      <a href="#mobilecenter" onclick="closeMobileMenu()">Mobile</a>
       <a href="#contact" onclick="closeMobileMenu()">Contact</a>
       <a href="javascript:void(0)" id="mobileAccountBtn" onclick="handleMobileAccount()">Login</a>
     `;
