@@ -449,6 +449,12 @@ async function loadProfile(user) {
     document.getElementById("profileAvatar")
       .src = profile.avatar_url;
 
+    document.getElementById("avatarDeleteBtn").classList.add("visible");
+
+  } else {
+
+    document.getElementById("avatarDeleteBtn").classList.remove("visible");
+
   }
 }
 
@@ -616,11 +622,42 @@ if (avatarInput) {
         .getElementById("profileAvatar")
         .src = publicUrl;
 
+      document.getElementById("avatarDeleteBtn").classList.add("visible");
+
       alert("Profile photo updated!");
 
     }
   );
 
+}
+
+async function deleteProfilePhoto() {
+  if (!confirm("Delete your profile photo?")) return;
+
+  const { data: { user } } = await supabaseClient.auth.getUser();
+  if (!user) return;
+
+  const avatar = document.getElementById("profileAvatar");
+  const currentSrc = avatar.src;
+
+  const exts = ["jpg", "jpeg", "png", "webp"];
+  for (let i = 0; i < exts.length; i++) {
+    await supabaseClient.storage
+      .from("avatars")
+      .remove([user.id + "/profile." + exts[i]]);
+  }
+
+  const placeholder = "https://placehold.co/90x90/111827/8ea5ff?text=N";
+  avatar.src = placeholder;
+
+  await supabaseClient
+    .from("profiles")
+    .update({ avatar_url: null })
+    .eq("id", user.id);
+
+  document.getElementById("avatarDeleteBtn").classList.remove("visible");
+
+  alert("Profile photo deleted!");
 }
 function editProfile() {
   const form = document.getElementById("editProfileForm");

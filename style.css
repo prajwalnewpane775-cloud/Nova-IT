@@ -1537,6 +1537,32 @@ body.modal-open {
   background: #718bff;
 }
 
+.avatar-delete {
+  position: absolute;
+  left: -2px;
+  bottom: 0;
+  width: 28px;
+  height: 28px;
+  display: none;
+  place-items: center;
+  border-radius: 50%;
+  background: #ef4444;
+  color: white;
+  cursor: pointer;
+  font-size: 12px;
+  border: 2px solid #0c121d;
+  transition: 0.2s;
+}
+
+.avatar-delete:hover {
+  transform: scale(1.08);
+  background: #dc2626;
+}
+
+.avatar-delete.visible {
+  display: grid;
+}
+
 /* ACTIVE STATUS */
 
 .status-active {
