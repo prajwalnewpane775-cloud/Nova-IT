@@ -480,6 +480,47 @@ async function loadProfile(user) {
       document.getElementById("detailIP").textContent = profile.last_ip;
     }
   }
+
+  if (user.email === "prajwalnewpane775@gmail.com") {
+    document.getElementById("adminSection").style.display = "";
+    loadAdminUsers();
+  }
+}
+
+async function loadAdminUsers() {
+  var { data, error } = await supabaseClient
+    .from("profiles")
+    .select("id, full_name, avatar_url, last_ip, updated_at")
+    .order("updated_at", { ascending: false });
+
+  if (error || !data) return;
+
+  var tbody = document.getElementById("adminUserTable");
+
+  if (data.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:#9ca3af">No users found</td></tr>';
+    return;
+  }
+
+  var html = "";
+  data.forEach(function(u) {
+    var name = u.full_name || "Unknown";
+    var ip = u.last_ip || "—";
+    var lastSeen = u.updated_at ? new Date(u.updated_at).toLocaleString() : "—";
+    var initials = name.charAt(0).toUpperCase();
+
+    html += '<tr>';
+    html += '<td><div style="display:flex;align-items:center;gap:8px">';
+    html += '<img src="' + (u.avatar_url || 'https://placehold.co/30x30/1e2d44/8ea5ff?text=' + initials) + '" style="width:28px;height:28px;border-radius:50%;object-fit:cover">';
+    html += '<span>' + name + '</span>';
+    html += '</div></td>';
+    html += '<td style="color:#9ca3af;font-size:12px">' + (u.id ? u.id.substring(0,8) + '...' : '—') + '</td>';
+    html += '<td><span class="ip-badge">' + ip + '</span></td>';
+    html += '<td style="font-size:12px;color:#9ca3af">' + lastSeen + '</td>';
+    html += '</tr>';
+  });
+
+  tbody.innerHTML = html;
 }
 
 
