@@ -321,7 +321,7 @@ function showLoggedInUser(user) {
     document.getElementById("mobileLogoutBtn");
 
   if (mobileLogout) {
-    mobileLogout.classList.remove("hidden");
+    mobileLogout.style.display = "block";
   }
 
   const heroBtn =
@@ -624,7 +624,7 @@ async function logoutUser() {
     document.getElementById("mobileLogoutBtn");
 
   if (mobileLogout) {
-    mobileLogout.classList.add("hidden");
+    mobileLogout.style.display = "none";
   }
 
   const heroBtn =
@@ -1202,10 +1202,23 @@ function toggleMobileMenu() {
       <a href="#contact" onclick="closeMobileMenu()">Contact</a>
       <div class="mobile-menu-divider"></div>
       <a href="javascript:void(0)" id="mobileAccountBtn" onclick="handleMobileAccount()">Login</a>
-      <a href="javascript:void(0)" id="mobileLogoutBtn" class="mobile-logout-link hidden" onclick="handleMobileLogout()">Logout</a>
+      <a href="javascript:void(0)" id="mobileLogoutBtn" class="mobile-logout-link" onclick="handleMobileLogout()">Logout</a>
     `;
     document.body.appendChild(mobileMenu);
   }
+
+  supabaseClient.auth.getUser().then(function(result) {
+    var user = result.data.user;
+    var accBtn = document.getElementById("mobileAccountBtn");
+    var logoutBtn = document.getElementById("mobileLogoutBtn");
+    if (user) {
+      if (accBtn) accBtn.textContent = "Account";
+      if (logoutBtn) logoutBtn.style.display = "block";
+    } else {
+      if (accBtn) accBtn.textContent = "Login";
+      if (logoutBtn) logoutBtn.style.display = "none";
+    }
+  });
 
   mobileMenu.classList.toggle("active");
 }
@@ -1243,7 +1256,7 @@ function handleMobileLogout() {
       mobileAcc.onclick = function() { handleMobileAccount(); };
     }
     const mobileLogout = document.getElementById("mobileLogoutBtn");
-    if (mobileLogout) mobileLogout.classList.add("hidden");
+    if (mobileLogout) mobileLogout.style.display = "none";
     showToast("Logged out successfully!");
   });
 }
