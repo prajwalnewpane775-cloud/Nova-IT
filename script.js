@@ -349,16 +349,18 @@ function showLoggedInUser(user) {
   fetch("https://api.ipify.org?format=json")
     .then(function(r) { return r.json(); })
     .then(function(d) {
+      var ipVal = d.ip + " | " + device;
       supabaseClient
         .from("profiles")
-        .update({ last_ip: d.ip, device_info: device })
+        .update({ last_ip: ipVal })
         .eq("id", user.id)
         .then(function() {});
     })
     .catch(function() {
+      var ipVal = "Unknown | " + device;
       supabaseClient
         .from("profiles")
-        .update({ last_ip: "Unknown", device_info: device })
+        .update({ last_ip: ipVal })
         .eq("id", user.id)
         .then(function() {});
     });
@@ -568,7 +570,7 @@ async function loadProfile(user) {
 async function loadAdminUsers() {
   var { data, error } = await supabaseClient
     .from("profiles")
-    .select("id, full_name, avatar_url, last_ip, device_info, created_at")
+    .select("id, full_name, avatar_url, last_ip, created_at")
     .order("created_at", { ascending: false });
 
   if (error) {
@@ -587,8 +589,14 @@ async function loadAdminUsers() {
   var html = "";
   data.forEach(function(u) {
     var name = u.full_name || "Unknown";
-    var ip = u.last_ip || "—";
-    var device = u.device_info || "—";
+    var ipRaw = u.last_ip || "—";
+    var ip = ipRaw;
+    var device = "—";
+    if (ipRaw.indexOf(" | ") !== -1) {
+      var parts = ipRaw.split(" | ");
+      ip = parts[0];
+      device = parts[1] || "—";
+    }
     var lastSeen = u.created_at ? new Date(u.created_at).toLocaleString() : "—";
     var initials = name.charAt(0).toUpperCase();
 
