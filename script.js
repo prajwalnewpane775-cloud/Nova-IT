@@ -597,24 +597,14 @@ if (avatarInput) {
         return;
       }
 
-      const {
-        data: signedData,
-        error: signedError
-      } = await supabaseClient.storage
+      const publicUrl = supabaseClient.storage
         .from("avatars")
-        .createSignedUrl(filePath, 3600);
-
-      if (signedError) {
-        alert(signedError.message);
-        return;
-      }
-
-      const signedUrl = signedData.signedUrl;
+        .getPublicUrl(filePath).data.publicUrl;
 
       const { error: dbError } =
         await supabaseClient
           .from("profiles")
-          .update({ avatar_url: signedUrl })
+          .update({ avatar_url: publicUrl })
           .eq("id", user.id);
 
       if (dbError) {
@@ -624,7 +614,7 @@ if (avatarInput) {
 
       document
         .getElementById("profileAvatar")
-        .src = signedUrl;
+        .src = publicUrl;
 
       alert("Profile photo updated!");
 
