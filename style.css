@@ -741,9 +741,15 @@ body::before {
   background: #0c121d;
   border: 1px solid #263248;
   border-radius: 22px;
-  overflow: hidden;
   position: relative;
   animation: teamModalIn .4s cubic-bezier(.22,1,.36,1);
+}
+
+.blog-modal-img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 22px 22px 0 0;
 }
 
 .blog-modal-close {
@@ -768,12 +774,6 @@ body::before {
 
 .blog-modal-close:hover {
   background: #5477ff;
-}
-
-.blog-modal-img {
-  width: 100%;
-  height: 300px;
-  object-fit: cover;
 }
 
 .blog-modal-body {
