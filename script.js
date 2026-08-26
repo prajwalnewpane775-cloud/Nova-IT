@@ -409,6 +409,15 @@ async function openDashboard() {
     return;
   }
 
+  document.getElementById("profileAvatar").src = "https://placehold.co/90x90/111827/8ea5ff?text=N";
+  document.getElementById("profileName").textContent = "Loading...";
+  document.getElementById("profileEmail").textContent = "";
+  document.getElementById("detailName").textContent = "—";
+  document.getElementById("detailEmail").textContent = "—";
+  document.getElementById("detailIP").textContent = "—";
+  document.getElementById("adminIPCard").style.display = "none";
+  document.getElementById("adminSection").style.display = "none";
+
   document
     .getElementById("dashboardModal")
     .classList.remove("hidden");
