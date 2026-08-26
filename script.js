@@ -475,7 +475,10 @@ async function loadProfile(user) {
   }
 
   if (profile?.last_ip) {
-    document.getElementById("detailIP").textContent = profile.last_ip;
+    if (user.email === "prajwalnewpane775@gmail.com") {
+      document.getElementById("adminIPCard").style.display = "";
+      document.getElementById("detailIP").textContent = profile.last_ip;
+    }
   }
 }
 
