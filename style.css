@@ -3147,16 +3147,19 @@ body.light .mobile-menu a:hover { color: #000; }
 
 .review-delete-btn {
   margin-left: auto;
-  background: none;
-  border: none;
-  font-size: 16px;
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 8px;
+  font-size: 14px;
   cursor: pointer;
-  opacity: .4;
+  padding: 6px 10px;
   transition: .2s;
+  color: #ef4444;
 }
 
 .review-delete-btn:hover {
-  opacity: 1;
+  background: rgba(239, 68, 68, 0.3);
+  border-color: #ef4444;
 }
 
 .testimonial-author img {
