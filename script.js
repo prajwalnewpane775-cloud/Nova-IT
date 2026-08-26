@@ -490,8 +490,8 @@ async function loadProfile(user) {
 async function loadAdminUsers() {
   var { data, error } = await supabaseClient
     .from("profiles")
-    .select("id, full_name, avatar_url, last_ip, updated_at")
-    .order("updated_at", { ascending: false });
+    .select("id, full_name, avatar_url, last_ip, created_at")
+    .order("created_at", { ascending: false });
 
   if (error || !data) return;
 
@@ -506,7 +506,7 @@ async function loadAdminUsers() {
   data.forEach(function(u) {
     var name = u.full_name || "Unknown";
     var ip = u.last_ip || "—";
-    var lastSeen = u.updated_at ? new Date(u.updated_at).toLocaleString() : "—";
+    var lastSeen = u.created_at ? new Date(u.created_at).toLocaleString() : "—";
     var initials = name.charAt(0).toUpperCase();
 
     html += '<tr>';
