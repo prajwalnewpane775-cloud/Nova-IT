@@ -2570,3 +2570,148 @@ body.light .mobile-menu a:hover { color: #000; }
   border-top-color: #d1d5db;
   color: #6b7280;
 }
+
+/* =========================
+   TEAM MODAL
+========================= */
+
+.team-card {
+  cursor: pointer;
+}
+
+.team-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  background: rgba(0,0,0,.8);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+}
+
+.team-modal-box {
+  width: min(460px, 100%);
+  background: #0c121d;
+  border: 1px solid #263248;
+  border-radius: 22px;
+  padding: 35px 30px;
+  position: relative;
+  text-align: center;
+  animation: teamModalIn .4s cubic-bezier(.22,1,.36,1);
+}
+
+@keyframes teamModalIn {
+  0% { opacity: 0; transform: scale(.85) translateY(20px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.team-modal-close {
+  position: absolute;
+  top: 15px;
+  right: 18px;
+  border: none;
+  background: none;
+  color: #69758a;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.team-modal-img {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #5477ff;
+  margin-bottom: 16px;
+}
+
+.team-modal-name {
+  font-size: 24px;
+  margin-bottom: 4px;
+  color: #fff;
+}
+
+.team-modal-role {
+  color: #5477ff;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.team-modal-details {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.team-modal-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.team-modal-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #69758a;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+.team-modal-value {
+  font-size: 14px;
+  color: #c9d1df;
+  font-weight: 600;
+}
+
+.team-modal-bio {
+  color: #9ca3b0;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  padding: 0 10px;
+}
+
+.team-modal-socials a {
+  display: inline-block;
+  padding: 8px 20px;
+  border-radius: 10px;
+  background: rgba(84,113,255,.12);
+  color: #5477ff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  transition: .25s;
+}
+
+.team-modal-socials a:hover {
+  background: #5477ff;
+  color: #fff;
+}
+
+.light-mode .team-modal-box {
+  background: #ffffff;
+  border-color: #d1d5db;
+}
+
+.light-mode .team-modal-name {
+  color: #1f2937;
+}
+
+.light-mode .team-modal-role {
+  color: #5477ff;
+}
+
+.light-mode .team-modal-label {
+  color: #6b7280;
+}
+
+.light-mode .team-modal-value {
+  color: #374151;
+}
+
+.light-mode .team-modal-bio {
+  color: #4b5563;
+}

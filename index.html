@@ -275,7 +275,7 @@
     <p>The talented people behind NovaIT.</p>
   </div>
   <div class="team-grid">
-    <div class="team-card">
+    <div class="team-card" onclick="openTeamModal(0)">
       <img src="https://zffruusmcezndbjskkyi.supabase.co/storage/v1/object/public/team-photo/prajwal.jpg" alt="Prajwal">
       <h3>Prajwal Neupane</h3>
       <p>Founder & CEO</p>
@@ -283,7 +283,7 @@
         <a href="#">Facebook</a>
       </div>
     </div>
-    <div class="team-card">
+    <div class="team-card" onclick="openTeamModal(1)">
       <img src="https://zffruusmcezndbjskkyi.supabase.co/storage/v1/object/public/team-photo/Nick.png" alt="Nick">
       <h3>Nick Bista</h3>
       <p>Lead Developer</p>
@@ -291,7 +291,7 @@
         <a href="https://www.facebook.com/nickbista3">Facebook</a>
       </div>
     </div>
-    <div class="team-card">
+    <div class="team-card" onclick="openTeamModal(2)">
       <img src="https://zffruusmcezndbjskkyi.supabase.co/storage/v1/object/public/team-photo/abhishek.png" alt="Abishek">
       <h3>Abishek Niroula</h3>
       <p>UI/UX Designer</p>
@@ -299,7 +299,7 @@
         <a href="https://www.facebook.com/abishek.niroula.1">Facebook</a>
       </div>
     </div>
-    <div class="team-card">
+    <div class="team-card" onclick="openTeamModal(3)">
       <img src="https://zffruusmcezndbjskkyi.supabase.co/storage/v1/object/public/team-photo/sabin.png" alt="Sabin">
       <h3>Sabin Khatiwada</h3>
       <p>Marketing Head</p>
@@ -309,6 +309,32 @@
     </div>
   </div>
 </section>
+
+<!-- TEAM MODAL -->
+<div class="team-modal hidden" id="teamModal" onclick="closeTeamModal(event)">
+  <div class="team-modal-box">
+    <button class="team-modal-close" onclick="closeTeamModalDirect()">&times;</button>
+    <img class="team-modal-img" id="teamModalImg" src="" alt="">
+    <h2 class="team-modal-name" id="teamModalName"></h2>
+    <p class="team-modal-role" id="teamModalRole"></p>
+    <div class="team-modal-details">
+      <div class="team-modal-info">
+        <span class="team-modal-label">Location</span>
+        <span class="team-modal-value" id="teamModalLocation"></span>
+      </div>
+      <div class="team-modal-info">
+        <span class="team-modal-label">Experience</span>
+        <span class="team-modal-value" id="teamModalExp"></span>
+      </div>
+      <div class="team-modal-info">
+        <span class="team-modal-label">Speciality</span>
+        <span class="team-modal-value" id="teamModalSpeciality"></span>
+      </div>
+    </div>
+    <p class="team-modal-bio" id="teamModalBio"></p>
+    <div class="team-modal-socials" id="teamModalSocials"></div>
+  </div>
+</div>
 
 <!-- BLOG -->
 <section class="blog" id="blog">

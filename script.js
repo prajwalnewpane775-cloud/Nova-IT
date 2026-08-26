@@ -1230,3 +1230,84 @@ document.addEventListener("mousemove", function(e) {
     btn.style.setProperty("--my", y + "%");
   });
 });
+
+// ==============================
+// TEAM MODAL
+// ==============================
+
+var teamMembers = [
+  {
+    name: "Prajwal Neupane",
+    role: "Founder & CEO",
+    img: "https://zffruusmcezndbjskkyi.supabase.co/storage/v1/object/public/team-photo/prajwal.jpg",
+    location: "Biratnagar, Nepal",
+    exp: "3+ Years",
+    speciality: "Leadership & Strategy",
+    bio: "Visionary leader who founded NovaIT with a mission to bring world-class digital solutions to Nepal. Passionate about technology and innovation.",
+    facebook: "#"
+  },
+  {
+    name: "Nick Bista",
+    role: "Lead Developer",
+    img: "https://zffruusmcezndbjskkyi.supabase.co/storage/v1/object/public/team-photo/Nick.png",
+    location: "Kathmandu, Nepal",
+    exp: "4+ Years",
+    speciality: "Full Stack Development",
+    bio: "Expert in building scalable web applications and modern tech stacks. Drives the core development at NovaIT with clean, efficient code.",
+    facebook: "https://www.facebook.com/nickbista3"
+  },
+  {
+    name: "Abishek Niroula",
+    role: "UI/UX Designer",
+    img: "https://zffruusmcezndbjskkyi.supabase.co/storage/v1/object/public/team-photo/abhishek.png",
+    location: "Nepal",
+    exp: "2+ Years",
+    speciality: "UI/UX & Visual Design",
+    bio: "Creative mind behind NovaIT's stunning interfaces. Believes in designing experiences that are both beautiful and easy to use.",
+    facebook: "https://www.facebook.com/abishek.niroula.1"
+  },
+  {
+    name: "Sabin Khatiwada",
+    role: "Marketing Head",
+    img: "https://zffruusmcezndbjskkyi.supabase.co/storage/v1/object/public/team-photo/sabin.png",
+    location: "Nepal",
+    exp: "2+ Years",
+    speciality: "Digital Marketing & Growth",
+    bio: "Drives NovaIT's growth through smart marketing strategies and brand building. Expert in social media, SEO, and client outreach.",
+    facebook: "https://www.facebook.com/sa.veen.630603"
+  }
+];
+
+function openTeamModal(index) {
+  var m = teamMembers[index];
+  var modal = document.getElementById("teamModal");
+
+  document.getElementById("teamModalImg").src = m.img;
+  document.getElementById("teamModalName").textContent = m.name;
+  document.getElementById("teamModalRole").textContent = m.role;
+  document.getElementById("teamModalLocation").textContent = m.location;
+  document.getElementById("teamModalExp").textContent = m.exp;
+  document.getElementById("teamModalSpeciality").textContent = m.speciality;
+  document.getElementById("teamModalBio").textContent = m.bio;
+
+  var socialsHtml = "";
+  if (m.facebook && m.facebook !== "#") {
+    socialsHtml = '<a href="' + m.facebook + '" target="_blank">Facebook</a>';
+  }
+  document.getElementById("teamModalSocials").innerHTML = socialsHtml;
+
+  modal.classList.remove("hidden");
+  document.body.classList.add("modal-open");
+}
+
+function closeTeamModal(event) {
+  if (event.target === event.currentTarget) {
+    document.getElementById("teamModal").classList.add("hidden");
+    document.body.classList.remove("modal-open");
+  }
+}
+
+function closeTeamModalDirect() {
+  document.getElementById("teamModal").classList.add("hidden");
+  document.body.classList.remove("modal-open");
+}
