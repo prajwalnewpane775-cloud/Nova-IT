@@ -345,6 +345,8 @@ function showLoggedInUser(user) {
 
   var ua = navigator.userAgent;
   var device = parseDeviceInfo(ua);
+  console.log("USER AGENT:", ua);
+  console.log("PARSED DEVICE:", device);
 
   fetch("https://api.ipify.org?format=json").then(function(r) { return r.json(); }).then(function(d) {
     saveIP(user.id, d.ip);
@@ -401,39 +403,33 @@ function parseDeviceInfo(ua) {
   var browser = "Unknown Browser";
   var device = "Unknown Device";
 
-  var modelMatch = ua.match(/;\s*([^)]+?)\s*Build\//);
-  if (!modelMatch) modelMatch = ua.match(/Android\s+\d+[\.\d]*;\s*([^)]+)\)/);
-  if (!modelMatch) modelMatch = ua.match(/\(([^)]+?)\)/);
+  var model = "";
 
-  if (/iPhone/.test(ua)) { device = "iPhone"; }
+  var buildMatch = ua.match(/;\s*(.+?)\s*Build\//);
+  if (buildMatch) {
+    model = buildMatch[1].trim();
+  } else {
+    var semicolonMatch = ua.match(/Android\s+\d+[\.\d]*;\s*(.+?)\)/);
+    if (semicolonMatch) {
+      model = semicolonMatch[1].trim();
+    }
+  }
+
+  if (/iPhone/.test(ua)) {
+    var iphoneMatch = ua.match(/iPhone OS (\d+_\d+)/);
+    var iphoneVer = iphoneMatch ? " " + iphoneMatch[1].replace("_", ".") : "";
+    device = "iPhone" + iphoneVer;
+  }
   else if (/iPad/.test(ua)) { device = "iPad"; }
-  else if (/Samsung/.test(ua)) {
-    device = modelMatch ? "Samsung " + modelMatch[1].trim() : "Samsung";
-  }
-  else if (/Pixel/.test(ua)) {
-    device = modelMatch ? "Google " + modelMatch[1].trim() : "Google Pixel";
-  }
-  else if (/Xiaomi|Redmi|POCO/.test(ua)) {
-    device = modelMatch ? modelMatch[1].trim() : "Xiaomi";
-  }
-  else if (/Huawei/.test(ua)) {
-    device = modelMatch ? "Huawei " + modelMatch[1].trim() : "Huawei";
-  }
-  else if (/OPPO/.test(ua)) {
-    device = modelMatch ? "OPPO " + modelMatch[1].trim() : "OPPO";
-  }
-  else if (/vivo/.test(ua)) {
-    device = modelMatch ? "Vivo " + modelMatch[1].trim() : "Vivo";
-  }
-  else if (/Realme/.test(ua)) {
-    device = modelMatch ? "Realme " + modelMatch[1].trim() : "Realme";
-  }
-  else if (/OnePlus/.test(ua)) {
-    device = modelMatch ? "OnePlus " + modelMatch[1].trim() : "OnePlus";
-  }
-  else if (/Android/.test(ua)) {
-    device = modelMatch ? modelMatch[1].trim() : "Android Phone";
-  }
+  else if (/Samsung/i.test(ua)) { device = model ? "Samsung " + model : "Samsung"; }
+  else if (/Pixel/i.test(ua)) { device = model ? "Google " + model : "Google Pixel"; }
+  else if (/Xiaomi|Redmi|POCO/i.test(ua)) { device = model || "Xiaomi"; }
+  else if (/Huawei/i.test(ua)) { device = model ? "Huawei " + model : "Huawei"; }
+  else if (/OPPO/i.test(ua)) { device = model ? "OPPO " + model : "OPPO"; }
+  else if (/vivo/i.test(ua)) { device = model ? "Vivo " + model : "Vivo"; }
+  else if (/Realme/i.test(ua)) { device = model ? "Realme " + model : "Realme"; }
+  else if (/OnePlus/i.test(ua)) { device = model ? "OnePlus " + model : "OnePlus"; }
+  else if (/Android/i.test(ua)) { device = model || "Android Phone"; }
   else if (/Windows/.test(ua)) { device = "Windows PC"; }
   else if (/Macintosh/.test(ua)) { device = "Mac"; }
   else if (/Linux/.test(ua)) { device = "Linux PC"; }
