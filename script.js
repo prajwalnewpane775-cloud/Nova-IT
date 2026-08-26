@@ -317,6 +317,13 @@ function showLoggedInUser(user) {
     };
   }
 
+  const mobileLogout =
+    document.getElementById("mobileLogoutBtn");
+
+  if (mobileLogout) {
+    mobileLogout.classList.remove("hidden");
+  }
+
   const heroBtn =
     document.getElementById("heroGetStarted");
 
@@ -611,6 +618,13 @@ async function logoutUser() {
     mobileBtn.onclick = function() {
       handleMobileAccount();
     };
+  }
+
+  const mobileLogout =
+    document.getElementById("mobileLogoutBtn");
+
+  if (mobileLogout) {
+    mobileLogout.classList.add("hidden");
   }
 
   const heroBtn =
@@ -1177,6 +1191,7 @@ function toggleMobileMenu() {
   if (!mobileMenu) {
     mobileMenu = document.createElement("div");
     mobileMenu.className = "mobile-menu";
+    mobileMenu.id = "mobileMenu";
     mobileMenu.innerHTML = `
       <a href="#home" onclick="closeMobileMenu()">Home</a>
       <a href="#services" onclick="closeMobileMenu()">Services</a>
@@ -1185,7 +1200,9 @@ function toggleMobileMenu() {
       <a href="#blog" onclick="closeMobileMenu()">Blog</a>
       <a href="#mobilecenter" onclick="closeMobileMenu()">Mobile</a>
       <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+      <div class="mobile-menu-divider"></div>
       <a href="javascript:void(0)" id="mobileAccountBtn" onclick="handleMobileAccount()">Login</a>
+      <a href="javascript:void(0)" id="mobileLogoutBtn" class="mobile-logout-link hidden" onclick="handleMobileLogout()">Logout</a>
     `;
     document.body.appendChild(mobileMenu);
   }
@@ -1208,6 +1225,27 @@ async function handleMobileAccount() {
   } else {
     openAuth("login");
   }
+}
+
+function handleMobileLogout() {
+  closeMobileMenu();
+  supabaseClient.auth.signOut().then(function() {
+    document.querySelector(".nav-login").textContent = "Login";
+    document.querySelector(".nav-login").onclick = function() { openAuth("login"); };
+    const heroBtn = document.getElementById("heroGetStarted");
+    if (heroBtn) {
+      heroBtn.innerHTML = 'Get Started <span>→</span>';
+      heroBtn.onclick = function() { heroGetStartedClick(); };
+    }
+    const mobileAcc = document.getElementById("mobileAccountBtn");
+    if (mobileAcc) {
+      mobileAcc.textContent = "Login";
+      mobileAcc.onclick = function() { handleMobileAccount(); };
+    }
+    const mobileLogout = document.getElementById("mobileLogoutBtn");
+    if (mobileLogout) mobileLogout.classList.add("hidden");
+    showToast("Logged out successfully!");
+  });
 }
 
 // ==============================

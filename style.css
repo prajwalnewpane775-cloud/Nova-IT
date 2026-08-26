@@ -2413,6 +2413,20 @@ body.modal-open {
   color: white;
 }
 
+.mobile-menu-divider {
+  height: 1px;
+  background: #1b2433;
+  margin: 4px 0;
+}
+
+.mobile-logout-link {
+  color: #ff6b6b !important;
+}
+
+.mobile-logout-link:hover {
+  color: #ff4444 !important;
+}
+
 @media (max-width: 768px) {
   .hamburger { display: flex; }
   .nav-links { display: none; }
