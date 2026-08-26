@@ -1598,13 +1598,22 @@ async function submitReview(event) {
   status.textContent = "Submitting...";
   status.style.color = "#7188ff";
 
+  var { data: { user } } = await supabaseClient.auth.getUser();
+
+  if (!user) {
+    status.textContent = "Please login to submit a review.";
+    status.style.color = "#f87171";
+    return;
+  }
+
   var { error } = await supabaseClient
     .from("reviews")
     .insert({
       name: name,
       role: role || "Client",
       stars: selectedStars,
-      review: text
+      review: text,
+      user_id: user.id
     });
 
   if (error) {
@@ -1626,35 +1635,23 @@ async function submitReview(event) {
 }
 
 async function deleteReview(id) {
-  var nameInput = prompt("Type your name to delete this review:");
-  if (!nameInput || !nameInput.trim()) return;
-
-  var { data, error } = await supabaseClient
-    .from("reviews")
-    .select("name")
-    .eq("id", id)
-    .single();
-
-  if (error || !data) return;
-
-  if (data.name.toLowerCase().trim() !== nameInput.toLowerCase().trim()) {
-    alert("Name doesn't match! You can only delete your own review.");
-    return;
-  }
-
   if (!confirm("Delete your review?")) return;
 
-  var { error: delError } = await supabaseClient
+  var { error } = await supabaseClient
     .from("reviews")
     .delete()
     .eq("id", id);
 
-  if (!delError) {
+  if (!error) {
     loadReviews();
+  } else {
+    alert("Failed to delete. You can only delete your own reviews.");
   }
 }
 
 async function loadReviews() {
+  var { data: { user } } = await supabaseClient.auth.getUser();
+
   var { data, error } = await supabaseClient
     .from("reviews")
     .select("*")
@@ -1672,6 +1669,8 @@ async function loadReviews() {
     for (var i = 0; i < r.stars; i++) stars += "★";
     for (var j = r.stars; j < 5; j++) stars += "☆";
 
+    var isMine = user && r.user_id === user.id;
+
     html += '<div class="testimonial-card scroll-animate">';
     html += '<div class="testimonial-stars">' + stars + '</div>';
     html += '<p>"' + r.review + '"</p>';
@@ -1681,7 +1680,9 @@ async function loadReviews() {
     html += '<h4>' + r.name + '</h4>';
     html += '<span>' + r.role + '</span>';
     html += '</div>';
-    html += '<button class="review-delete-btn" onclick="deleteReview(\'' + r.id + '\')">🗑</button>';
+    if (isMine) {
+      html += '<button class="review-delete-btn" onclick="deleteReview(\'' + r.id + '\')">🗑</button>';
+    }
     html += '</div></div>';
   });
 
