@@ -334,6 +334,12 @@ function showLoggedInUser(user) {
     };
   }
 
+  const mobileCenter = document.getElementById("mobilecenter");
+  if (mobileCenter) mobileCenter.style.display = "";
+
+  const navLinks = document.querySelectorAll('.nav-links a[href="#mobilecenter"], .mobile-menu a[href="#mobilecenter"]');
+  navLinks.forEach(function(link) { link.style.display = ""; });
+
   fetch("https://api.ipify.org?format=json")
     .then(function(r) { return r.json(); })
     .then(function(d) {
@@ -626,6 +632,13 @@ async function logoutUser() {
   if (mobileLogout) {
     mobileLogout.style.display = "none";
   }
+
+  var mobileCenter = document.getElementById("mobilecenter");
+  if (mobileCenter) mobileCenter.style.display = "none";
+  var desktopMobileLink = document.querySelector('.nav-links a[href="#mobilecenter"]');
+  if (desktopMobileLink) desktopMobileLink.style.display = "none";
+  var mobMenuMobileLink = document.querySelector('.mobile-menu a[href="#mobilecenter"]');
+  if (mobMenuMobileLink) mobMenuMobileLink.style.display = "none";
 
   const heroBtn =
     document.getElementById("heroGetStarted");
@@ -1198,7 +1211,7 @@ function toggleMobileMenu() {
       <a href="#about" onclick="closeMobileMenu()">About</a>
       <a href="#team" onclick="closeMobileMenu()">Team</a>
       <a href="#blog" onclick="closeMobileMenu()">Blog</a>
-      <a href="#mobilecenter" onclick="closeMobileMenu()">Mobile</a>
+      <a href="#mobilecenter" style="display:none" onclick="closeMobileMenu()">Mobile</a>
       <a href="#contact" onclick="closeMobileMenu()">Contact</a>
       <div class="mobile-menu-divider"></div>
       <a href="javascript:void(0)" id="mobileAccountBtn" onclick="handleMobileAccount()">Login</a>
@@ -1211,12 +1224,21 @@ function toggleMobileMenu() {
     var user = result.data.user;
     var accBtn = document.getElementById("mobileAccountBtn");
     var logoutBtn = document.getElementById("mobileLogoutBtn");
+    var mobileLink = mobileMenu.querySelector('a[href="#mobilecenter"]');
+    var desktopMobileLink = document.querySelector('.nav-links a[href="#mobilecenter"]');
+    var mobileCenter = document.getElementById("mobilecenter");
     if (user) {
       if (accBtn) accBtn.textContent = "Account";
       if (logoutBtn) logoutBtn.style.display = "block";
+      if (mobileLink) mobileLink.style.display = "";
+      if (desktopMobileLink) desktopMobileLink.style.display = "";
+      if (mobileCenter) mobileCenter.style.display = "";
     } else {
       if (accBtn) accBtn.textContent = "Login";
       if (logoutBtn) logoutBtn.style.display = "none";
+      if (mobileLink) mobileLink.style.display = "none";
+      if (desktopMobileLink) desktopMobileLink.style.display = "none";
+      if (mobileCenter) mobileCenter.style.display = "none";
     }
   });
 
@@ -1257,6 +1279,12 @@ function handleMobileLogout() {
     }
     const mobileLogout = document.getElementById("mobileLogoutBtn");
     if (mobileLogout) mobileLogout.style.display = "none";
+    var mobileCenter = document.getElementById("mobilecenter");
+    if (mobileCenter) mobileCenter.style.display = "none";
+    var desktopMobileLink = document.querySelector('.nav-links a[href="#mobilecenter"]');
+    if (desktopMobileLink) desktopMobileLink.style.display = "none";
+    var mobMenuMobileLink = document.querySelector('.mobile-menu a[href="#mobilecenter"]');
+    if (mobMenuMobileLink) mobMenuMobileLink.style.display = "none";
     showToast("Logged out successfully!");
   });
 }
