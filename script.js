@@ -397,7 +397,7 @@ function parseDeviceInfo(ua) {
   else if (/Firefox\/(\d+)/.test(ua)) { browser = "Firefox " + RegExp.$1; }
   else if (/Safari\//.test(ua) && /Version\/(\d+)/.test(ua)) { browser = "Safari " + RegExp.$1; }
 
-  return device + " · " + browser + " · " + os;
+  return device + " · " + browser;
 }
 
 function heroGetStartedClick() {
