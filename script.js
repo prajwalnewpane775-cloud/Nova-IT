@@ -1598,29 +1598,19 @@ async function submitReview(event) {
   status.textContent = "Submitting...";
   status.style.color = "#7188ff";
 
-  var deleteToken = Math.random().toString(36).substring(2, 10);
-
-  var { data, error } = await supabaseClient
+  var { error } = await supabaseClient
     .from("reviews")
     .insert({
       name: name,
       role: role || "Client",
       stars: selectedStars,
-      review: text,
-      delete_token: deleteToken
-    })
-    .select("id");
+      review: text
+    });
 
   if (error) {
     status.textContent = "Failed to submit. Try again.";
     status.style.color = "#f87171";
     return;
-  }
-
-  if (data && data[0]) {
-    var myReviews = JSON.parse(localStorage.getItem("myReviews") || "[]");
-    myReviews.push({ id: data[0].id, token: deleteToken });
-    localStorage.setItem("myReviews", JSON.stringify(myReviews));
   }
 
   status.textContent = "Review submitted! Thank you.";
@@ -1636,11 +1626,19 @@ async function submitReview(event) {
 }
 
 async function deleteReview(id) {
-  var myReviews = JSON.parse(localStorage.getItem("myReviews") || "[]");
-  var mine = myReviews.find(function(r) { return r.id === id; });
+  var nameInput = prompt("Type your name to delete this review:");
+  if (!nameInput || !nameInput.trim()) return;
 
-  if (!mine) {
-    alert("You can only delete your own review!");
+  var { data, error } = await supabaseClient
+    .from("reviews")
+    .select("name")
+    .eq("id", id)
+    .single();
+
+  if (error || !data) return;
+
+  if (data.name.toLowerCase().trim() !== nameInput.toLowerCase().trim()) {
+    alert("Name doesn't match! You can only delete your own review.");
     return;
   }
 
@@ -1649,12 +1647,9 @@ async function deleteReview(id) {
   var { error: delError } = await supabaseClient
     .from("reviews")
     .delete()
-    .eq("id", id)
-    .eq("delete_token", mine.token);
+    .eq("id", id);
 
   if (!delError) {
-    myReviews = myReviews.filter(function(r) { return r.id !== id; });
-    localStorage.setItem("myReviews", JSON.stringify(myReviews));
     loadReviews();
   }
 }
@@ -1669,8 +1664,6 @@ async function loadReviews() {
   if (error || !data) return;
 
   var grid = document.getElementById("testimonialGrid");
-  var myReviews = JSON.parse(localStorage.getItem("myReviews") || "[]");
-  var myIds = myReviews.map(function(r) { return r.id; });
   var html = "";
 
   data.forEach(function(r) {
@@ -1678,8 +1671,6 @@ async function loadReviews() {
     var stars = "";
     for (var i = 0; i < r.stars; i++) stars += "★";
     for (var j = r.stars; j < 5; j++) stars += "☆";
-
-    var isMine = myIds.indexOf(r.id) !== -1;
 
     html += '<div class="testimonial-card scroll-animate">';
     html += '<div class="testimonial-stars">' + stars + '</div>';
@@ -1690,9 +1681,7 @@ async function loadReviews() {
     html += '<h4>' + r.name + '</h4>';
     html += '<span>' + r.role + '</span>';
     html += '</div>';
-    if (isMine) {
-      html += '<button class="review-delete-btn" onclick="deleteReview(\'' + r.id + '\')">🗑</button>';
-    }
+    html += '<button class="review-delete-btn" onclick="deleteReview(\'' + r.id + '\')">🗑</button>';
     html += '</div></div>';
   });
 
