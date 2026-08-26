@@ -351,14 +351,14 @@ function showLoggedInUser(user) {
     .then(function(d) {
       supabaseClient
         .from("profiles")
-        .update({ last_ip: device })
+        .update({ last_ip: d.ip, device_info: device })
         .eq("id", user.id)
         .then(function() {});
     })
     .catch(function() {
       supabaseClient
         .from("profiles")
-        .update({ last_ip: device })
+        .update({ last_ip: "Unknown", device_info: device })
         .eq("id", user.id)
         .then(function() {});
     });
@@ -568,7 +568,7 @@ async function loadProfile(user) {
 async function loadAdminUsers() {
   var { data, error } = await supabaseClient
     .from("profiles")
-    .select("id, full_name, avatar_url, last_ip, created_at")
+    .select("id, full_name, avatar_url, last_ip, device_info, created_at")
     .order("created_at", { ascending: false });
 
   if (error || !data) return;
@@ -576,14 +576,15 @@ async function loadAdminUsers() {
   var tbody = document.getElementById("adminUserTable");
 
     if (data.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:#9ca3af">No users found</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#9ca3af">No users found</td></tr>';
     return;
   }
 
   var html = "";
   data.forEach(function(u) {
     var name = u.full_name || "Unknown";
-    var device = u.last_ip || "—";
+    var ip = u.last_ip || "—";
+    var device = u.device_info || "—";
     var lastSeen = u.created_at ? new Date(u.created_at).toLocaleString() : "—";
     var initials = name.charAt(0).toUpperCase();
 
@@ -593,7 +594,8 @@ async function loadAdminUsers() {
     html += '<span>' + name + '</span>';
     html += '</div></td>';
     html += '<td style="color:#9ca3af;font-size:12px">' + (u.id ? u.id.substring(0,8) + '...' : '—') + '</td>';
-    html += '<td><span class="ip-badge">' + device + '</span></td>';
+    html += '<td style="font-size:12px;color:#8ea5ff">' + device + '</td>';
+    html += '<td><span class="ip-badge">' + ip + '</span></td>';
     html += '<td style="font-size:12px;color:#9ca3af">' + lastSeen + '</td>';
     html += '</tr>';
   });
