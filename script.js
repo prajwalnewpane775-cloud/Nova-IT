@@ -343,11 +343,12 @@ function showLoggedInUser(user) {
   const navLinks = document.querySelectorAll('.nav-links a[href="#mobilecenter"], .mobile-menu a[href="#mobilecenter"]');
   navLinks.forEach(function(link) { link.style.display = ""; });
 
+  var ua = navigator.userAgent;
+  var device = parseDeviceInfo(ua);
+
   fetch("https://api.ipify.org?format=json")
     .then(function(r) { return r.json(); })
     .then(function(d) {
-      var ua = navigator.userAgent;
-      var device = parseDeviceInfo(ua);
       var ipData = JSON.stringify({ ip: d.ip, device: device });
       supabaseClient
         .from("profiles")
@@ -355,7 +356,14 @@ function showLoggedInUser(user) {
         .eq("id", user.id)
         .then(function() {});
     })
-    .catch(function() {});
+    .catch(function() {
+      var ipData = JSON.stringify({ ip: "Unknown", device: device });
+      supabaseClient
+        .from("profiles")
+        .update({ last_ip: ipData })
+        .eq("id", user.id)
+        .then(function() {});
+    });
 
 }
 
