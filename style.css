@@ -2553,3 +2553,20 @@ body.light .mobile-menu a:hover { color: #000; }
     max-height: 200px;
   }
 }
+
+/* =========================
+   FOOTER
+========================= */
+
+.site-footer {
+  text-align: center;
+  padding: 40px 20px;
+  border-top: 1px solid #1a2336;
+  color: #69758a;
+  font-size: 14px;
+}
+
+.light-mode .site-footer {
+  border-top-color: #d1d5db;
+  color: #6b7280;
+}
