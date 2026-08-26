@@ -1598,14 +1598,18 @@ async function submitReview(event) {
   status.textContent = "Submitting...";
   status.style.color = "#7188ff";
 
-  var { error } = await supabaseClient
+  var deleteToken = Math.random().toString(36).substring(2, 10);
+
+  var { data, error } = await supabaseClient
     .from("reviews")
     .insert({
       name: name,
       role: role || "Client",
       stars: selectedStars,
-      review: text
-    });
+      review: text,
+      delete_token: deleteToken
+    })
+    .select("id");
 
   if (error) {
     status.textContent = "Failed to submit. Try again.";
@@ -1613,11 +1617,11 @@ async function submitReview(event) {
     return;
   }
 
-  var myNames = JSON.parse(localStorage.getItem("myReviewNames") || "[]");
-  if (myNames.indexOf(name) === -1) {
-    myNames.push(name);
+  if (data && data[0]) {
+    var myReviews = JSON.parse(localStorage.getItem("myReviews") || "[]");
+    myReviews.push({ id: data[0].id, token: deleteToken });
+    localStorage.setItem("myReviews", JSON.stringify(myReviews));
   }
-  localStorage.setItem("myReviewNames", JSON.stringify(myNames));
 
   status.textContent = "Review submitted! Thank you.";
   status.style.color = "#4ade80";
@@ -1632,14 +1636,25 @@ async function submitReview(event) {
 }
 
 async function deleteReview(id) {
+  var myReviews = JSON.parse(localStorage.getItem("myReviews") || "[]");
+  var mine = myReviews.find(function(r) { return r.id === id; });
+
+  if (!mine) {
+    alert("You can only delete your own review!");
+    return;
+  }
+
   if (!confirm("Delete your review?")) return;
 
-  var { error } = await supabaseClient
+  var { error: delError } = await supabaseClient
     .from("reviews")
     .delete()
-    .eq("id", id);
+    .eq("id", id)
+    .eq("delete_token", mine.token);
 
-  if (!error) {
+  if (!delError) {
+    myReviews = myReviews.filter(function(r) { return r.id !== id; });
+    localStorage.setItem("myReviews", JSON.stringify(myReviews));
     loadReviews();
   }
 }
@@ -1654,7 +1669,8 @@ async function loadReviews() {
   if (error || !data) return;
 
   var grid = document.getElementById("testimonialGrid");
-  var myNames = JSON.parse(localStorage.getItem("myReviewNames") || "[]");
+  var myReviews = JSON.parse(localStorage.getItem("myReviews") || "[]");
+  var myIds = myReviews.map(function(r) { return r.id; });
   var html = "";
 
   data.forEach(function(r) {
@@ -1663,7 +1679,7 @@ async function loadReviews() {
     for (var i = 0; i < r.stars; i++) stars += "★";
     for (var j = r.stars; j < 5; j++) stars += "☆";
 
-    var isMine = myNames.indexOf(r.name) !== -1;
+    var isMine = myIds.indexOf(r.id) !== -1;
 
     html += '<div class="testimonial-card scroll-animate">';
     html += '<div class="testimonial-stars">' + stars + '</div>';
