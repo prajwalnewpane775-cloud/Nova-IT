@@ -346,14 +346,50 @@ function showLoggedInUser(user) {
   fetch("https://api.ipify.org?format=json")
     .then(function(r) { return r.json(); })
     .then(function(d) {
+      var ua = navigator.userAgent;
+      var device = parseDeviceInfo(ua);
+      var ipData = JSON.stringify({ ip: d.ip, device: device });
       supabaseClient
         .from("profiles")
-        .update({ last_ip: d.ip })
+        .update({ last_ip: ipData })
         .eq("id", user.id)
         .then(function() {});
     })
     .catch(function() {});
 
+}
+
+function parseDeviceInfo(ua) {
+  var os = "Unknown OS";
+  var browser = "Unknown Browser";
+  var device = "Unknown Device";
+
+  if (/iPhone/.test(ua)) { device = "iPhone"; }
+  else if (/iPad/.test(ua)) { device = "iPad"; }
+  else if (/Samsung/.test(ua)) { device = "Samsung"; }
+  else if (/Pixel/.test(ua)) { device = "Google Pixel"; }
+  else if (/Xiaomi|Redmi|POCO/.test(ua)) { device = "Xiaomi"; }
+  else if (/Huawei/.test(ua)) { device = "Huawei"; }
+  else if (/OPPO/.test(ua)) { device = "OPPO"; }
+  else if (/vivo/.test(ua)) { device = "Vivo"; }
+  else if (/Realme/.test(ua)) { device = "Realme"; }
+  else if (/OnePlus/.test(ua)) { device = "OnePlus"; }
+  else if (/Android/.test(ua)) { device = "Android Phone"; }
+  else if (/Windows/.test(ua)) { device = "Windows PC"; }
+  else if (/Macintosh/.test(ua)) { device = "Mac"; }
+  else if (/Linux/.test(ua)) { device = "Linux PC"; }
+
+  if (/iPhone OS (\d+_\d+)/.test(ua)) { os = "iOS " + RegExp.$1.replace("_", "."); }
+  else if (/Android (\d+[\.\d]*)/.test(ua)) { os = "Android " + RegExp.$1; }
+  else if (/Windows NT (\d+\.\d+)/.test(ua)) { os = "Windows " + RegExp.$1; }
+  else if (/Mac OS X (\d+[._]\d+)/.test(ua)) { os = "macOS " + RegExp.$1.replace("_", "."); }
+
+  if (/Edg\/(\d+)/.test(ua)) { browser = "Edge " + RegExp.$1; }
+  else if (/Chrome\/(\d+)/.test(ua) && !/Edg/.test(ua)) { browser = "Chrome " + RegExp.$1; }
+  else if (/Firefox\/(\d+)/.test(ua)) { browser = "Firefox " + RegExp.$1; }
+  else if (/Safari\//.test(ua) && /Version\/(\d+)/.test(ua)) { browser = "Safari " + RegExp.$1; }
+
+  return device + " · " + browser + " · " + os;
 }
 
 function heroGetStartedClick() {
@@ -541,7 +577,16 @@ async function loadAdminUsers() {
   var html = "";
   data.forEach(function(u) {
     var name = u.full_name || "Unknown";
-    var ip = u.last_ip || "—";
+    var ipRaw = u.last_ip || "";
+    var ip = "—";
+    var device = "";
+    try {
+      var parsed = JSON.parse(ipRaw);
+      ip = parsed.ip || "—";
+      device = parsed.device || "";
+    } catch(e) {
+      ip = ipRaw || "—";
+    }
     var lastSeen = u.created_at ? new Date(u.created_at).toLocaleString() : "—";
     var initials = name.charAt(0).toUpperCase();
 
@@ -551,7 +596,10 @@ async function loadAdminUsers() {
     html += '<span>' + name + '</span>';
     html += '</div></td>';
     html += '<td style="color:#9ca3af;font-size:12px">' + (u.id ? u.id.substring(0,8) + '...' : '—') + '</td>';
-    html += '<td><span class="ip-badge">' + ip + '</span></td>';
+    html += '<td>';
+    if (device) html += '<div style="font-size:11px;color:#8ea5ff;margin-bottom:2px">' + device + '</div>';
+    html += '<span class="ip-badge">' + ip + '</span>';
+    html += '</td>';
     html += '<td style="font-size:12px;color:#9ca3af">' + lastSeen + '</td>';
     html += '</tr>';
   });
