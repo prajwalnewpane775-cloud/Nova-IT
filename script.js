@@ -449,12 +449,6 @@ async function loadProfile(user) {
     document.getElementById("profileAvatar")
       .src = profile.avatar_url;
 
-    document.getElementById("avatarDeleteBtn").classList.add("visible");
-
-  } else {
-
-    document.getElementById("avatarDeleteBtn").classList.remove("visible");
-
   }
 }
 
@@ -622,8 +616,6 @@ if (avatarInput) {
         .getElementById("profileAvatar")
         .src = publicUrl;
 
-      document.getElementById("avatarDeleteBtn").classList.add("visible");
-
       alert("Profile photo updated!");
 
     }
@@ -631,14 +623,41 @@ if (avatarInput) {
 
 }
 
+function openAvatarModal() {
+  var avatar = document.getElementById("profileAvatar");
+  document.getElementById("avatarModalImg").src = avatar.src;
+  document.getElementById("avatarModal").classList.remove("hidden");
+}
+
+function closeAvatarModal() {
+  document.getElementById("avatarModal").classList.add("hidden");
+}
+
+function changeAvatarFromModal(event) {
+  var file = event.target.files[0];
+  if (!file) return;
+
+  if (!file.type.startsWith("image/")) {
+    alert("Please select an image.");
+    return;
+  }
+
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    document.getElementById("profileAvatar").src = e.target.result;
+    document.getElementById("avatarModalImg").src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+
+  document.getElementById("avatarInput").files = event.target.files;
+  document.getElementById("avatarInput").dispatchEvent(new Event("change"));
+}
+
 async function deleteProfilePhoto() {
   if (!confirm("Delete your profile photo?")) return;
 
   const { data: { user } } = await supabaseClient.auth.getUser();
   if (!user) return;
-
-  const avatar = document.getElementById("profileAvatar");
-  const currentSrc = avatar.src;
 
   const exts = ["jpg", "jpeg", "png", "webp"];
   for (let i = 0; i < exts.length; i++) {
@@ -648,15 +667,14 @@ async function deleteProfilePhoto() {
   }
 
   const placeholder = "https://placehold.co/90x90/111827/8ea5ff?text=N";
-  avatar.src = placeholder;
+  document.getElementById("profileAvatar").src = placeholder;
 
   await supabaseClient
     .from("profiles")
     .update({ avatar_url: null })
     .eq("id", user.id);
 
-  document.getElementById("avatarDeleteBtn").classList.remove("visible");
-
+  closeAvatarModal();
   alert("Profile photo deleted!");
 }
 function editProfile() {

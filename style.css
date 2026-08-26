@@ -1537,32 +1537,6 @@ body.modal-open {
   background: #718bff;
 }
 
-.avatar-delete {
-  position: absolute;
-  left: -2px;
-  bottom: 0;
-  width: 28px;
-  height: 28px;
-  display: none;
-  place-items: center;
-  border-radius: 50%;
-  background: #ef4444;
-  color: white;
-  cursor: pointer;
-  font-size: 12px;
-  border: 2px solid #0c121d;
-  transition: 0.2s;
-}
-
-.avatar-delete:hover {
-  transform: scale(1.08);
-  background: #dc2626;
-}
-
-.avatar-delete.visible {
-  display: grid;
-}
-
 /* ACTIVE STATUS */
 
 .status-active {
@@ -3523,4 +3497,88 @@ body.light .mobile-menu a:hover { color: #000; }
   .testimonial-grid { grid-template-columns: 1fr; }
   .newsletter-form { flex-direction: column; }
   .newsletter-box { padding: 35px 20px; }
+}
+
+/* AVATAR MODAL */
+.avatar-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(6px);
+  display: grid;
+  place-items: center;
+  z-index: 9999;
+}
+
+.avatar-modal.hidden { display: none; }
+
+.avatar-modal-box {
+  background: #111827;
+  border: 1px solid #1f2937;
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+  max-width: 360px;
+  width: 90%;
+  position: relative;
+}
+
+.avatar-modal-box img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #5877ff;
+  margin-bottom: 20px;
+}
+
+.avatar-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: #9ca3af;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.avatar-modal-close:hover { color: #fff; }
+
+.avatar-modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.avatar-modal-btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  font-size: 13px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: .2s;
+}
+
+.avatar-modal-btn.change {
+  background: #5877ff;
+  color: #fff;
+}
+
+.avatar-modal-btn.change:hover { background: #718bff; }
+
+.avatar-modal-btn.delete {
+  background: rgba(239,68,68,0.15);
+  color: #ef4444;
+  border: 1px solid rgba(239,68,68,0.3);
+}
+
+.avatar-modal-btn.delete:hover {
+  background: rgba(239,68,68,0.3);
+}
+
+.light-mode .avatar-modal-box {
+  background: #fff;
+  border-color: #e5e7eb;
 }

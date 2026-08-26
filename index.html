@@ -927,6 +927,19 @@
   </div>
 </section>
 
+<!-- AVATAR MODAL -->
+<div class="avatar-modal hidden" id="avatarModal" onclick="if(event.target===this)closeAvatarModal()">
+  <div class="avatar-modal-box">
+    <button class="avatar-modal-close" onclick="closeAvatarModal()">&times;</button>
+    <img id="avatarModalImg" src="" alt="Profile Photo">
+    <div class="avatar-modal-actions">
+      <label for="avatarModalInput" class="avatar-modal-btn change">✎ Change Photo</label>
+      <input type="file" id="avatarModalInput" accept="image/png,image/jpeg,image/webp" hidden onchange="changeAvatarFromModal(event)">
+      <button class="avatar-modal-btn delete" onclick="deleteProfilePhoto()">🗑 Delete Photo</button>
+    </div>
+  </div>
+</div>
+
 <!-- BACK TO TOP -->
 <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
@@ -1047,6 +1060,8 @@
           id="profileAvatar"
           src="https://placehold.co/90x90/111827/8ea5ff?text=N"
           alt="Profile photo"
+          onclick="openAvatarModal()"
+          style="cursor:pointer"
         >
         <label
           for="avatarInput"
@@ -1061,7 +1076,6 @@
           accept="image/png,image/jpeg,image/webp"
           hidden
         >
-        <button type="button" class="avatar-delete" id="avatarDeleteBtn" onclick="deleteProfilePhoto()" title="Delete profile photo">🗑</button>
         <div class="avatar-status-dot"></div>
       </div>
 
@@ -1194,7 +1208,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 
 
-  <script src="script.js?v=4"></script>
+  <script src="script.js?v=5"></script>
 
   <!-- LOGIN SECURITY PHOTO -->
 
