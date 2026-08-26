@@ -197,6 +197,16 @@ document
 
       if (authMode === "signup") {
 
+        var { data: existingEmail } = await supabaseClient
+          .from("profiles")
+          .select("id")
+          .eq("email", email)
+          .maybeSingle();
+
+        if (existingEmail) {
+          throw new Error("This email is already registered. Please login instead.");
+        }
+
         const { data, error } =
           await supabaseClient.auth.signUp({
 
@@ -217,6 +227,11 @@ document
           throw error;
         }
 
+        if (data && data.user) {
+          await supabaseClient
+            .from("profiles")
+            .upsert({ id: data.user.id, email: email }, { onConflict: "id" });
+        }
 
         message.textContent =
           "Account created! Check your email to verify your account.";
@@ -246,6 +261,12 @@ document
 
         if (error) {
           throw error;
+        }
+
+        if (data && data.user) {
+          await supabaseClient
+            .from("profiles")
+            .upsert({ id: data.user.id, email: email }, { onConflict: "id" });
         }
 
 message.textContent =
