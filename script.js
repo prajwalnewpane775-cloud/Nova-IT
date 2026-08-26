@@ -1460,9 +1460,9 @@ var teamMembers = [
     role: "Lead Developer",
     img: "https://zffruusmcezndbjskkyi.supabase.co/storage/v1/object/public/team-photo/Nick.png",
     location: "Kathmandu, Nepal",
-    exp: "4+ Years",
-    speciality: "Full Stack Development",
-    bio: "Expert in building scalable web applications and modern tech stacks. Drives the core development at NovaIT with clean, efficient code.",
+    exp: "17+ Years",
+    speciality: "Full Stack Development & Sports Cinematography",
+    bio: "Seasoned developer with 17+ years of experience building scalable web applications and modern tech stacks. Also a passionate sports cameraman capturing dynamic visuals. Drives the core development at NovaIT with clean, efficient code.",
     facebook: "https://www.facebook.com/nickbista3"
   },
   {
