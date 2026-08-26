@@ -349,18 +349,16 @@ function showLoggedInUser(user) {
   fetch("https://api.ipify.org?format=json")
     .then(function(r) { return r.json(); })
     .then(function(d) {
-      var ipData = JSON.stringify({ ip: d.ip, device: device });
       supabaseClient
         .from("profiles")
-        .update({ last_ip: ipData })
+        .update({ last_ip: d.ip, device_info: device })
         .eq("id", user.id)
         .then(function() {});
     })
     .catch(function() {
-      var ipData = JSON.stringify({ ip: "Unknown", device: device });
       supabaseClient
         .from("profiles")
-        .update({ last_ip: ipData })
+        .update({ last_ip: "Unknown", device_info: device })
         .eq("id", user.id)
         .then(function() {});
     });
@@ -570,7 +568,7 @@ async function loadProfile(user) {
 async function loadAdminUsers() {
   var { data, error } = await supabaseClient
     .from("profiles")
-    .select("id, full_name, avatar_url, last_ip, created_at")
+    .select("id, full_name, avatar_url, last_ip, device_info, created_at")
     .order("created_at", { ascending: false });
 
   if (error || !data) return;
@@ -585,16 +583,8 @@ async function loadAdminUsers() {
   var html = "";
   data.forEach(function(u) {
     var name = u.full_name || "Unknown";
-    var ipRaw = u.last_ip || "";
-    var ip = "—";
-    var device = "";
-    try {
-      var parsed = JSON.parse(ipRaw);
-      ip = parsed.ip || "—";
-      device = parsed.device || "";
-    } catch(e) {
-      ip = ipRaw || "—";
-    }
+    var ip = u.last_ip || "—";
+    var device = u.device_info || "";
     var lastSeen = u.created_at ? new Date(u.created_at).toLocaleString() : "—";
     var initials = name.charAt(0).toUpperCase();
 
