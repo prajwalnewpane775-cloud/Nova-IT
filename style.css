@@ -2221,7 +2221,7 @@ body.modal-open {
   background: #000;
   display: block;
   margin: 0 auto;
-  max-height: 250px;
+  aspect-ratio: 4/3;
   object-fit: cover;
 }
 
@@ -2233,6 +2233,8 @@ body.modal-open {
   width: 100%;
   max-width: 380px;
   border-radius: 14px;
+  aspect-ratio: 4/3;
+  object-fit: cover;
 }
 
 .security-photo-actions {
