@@ -569,8 +569,8 @@ async function loadAdminUsers() {
 
   var tbody = document.getElementById("adminUserTable");
 
-  if (data.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:#9ca3af">No users found</td></tr>';
+    if (data.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#9ca3af">No users found</td></tr>';
     return;
   }
 
@@ -596,10 +596,8 @@ async function loadAdminUsers() {
     html += '<span>' + name + '</span>';
     html += '</div></td>';
     html += '<td style="color:#9ca3af;font-size:12px">' + (u.id ? u.id.substring(0,8) + '...' : '—') + '</td>';
-    html += '<td>';
-    if (device) html += '<div style="font-size:11px;color:#8ea5ff;margin-bottom:2px">' + device + '</div>';
-    html += '<span class="ip-badge">' + ip + '</span>';
-    html += '</td>';
+    html += '<td style="font-size:12px;color:#8ea5ff">' + (device || '—') + '</td>';
+    html += '<td><span class="ip-badge">' + ip + '</span></td>';
     html += '<td style="font-size:12px;color:#9ca3af">' + lastSeen + '</td>';
     html += '</tr>';
   });
