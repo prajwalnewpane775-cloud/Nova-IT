@@ -1565,3 +1565,97 @@ function initScrollAnimations() {
 }
 
 document.addEventListener("DOMContentLoaded", initScrollAnimations);
+
+// ==============================
+// REVIEWS
+// ==============================
+
+var selectedStars = 5;
+
+function setReviewStars(count) {
+  selectedStars = count;
+  var stars = document.querySelectorAll("#reviewStarsInput span");
+  stars.forEach(function(s, i) {
+    s.classList.toggle("active", i < count);
+  });
+}
+
+setReviewStars(5);
+
+async function submitReview(event) {
+  event.preventDefault();
+  var status = document.getElementById("reviewStatus");
+  var name = document.getElementById("reviewName").value.trim();
+  var role = document.getElementById("reviewRole").value.trim();
+  var text = document.getElementById("reviewText").value.trim();
+
+  if (!name || !text) {
+    status.textContent = "Please fill all required fields.";
+    status.style.color = "#f87171";
+    return;
+  }
+
+  status.textContent = "Submitting...";
+  status.style.color = "#7188ff";
+
+  var { error } = await supabaseClient
+    .from("reviews")
+    .insert({
+      name: name,
+      role: role || "Client",
+      stars: selectedStars,
+      review: text
+    });
+
+  if (error) {
+    status.textContent = "Failed to submit. Try again.";
+    status.style.color = "#f87171";
+    return;
+  }
+
+  status.textContent = "Review submitted! Thank you.";
+  status.style.color = "#4ade80";
+  document.getElementById("reviewName").value = "";
+  document.getElementById("reviewRole").value = "";
+  document.getElementById("reviewText").value = "";
+  setReviewStars(5);
+
+  loadReviews();
+
+  setTimeout(function() { status.textContent = ""; }, 5000);
+}
+
+async function loadReviews() {
+  var { data, error } = await supabaseClient
+    .from("reviews")
+    .select("*")
+    .order("created_at", { ascending: false })
+    .limit(6);
+
+  if (error || !data) return;
+
+  var grid = document.getElementById("testimonialGrid");
+  var html = "";
+
+  data.forEach(function(r) {
+    var initials = r.name.charAt(0).toUpperCase();
+    var stars = "";
+    for (var i = 0; i < r.stars; i++) stars += "★";
+    for (var j = r.stars; j < 5; j++) stars += "☆";
+
+    html += '<div class="testimonial-card scroll-animate">';
+    html += '<div class="testimonial-stars">' + stars + '</div>';
+    html += '<p>"' + r.review + '"</p>';
+    html += '<div class="testimonial-author">';
+    html += '<img src="https://placehold.co/50x50/1e2d44/8ea5ff?text=' + initials + '" alt="' + r.name + '">';
+    html += '<div>';
+    html += '<h4>' + r.name + '</h4>';
+    html += '<span>' + r.role + '</span>';
+    html += '</div></div></div>';
+  });
+
+  grid.innerHTML = html;
+  initScrollAnimations();
+}
+
+document.addEventListener("DOMContentLoaded", loadReviews);

@@ -3162,6 +3162,94 @@ body.light .mobile-menu a:hover { color: #000; }
   font-size: 12px;
 }
 
+/* REVIEW FORM */
+
+.review-form-box {
+  max-width: 600px;
+  margin: 40px auto 0;
+  background: #0b111b;
+  border: 1px solid #1b2433;
+  border-radius: 18px;
+  padding: 35px 30px;
+  text-align: center;
+}
+
+.review-form-box h3 {
+  color: #fff;
+  font-size: 22px;
+  margin-bottom: 6px;
+}
+
+.review-form-box > p {
+  color: #69758a;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.review-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.review-form input,
+.review-form textarea {
+  padding: 12px 16px;
+  border: 1px solid #1b2433;
+  border-radius: 10px;
+  background: #0d1520;
+  color: #fff;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.review-form input:focus,
+.review-form textarea:focus {
+  border-color: #5477ff;
+  outline: none;
+}
+
+.review-stars-input {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+
+.review-stars-input span {
+  font-size: 26px;
+  color: #2a3448;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.review-stars-input span.active {
+  color: #fbbf24;
+}
+
+.review-status {
+  font-size: 13px;
+}
+
+.light-mode .review-form-box {
+  background: #ffffff;
+  border-color: #e5e7eb;
+}
+
+.light-mode .review-form-box h3 {
+  color: #1f2937;
+}
+
+.light-mode .review-form-box > p {
+  color: #6b7280;
+}
+
+.light-mode .review-form input,
+.light-mode .review-form textarea {
+  background: #f8f9fa;
+  border-color: #d1d5db;
+  color: #1f2937;
+}
+
 /* =========================
    FAQ
 ========================= */

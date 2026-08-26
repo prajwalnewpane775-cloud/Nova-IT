@@ -790,7 +790,7 @@
     <h2>What clients <span>say.</span></h2>
     <p>Real feedback from the people we've worked with.</p>
   </div>
-  <div class="testimonial-grid">
+  <div class="testimonial-grid" id="testimonialGrid">
     <div class="testimonial-card scroll-animate">
       <div class="testimonial-stars">★★★★★</div>
       <p>"NovaIT transformed our business with a stunning website. Their team was professional, fast and delivered beyond expectations."</p>
@@ -824,6 +824,26 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- REVIEW FORM -->
+  <div class="review-form-box scroll-animate">
+    <h3>Write a <span>Review</span></h3>
+    <p>Share your experience with NovaIT.</p>
+    <form class="review-form" onsubmit="submitReview(event)">
+      <input type="text" id="reviewName" placeholder="Your Name" required>
+      <input type="text" id="reviewRole" placeholder="Your Role (e.g. CEO, Developer)">
+      <div class="review-stars-input" id="reviewStarsInput">
+        <span onclick="setReviewStars(1)">★</span>
+        <span onclick="setReviewStars(2)">★</span>
+        <span onclick="setReviewStars(3)">★</span>
+        <span onclick="setReviewStars(4)">★</span>
+        <span onclick="setReviewStars(5)">★</span>
+      </div>
+      <textarea id="reviewText" placeholder="Write your review..." rows="4" required></textarea>
+      <button type="submit" class="primary-btn">Submit Review</button>
+      <p class="review-status" id="reviewStatus"></p>
+    </form>
   </div>
 </section>
 
