@@ -337,6 +337,9 @@ function showLoggedInUser(user) {
   const mobileCenter = document.getElementById("mobilecenter");
   if (mobileCenter) mobileCenter.style.display = "";
 
+  const securitySection = document.querySelector(".security-showcase");
+  if (securitySection) securitySection.style.display = "";
+
   const navLinks = document.querySelectorAll('.nav-links a[href="#mobilecenter"], .mobile-menu a[href="#mobilecenter"]');
   navLinks.forEach(function(link) { link.style.display = ""; });
 
@@ -635,6 +638,8 @@ async function logoutUser() {
 
   var mobileCenter = document.getElementById("mobilecenter");
   if (mobileCenter) mobileCenter.style.display = "none";
+  var securitySection = document.querySelector(".security-showcase");
+  if (securitySection) securitySection.style.display = "none";
   var desktopMobileLink = document.querySelector('.nav-links a[href="#mobilecenter"]');
   if (desktopMobileLink) desktopMobileLink.style.display = "none";
   var mobMenuMobileLink = document.querySelector('.mobile-menu a[href="#mobilecenter"]');
@@ -1281,6 +1286,8 @@ function handleMobileLogout() {
     if (mobileLogout) mobileLogout.style.display = "none";
     var mobileCenter = document.getElementById("mobilecenter");
     if (mobileCenter) mobileCenter.style.display = "none";
+    var securitySection = document.querySelector(".security-showcase");
+    if (securitySection) securitySection.style.display = "none";
     var desktopMobileLink = document.querySelector('.nav-links a[href="#mobilecenter"]');
     if (desktopMobileLink) desktopMobileLink.style.display = "none";
     var mobMenuMobileLink = document.querySelector('.mobile-menu a[href="#mobilecenter"]');
