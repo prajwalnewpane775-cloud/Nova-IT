@@ -345,8 +345,6 @@ function showLoggedInUser(user) {
 
   var ua = navigator.userAgent;
   var device = parseDeviceInfo(ua);
-  console.log("USER AGENT:", ua);
-  console.log("PARSED DEVICE:", device);
 
   fetch("https://api.ipify.org?format=json").then(function(r) { return r.json(); }).then(function(d) {
     saveIP(user.id, d.ip);
