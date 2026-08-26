@@ -1598,15 +1598,14 @@ async function submitReview(event) {
   status.textContent = "Submitting...";
   status.style.color = "#7188ff";
 
-  var { data, error } = await supabaseClient
+  var { error } = await supabaseClient
     .from("reviews")
     .insert({
       name: name,
       role: role || "Client",
       stars: selectedStars,
       review: text
-    })
-    .select("id");
+    });
 
   if (error) {
     status.textContent = "Failed to submit. Try again.";
@@ -1614,11 +1613,11 @@ async function submitReview(event) {
     return;
   }
 
-  if (data && data[0]) {
-    var myReviews = JSON.parse(localStorage.getItem("myReviews") || "[]");
-    myReviews.push(data[0].id);
-    localStorage.setItem("myReviews", JSON.stringify(myReviews));
+  var myNames = JSON.parse(localStorage.getItem("myReviewNames") || "[]");
+  if (myNames.indexOf(name) === -1) {
+    myNames.push(name);
   }
+  localStorage.setItem("myReviewNames", JSON.stringify(myNames));
 
   status.textContent = "Review submitted! Thank you.";
   status.style.color = "#4ade80";
@@ -1641,9 +1640,6 @@ async function deleteReview(id) {
     .eq("id", id);
 
   if (!error) {
-    var myReviews = JSON.parse(localStorage.getItem("myReviews") || "[]");
-    myReviews = myReviews.filter(function(r) { return r !== id; });
-    localStorage.setItem("myReviews", JSON.stringify(myReviews));
     loadReviews();
   }
 }
@@ -1658,7 +1654,7 @@ async function loadReviews() {
   if (error || !data) return;
 
   var grid = document.getElementById("testimonialGrid");
-  var myReviews = JSON.parse(localStorage.getItem("myReviews") || "[]");
+  var myNames = JSON.parse(localStorage.getItem("myReviewNames") || "[]");
   var html = "";
 
   data.forEach(function(r) {
@@ -1667,7 +1663,7 @@ async function loadReviews() {
     for (var i = 0; i < r.stars; i++) stars += "★";
     for (var j = r.stars; j < 5; j++) stars += "☆";
 
-    var isMine = myReviews.indexOf(r.id) !== -1;
+    var isMine = myNames.indexOf(r.name) !== -1;
 
     html += '<div class="testimonial-card scroll-animate">';
     html += '<div class="testimonial-stars">' + stars + '</div>';
