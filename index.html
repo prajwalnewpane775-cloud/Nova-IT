@@ -750,93 +750,198 @@
     <p>Quality mobile accessories at the best prices.</p>
   </div>
 
-  <div class="mobile-products">
+  <div class="mobile-tabs">
+    <button class="mobile-tab-btn active" onclick="switchMobileTab(0)">
+      <span class="tab-icon">🛍️</span>
+      <span class="tab-label">All Products</span>
+    </button>
+    <button class="mobile-tab-btn" onclick="switchMobileTab(1)">
+      <span class="tab-icon">🛡️</span>
+      <span class="tab-label">Phone Cases</span>
+    </button>
+    <button class="mobile-tab-btn" onclick="switchMobileTab(2)">
+      <span class="tab-icon">🔌</span>
+      <span class="tab-label">Chargers & Power</span>
+    </button>
+    <button class="mobile-tab-btn" onclick="switchMobileTab(3)">
+      <span class="tab-icon">🎧</span>
+      <span class="tab-label">Audio</span>
+    </button>
+    <button class="mobile-tab-btn" onclick="switchMobileTab(4)">
+      <span class="tab-icon">📱</span>
+      <span class="tab-label">Screen & Glass</span>
+    </button>
+  </div>
 
-    <div class="mobile-product-card scroll-animate">
-      <img src="https://images.pexels.com/photos/1670768/pexels-photo-1670768.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Phone Cases">
-      <div class="mobile-product-info">
-        <span class="mobile-product-tag">Protection</span>
-        <h3>Phone Cases & Covers</h3>
-        <p>Premium quality cases for all phone models. Shockproof, stylish and durable.</p>
-        <div class="mobile-product-price">NPR 350 - 1,500</div>
-        <a href="https://wa.me/9779804335063?text=Hi!%20I%20want%20to%20buy%20Phone%20Cases" target="_blank" class="primary-btn mobile-buy-btn">Buy on WhatsApp →</a>
+  <div class="mobile-tab-panels">
+
+    <!-- ALL PRODUCTS -->
+    <div class="mobile-tab-panel active" id="mobilePanel0">
+      <div class="mobile-products">
+        <div class="mobile-product-card scroll-animate">
+          <img src="https://images.pexels.com/photos/1670768/pexels-photo-1670768.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Phone Cases">
+          <div class="mobile-product-info">
+            <span class="mobile-product-tag">Protection</span>
+            <h3>Phone Cases & Covers</h3>
+            <p>Premium quality cases for all phone models. Shockproof, stylish and durable.</p>
+            <div class="mobile-product-price">NPR 350 - 1,500</div>
+            <a href="https://wa.me/9779804335063?text=Hi!%20I%20want%20to%20buy%20Phone%20Cases" target="_blank" class="primary-btn mobile-buy-btn">Buy on WhatsApp →</a>
+          </div>
+        </div>
+        <div class="mobile-product-card scroll-animate">
+          <img src="https://images.pexels.com/photos/6755056/pexels-photo-6755056.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Screen Display">
+          <div class="mobile-product-info">
+            <span class="mobile-product-tag">Display</span>
+            <h3>Screen Displays</h3>
+            <p>Original and high-quality replacement screens for all major brands.</p>
+            <div class="mobile-product-price">NPR 1,500 - 8,000</div>
+            <a href="https://wa.me/9779804335063?text=Hi!%20I%20want%20to%20buy%20Screen%20Display" target="_blank" class="primary-btn mobile-buy-btn">Buy on WhatsApp →</a>
+          </div>
+        </div>
+        <div class="mobile-product-card scroll-animate">
+          <img src="https://images.pexels.com/photos/4195332/pexels-photo-4195332.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Chargers">
+          <div class="mobile-product-info">
+            <span class="mobile-product-tag">Power</span>
+            <h3>Chargers & Cables</h3>
+            <p>Fast chargers, USB-C, Lightning and wireless charging solutions.</p>
+            <div class="mobile-product-price">NPR 250 - 3,000</div>
+            <a href="https://wa.me/9779804335063?text=Hi!%20I%20want%20to%20buy%20Charger" target="_blank" class="primary-btn mobile-buy-btn">Buy on WhatsApp →</a>
+          </div>
+        </div>
+        <div class="mobile-product-card scroll-animate">
+          <img src="https://images.pexels.com/photos/7742507/pexels-photo-7742507.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Tempered Glass">
+          <div class="mobile-product-info">
+            <span class="mobile-product-tag">Protection</span>
+            <h3>Tempered Glass</h3>
+            <p>9H hardness tempered glass with anti-fingerprint and crystal clear display.</p>
+            <div class="mobile-product-price">NPR 150 - 500</div>
+            <a href="https://wa.me/9779804335063?text=Hi!%20I%20want%20to%20buy%20Tempered%20Glass" target="_blank" class="primary-btn mobile-buy-btn">Buy on WhatsApp →</a>
+          </div>
+        </div>
+        <div class="mobile-product-card scroll-animate">
+          <img src="https://images.pexels.com/photos/3921827/pexels-photo-3921827.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Earphones">
+          <div class="mobile-product-info">
+            <span class="mobile-product-tag">Audio</span>
+            <h3>Earphones & Earbuds</h3>
+            <p>Wired and wireless earphones with noise cancellation and deep bass.</p>
+            <div class="mobile-product-price">NPR 300 - 5,000</div>
+            <a href="https://wa.me/9779804335063?text=Hi!%20I%20want%20to%20buy%20Earphones" target="_blank" class="primary-btn mobile-buy-btn">Buy on WhatsApp →</a>
+          </div>
+        </div>
+        <div class="mobile-product-card scroll-animate">
+          <img src="https://images.pexels.com/photos/6296911/pexels-photo-6296911.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Power Banks">
+          <div class="mobile-product-info">
+            <span class="mobile-product-tag">Power</span>
+            <h3>Power Banks</h3>
+            <p>High capacity portable chargers from 5000mAh to 30000mAh.</p>
+            <div class="mobile-product-price">NPR 800 - 4,000</div>
+            <a href="https://wa.me/9779804335063?text=Hi!%20I%20want%20to%20buy%20Power%20Bank" target="_blank" class="primary-btn mobile-buy-btn">Buy on WhatsApp →</a>
+          </div>
+        </div>
+        <div class="mobile-product-card scroll-animate">
+          <img src="https://images.pexels.com/photos/1386649/pexels-photo-1386649.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Phone Holders">
+          <div class="mobile-product-info">
+            <span class="mobile-product-tag">Accessories</span>
+            <h3>Phone Holders & Mounts</h3>
+            <p>Car mounts, desk stands and tripod holders for hands-free convenience.</p>
+            <div class="mobile-product-price">NPR 200 - 1,500</div>
+            <a href="https://wa.me/9779804335063?text=Hi!%20I%20want%20to%20buy%20Phone%20Holder" target="_blank" class="primary-btn mobile-buy-btn">Buy on WhatsApp →</a>
+          </div>
+        </div>
+        <div class="mobile-product-card scroll-animate">
+          <img src="https://images.pexels.com/photos/5208781/pexels-photo-5208781.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Selfie Stick">
+          <div class="mobile-product-info">
+            <span class="mobile-product-tag">Accessories</span>
+            <h3>Selfie Sticks & Tripods</h3>
+            <p>Bluetooth selfie sticks and compact tripods for perfect shots.</p>
+            <div class="mobile-product-price">NPR 300 - 1,200</div>
+            <a href="https://wa.me/9779804335063?text=Hi!%20I%20want%20to%20buy%20Selfie%20Stick" target="_blank" class="primary-btn mobile-buy-btn">Buy on WhatsApp →</a>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="mobile-product-card scroll-animate">
-      <img src="https://images.pexels.com/photos/6755056/pexels-photo-6755056.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Screen Display">
-      <div class="mobile-product-info">
-        <span class="mobile-product-tag">Display</span>
-        <h3>Screen Displays</h3>
-        <p>Original and high-quality replacement screens for all major brands.</p>
-        <div class="mobile-product-price">NPR 1,500 - 8,000</div>
-        <a href="https://wa.me/9779804335063?text=Hi!%20I%20want%20to%20buy%20Screen%20Display" target="_blank" class="primary-btn mobile-buy-btn">Buy on WhatsApp →</a>
+    <!-- PHONE CASES -->
+    <div class="mobile-tab-panel" id="mobilePanel1">
+      <div class="mobile-products">
+        <div class="mobile-product-card scroll-animate">
+          <img src="https://images.pexels.com/photos/1670768/pexels-photo-1670768.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Phone Cases">
+          <div class="mobile-product-info">
+            <span class="mobile-product-tag">Protection</span>
+            <h3>Phone Cases & Covers</h3>
+            <p>Premium quality cases for all phone models. Shockproof, stylish and durable.</p>
+            <div class="mobile-product-price">NPR 350 - 1,500</div>
+            <a href="https://wa.me/9779804335063?text=Hi!%20I%20want%20to%20buy%20Phone%20Cases" target="_blank" class="primary-btn mobile-buy-btn">Buy on WhatsApp →</a>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="mobile-product-card scroll-animate">
-      <img src="https://images.pexels.com/photos/4195332/pexels-photo-4195332.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Chargers">
-      <div class="mobile-product-info">
-        <span class="mobile-product-tag">Power</span>
-        <h3>Chargers & Cables</h3>
-        <p>Fast chargers, USB-C, Lightning and wireless charging solutions.</p>
-        <div class="mobile-product-price">NPR 250 - 3,000</div>
-        <a href="https://wa.me/9779804335063?text=Hi!%20I%20want%20to%20buy%20Charger" target="_blank" class="primary-btn mobile-buy-btn">Buy on WhatsApp →</a>
+    <!-- CHARGERS & POWER -->
+    <div class="mobile-tab-panel" id="mobilePanel2">
+      <div class="mobile-products">
+        <div class="mobile-product-card scroll-animate">
+          <img src="https://images.pexels.com/photos/4195332/pexels-photo-4195332.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Chargers">
+          <div class="mobile-product-info">
+            <span class="mobile-product-tag">Power</span>
+            <h3>Chargers & Cables</h3>
+            <p>Fast chargers, USB-C, Lightning and wireless charging solutions.</p>
+            <div class="mobile-product-price">NPR 250 - 3,000</div>
+            <a href="https://wa.me/9779804335063?text=Hi!%20I%20want%20to%20buy%20Charger" target="_blank" class="primary-btn mobile-buy-btn">Buy on WhatsApp →</a>
+          </div>
+        </div>
+        <div class="mobile-product-card scroll-animate">
+          <img src="https://images.pexels.com/photos/6296911/pexels-photo-6296911.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Power Banks">
+          <div class="mobile-product-info">
+            <span class="mobile-product-tag">Power</span>
+            <h3>Power Banks</h3>
+            <p>High capacity portable chargers from 5000mAh to 30000mAh.</p>
+            <div class="mobile-product-price">NPR 800 - 4,000</div>
+            <a href="https://wa.me/9779804335063?text=Hi!%20I%20want%20to%20buy%20Power%20Bank" target="_blank" class="primary-btn mobile-buy-btn">Buy on WhatsApp →</a>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="mobile-product-card scroll-animate">
-      <img src="https://images.pexels.com/photos/7742507/pexels-photo-7742507.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Tempered Glass">
-      <div class="mobile-product-info">
-        <span class="mobile-product-tag">Protection</span>
-        <h3>Tempered Glass</h3>
-        <p>9H hardness tempered glass with anti-fingerprint and crystal clear display.</p>
-        <div class="mobile-product-price">NPR 150 - 500</div>
-        <a href="https://wa.me/9779804335063?text=Hi!%20I%20want%20to%20buy%20Tempered%20Glass" target="_blank" class="primary-btn mobile-buy-btn">Buy on WhatsApp →</a>
+    <!-- AUDIO -->
+    <div class="mobile-tab-panel" id="mobilePanel3">
+      <div class="mobile-products">
+        <div class="mobile-product-card scroll-animate">
+          <img src="https://images.pexels.com/photos/3921827/pexels-photo-3921827.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Earphones">
+          <div class="mobile-product-info">
+            <span class="mobile-product-tag">Audio</span>
+            <h3>Earphones & Earbuds</h3>
+            <p>Wired and wireless earphones with noise cancellation and deep bass.</p>
+            <div class="mobile-product-price">NPR 300 - 5,000</div>
+            <a href="https://wa.me/9779804335063?text=Hi!%20I%20want%20to%20buy%20Earphones" target="_blank" class="primary-btn mobile-buy-btn">Buy on WhatsApp →</a>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="mobile-product-card scroll-animate">
-      <img src="https://images.pexels.com/photos/3921827/pexels-photo-3921827.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Earphones">
-      <div class="mobile-product-info">
-        <span class="mobile-product-tag">Audio</span>
-        <h3>Earphones & Earbuds</h3>
-        <p>Wired and wireless earphones with noise cancellation and deep bass.</p>
-        <div class="mobile-product-price">NPR 300 - 5,000</div>
-        <a href="https://wa.me/9779804335063?text=Hi!%20I%20want%20to%20buy%20Earphones" target="_blank" class="primary-btn mobile-buy-btn">Buy on WhatsApp →</a>
-      </div>
-    </div>
-
-    <div class="mobile-product-card scroll-animate">
-      <img src="https://images.pexels.com/photos/6296911/pexels-photo-6296911.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Power Banks">
-      <div class="mobile-product-info">
-        <span class="mobile-product-tag">Power</span>
-        <h3>Power Banks</h3>
-        <p>High capacity portable chargers from 5000mAh to 30000mAh.</p>
-        <div class="mobile-product-price">NPR 800 - 4,000</div>
-        <a href="https://wa.me/9779804335063?text=Hi!%20I%20want%20to%20buy%20Power%20Bank" target="_blank" class="primary-btn mobile-buy-btn">Buy on WhatsApp →</a>
-      </div>
-    </div>
-
-    <div class="mobile-product-card scroll-animate">
-      <img src="https://images.pexels.com/photos/1386649/pexels-photo-1386649.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Phone Holders">
-      <div class="mobile-product-info">
-        <span class="mobile-product-tag">Accessories</span>
-        <h3>Phone Holders & Mounts</h3>
-        <p>Car mounts, desk stands and tripod holders for hands-free convenience.</p>
-        <div class="mobile-product-price">NPR 200 - 1,500</div>
-        <a href="https://wa.me/9779804335063?text=Hi!%20I%20want%20to%20buy%20Phone%20Holder" target="_blank" class="primary-btn mobile-buy-btn">Buy on WhatsApp →</a>
-      </div>
-    </div>
-
-    <div class="mobile-product-card scroll-animate">
-      <img src="https://images.pexels.com/photos/5208781/pexels-photo-5208781.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Selfie Stick">
-      <div class="mobile-product-info">
-        <span class="mobile-product-tag">Accessories</span>
-        <h3>Selfie Sticks & Tripods</h3>
-        <p>Bluetooth selfie sticks and compact tripods for perfect shots.</p>
-        <div class="mobile-product-price">NPR 300 - 1,200</div>
-        <a href="https://wa.me/9779804335063?text=Hi!%20I%20want%20to%20buy%20Selfie%20Stick" target="_blank" class="primary-btn mobile-buy-btn">Buy on WhatsApp →</a>
+    <!-- SCREEN & GLASS -->
+    <div class="mobile-tab-panel" id="mobilePanel4">
+      <div class="mobile-products">
+        <div class="mobile-product-card scroll-animate">
+          <img src="https://images.pexels.com/photos/6755056/pexels-photo-6755056.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Screen Display">
+          <div class="mobile-product-info">
+            <span class="mobile-product-tag">Display</span>
+            <h3>Screen Displays</h3>
+            <p>Original and high-quality replacement screens for all major brands.</p>
+            <div class="mobile-product-price">NPR 1,500 - 8,000</div>
+            <a href="https://wa.me/9779804335063?text=Hi!%20I%20want%20to%20buy%20Screen%20Display" target="_blank" class="primary-btn mobile-buy-btn">Buy on WhatsApp →</a>
+          </div>
+        </div>
+        <div class="mobile-product-card scroll-animate">
+          <img src="https://images.pexels.com/photos/7742507/pexels-photo-7742507.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Tempered Glass">
+          <div class="mobile-product-info">
+            <span class="mobile-product-tag">Protection</span>
+            <h3>Tempered Glass</h3>
+            <p>9H hardness tempered glass with anti-fingerprint and crystal clear display.</p>
+            <div class="mobile-product-price">NPR 150 - 500</div>
+            <a href="https://wa.me/9779804335063?text=Hi!%20I%20want%20to%20buy%20Tempered%20Glass" target="_blank" class="primary-btn mobile-buy-btn">Buy on WhatsApp →</a>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -1339,7 +1444,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 
 
-  <script src="script.js?v=10"></script>
+  <script src="script.js?v=11"></script>
 
   <!-- LOGIN SECURITY PHOTO -->
 

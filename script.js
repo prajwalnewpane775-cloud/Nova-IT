@@ -1297,6 +1297,19 @@ function switchService(index) {
 }
 
 // ==============================
+// MOBILE CENTER TABS
+// ==============================
+
+function switchMobileTab(index) {
+  document.querySelectorAll('.mobile-tab-btn').forEach(function(btn, i) {
+    btn.classList.toggle('active', i === index);
+  });
+  document.querySelectorAll('.mobile-tab-panel').forEach(function(panel, i) {
+    panel.classList.toggle('active', i === index);
+  });
+}
+
+// ==============================
 // SERVICE SUBTOPICS
 // ==============================
 

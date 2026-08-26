@@ -3686,6 +3686,63 @@ body.light .mobile-menu a:hover { color: #000; }
   padding: 100px 5% 60px;
 }
 
+.mobile-tabs {
+  display: flex;
+  gap: 8px;
+  margin-top: 30px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scrollbar-width: none;
+}
+
+.mobile-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.mobile-tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  background: #0b111b;
+  border: 1px solid #1b2433;
+  border-radius: 12px;
+  color: #7a8599;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .3s;
+  white-space: nowrap;
+  font-family: inherit;
+}
+
+.mobile-tab-btn .tab-icon {
+  font-size: 16px;
+}
+
+.mobile-tab-btn:hover {
+  border-color: #394a78;
+  color: #e2e8f0;
+}
+
+.mobile-tab-btn.active {
+  background: rgba(88,119,255,0.12);
+  border-color: #5577ff;
+  color: #8ea5ff;
+}
+
+.mobile-tab-panels {
+  position: relative;
+}
+
+.mobile-tab-panel {
+  display: none;
+}
+
+.mobile-tab-panel.active {
+  display: block;
+}
+
 .mobile-products {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -3757,6 +3814,23 @@ body.light .mobile-menu a:hover { color: #000; }
   padding: 10px;
   font-size: 13px;
   text-decoration: none;
+}
+
+.light-mode .mobile-tab-btn {
+  background: #fff;
+  border-color: #e5e7eb;
+  color: #6b7280;
+}
+
+.light-mode .mobile-tab-btn:hover {
+  border-color: #8ea5ff;
+  color: #1f2937;
+}
+
+.light-mode .mobile-tab-btn.active {
+  background: rgba(88,119,255,0.08);
+  border-color: #5577ff;
+  color: #5577ff;
 }
 
 .light-mode .mobile-product-card {
