@@ -1598,19 +1598,26 @@ async function submitReview(event) {
   status.textContent = "Submitting...";
   status.style.color = "#7188ff";
 
-  var { error } = await supabaseClient
+  var { data, error } = await supabaseClient
     .from("reviews")
     .insert({
       name: name,
       role: role || "Client",
       stars: selectedStars,
       review: text
-    });
+    })
+    .select("id");
 
   if (error) {
     status.textContent = "Failed to submit. Try again.";
     status.style.color = "#f87171";
     return;
+  }
+
+  if (data && data[0]) {
+    var myReviews = JSON.parse(localStorage.getItem("myReviews") || "[]");
+    myReviews.push(data[0].id);
+    localStorage.setItem("myReviews", JSON.stringify(myReviews));
   }
 
   status.textContent = "Review submitted! Thank you.";
@@ -1625,6 +1632,22 @@ async function submitReview(event) {
   setTimeout(function() { status.textContent = ""; }, 5000);
 }
 
+async function deleteReview(id) {
+  if (!confirm("Delete your review?")) return;
+
+  var { error } = await supabaseClient
+    .from("reviews")
+    .delete()
+    .eq("id", id);
+
+  if (!error) {
+    var myReviews = JSON.parse(localStorage.getItem("myReviews") || "[]");
+    myReviews = myReviews.filter(function(r) { return r !== id; });
+    localStorage.setItem("myReviews", JSON.stringify(myReviews));
+    loadReviews();
+  }
+}
+
 async function loadReviews() {
   var { data, error } = await supabaseClient
     .from("reviews")
@@ -1635,6 +1658,7 @@ async function loadReviews() {
   if (error || !data) return;
 
   var grid = document.getElementById("testimonialGrid");
+  var myReviews = JSON.parse(localStorage.getItem("myReviews") || "[]");
   var html = "";
 
   data.forEach(function(r) {
@@ -1642,6 +1666,8 @@ async function loadReviews() {
     var stars = "";
     for (var i = 0; i < r.stars; i++) stars += "★";
     for (var j = r.stars; j < 5; j++) stars += "☆";
+
+    var isMine = myReviews.indexOf(r.id) !== -1;
 
     html += '<div class="testimonial-card scroll-animate">';
     html += '<div class="testimonial-stars">' + stars + '</div>';
@@ -1651,7 +1677,11 @@ async function loadReviews() {
     html += '<div>';
     html += '<h4>' + r.name + '</h4>';
     html += '<span>' + r.role + '</span>';
-    html += '</div></div></div>';
+    html += '</div>';
+    if (isMine) {
+      html += '<button class="review-delete-btn" onclick="deleteReview(\'' + r.id + '\')">🗑</button>';
+    }
+    html += '</div></div>';
   });
 
   grid.innerHTML = html;
