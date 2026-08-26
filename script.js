@@ -4,6 +4,18 @@ const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_U1SiLIKfRdg7weSeLwpJwQ_lJ8WuDIu
 
 const { createClient } = supabase;
 
+function showToast(msg) {
+  var t = document.createElement("div");
+  t.className = "toast-msg";
+  t.textContent = msg;
+  document.body.appendChild(t);
+  requestAnimationFrame(function() { t.classList.add("show"); });
+  setTimeout(function() {
+    t.classList.remove("show");
+    setTimeout(function() { t.remove(); }, 400);
+  }, 3000);
+}
+
 const supabaseClient = createClient(
   SUPABASE_URL,
   SUPABASE_PUBLISHABLE_KEY
@@ -500,6 +512,8 @@ async function logoutUser() {
   }
 
   closeDashboard();
+
+  showToast("Logged out successfully!");
 
   const navLogin =
     document.querySelector(".nav-login");

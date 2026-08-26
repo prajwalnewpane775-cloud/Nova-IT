@@ -3493,6 +3493,38 @@ body.light .mobile-menu a:hover { color: #000; }
   color: #1f2937;
 }
 
+/* TOAST */
+.toast-msg {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: #1e2d44;
+  color: #4ade80;
+  border: 1px solid #2a3f5c;
+  padding: 12px 28px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  z-index: 99999;
+  opacity: 0;
+  transition: .3s ease;
+  pointer-events: none;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+}
+
+.toast-msg.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.light-mode .toast-msg {
+  background: #fff;
+  border-color: #e5e7eb;
+  color: #16a34a;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+}
+
 @media (max-width: 768px) {
   .testimonial-grid { grid-template-columns: 1fr; }
   .newsletter-form { flex-direction: column; }
