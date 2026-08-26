@@ -3135,7 +3135,7 @@ body.light .mobile-menu a:hover { color: #000; }
   font-size: 14px;
   line-height: 1.7;
   margin-bottom: 20px;
-  font-style: italic;
+  font-style: normal;
 }
 
 .testimonial-author {
