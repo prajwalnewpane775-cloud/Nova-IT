@@ -3094,3 +3094,301 @@ body.light .mobile-menu a:hover { color: #000; }
 .light-mode .team-modal-bio {
   color: #4b5563;
 }
+
+/* =========================
+   TESTIMONIALS
+========================= */
+
+.testimonials {
+  padding: 80px 7%;
+}
+
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.testimonial-card {
+  background: #0b111b;
+  border: 1px solid #1b2433;
+  border-radius: 18px;
+  padding: 30px;
+  transition: .3s;
+}
+
+.testimonial-card:hover {
+  border-color: #394a78;
+  transform: translateY(-4px);
+}
+
+.testimonial-stars {
+  color: #fbbf24;
+  font-size: 16px;
+  margin-bottom: 14px;
+}
+
+.testimonial-card > p {
+  color: #9ca3b0;
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.testimonial-author img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.testimonial-author h4 {
+  color: #fff;
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+
+.testimonial-author span {
+  color: #69758a;
+  font-size: 12px;
+}
+
+/* =========================
+   FAQ
+========================= */
+
+.faq {
+  padding: 80px 7%;
+}
+
+.faq-list {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.faq-item {
+  border: 1px solid #1b2433;
+  border-radius: 14px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  transition: .3s;
+}
+
+.faq-item:hover {
+  border-color: #394a78;
+}
+
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 22px;
+  cursor: pointer;
+  background: #0b111b;
+}
+
+.faq-question h4 {
+  margin: 0;
+  color: #c9d1df;
+  font-size: 15px;
+}
+
+.faq-toggle {
+  color: #5477ff;
+  font-size: 20px;
+  font-weight: 700;
+  transition: .3s;
+}
+
+.faq-item.open .faq-toggle {
+  transform: rotate(45deg);
+}
+
+.faq-answer {
+  display: none;
+  padding: 0 22px 18px;
+  animation: panelFadeIn .3s ease;
+}
+
+.faq-item.open .faq-answer {
+  display: block;
+}
+
+.faq-answer p {
+  color: #9ca3b0;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* =========================
+   NEWSLETTER
+========================= */
+
+.newsletter {
+  padding: 60px 7%;
+}
+
+.newsletter-box {
+  max-width: 700px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, rgba(84,119,255,.1), rgba(125,89,255,.1));
+  border: 1px solid #264080;
+  border-radius: 22px;
+  padding: 50px 40px;
+  text-align: center;
+}
+
+.newsletter-content h2 {
+  font-size: 30px;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.newsletter-content p {
+  color: #9ca3b0;
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+.newsletter-form {
+  display: flex;
+  gap: 10px;
+  max-width: 450px;
+  margin: 0 auto;
+}
+
+.newsletter-form input {
+  flex: 1;
+  padding: 14px 18px;
+  border: 1px solid #263248;
+  border-radius: 12px;
+  background: #0b111b;
+  color: #fff;
+  font-size: 14px;
+}
+
+.newsletter-form input:focus {
+  border-color: #5477ff;
+  outline: none;
+}
+
+.newsletter-status {
+  margin-top: 14px;
+  font-size: 13px;
+}
+
+/* =========================
+   BACK TO TOP
+========================= */
+
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: #5477ff;
+  color: #fff;
+  font-size: 22px;
+  font-weight: 700;
+  cursor: pointer;
+  z-index: 900;
+  opacity: 0;
+  visibility: hidden;
+  transition: .3s;
+  box-shadow: 0 8px 25px rgba(84,119,255,.4);
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.back-to-top:hover {
+  transform: translateY(-3px);
+  background: #7d59ff;
+}
+
+/* =========================
+   SCROLL ANIMATION
+========================= */
+
+.scroll-animate {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+
+.scroll-animate.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================
+   LIGHT MODE NEW SECTIONS
+========================= */
+
+.light-mode .testimonial-card {
+  background: #ffffff;
+  border-color: #e5e7eb;
+}
+
+.light-mode .testimonial-card > p {
+  color: #4b5563;
+}
+
+.light-mode .testimonial-author h4 {
+  color: #1f2937;
+}
+
+.light-mode .faq-item {
+  border-color: #e5e7eb;
+}
+
+.light-mode .faq-question {
+  background: #f8f9fa;
+}
+
+.light-mode .faq-question h4 {
+  color: #1f2937;
+}
+
+.light-mode .faq-answer p {
+  color: #4b5563;
+}
+
+.light-mode .newsletter-box {
+  background: linear-gradient(135deg, rgba(84,119,255,.06), rgba(125,89,255,.06));
+  border-color: #c7d2fe;
+}
+
+.light-mode .newsletter-content h2 {
+  color: #1f2937;
+}
+
+.light-mode .newsletter-content p {
+  color: #6b7280;
+}
+
+.light-mode .newsletter-form input {
+  background: #fff;
+  border-color: #d1d5db;
+  color: #1f2937;
+}
+
+@media (max-width: 768px) {
+  .testimonial-grid { grid-template-columns: 1fr; }
+  .newsletter-form { flex-direction: column; }
+  .newsletter-box { padding: 35px 20px; }
+}

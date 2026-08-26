@@ -1483,3 +1483,85 @@ function closeTeamModalDirect() {
   document.getElementById("teamModal").classList.add("hidden");
   document.body.classList.remove("modal-open");
 }
+
+// ==============================
+// FAQ TOGGLE
+// ==============================
+
+function toggleFaq(el) {
+  var wasOpen = el.classList.contains("open");
+  document.querySelectorAll(".faq-item").forEach(function(f) {
+    f.classList.remove("open");
+  });
+  if (!wasOpen) {
+    el.classList.add("open");
+  }
+}
+
+// ==============================
+// NEWSLETTER
+// ==============================
+
+async function handleNewsletter(event) {
+  event.preventDefault();
+  var status = document.getElementById("newsletterStatus");
+  var email = document.getElementById("newsletterEmail").value.trim();
+
+  if (!email) return;
+
+  status.textContent = "Subscribing...";
+  status.style.color = "#7188ff";
+
+  var { error } = await supabaseClient
+    .from("newsletter")
+    .insert({ email: email });
+
+  if (error) {
+    if (error.code === "23505") {
+      status.textContent = "You're already subscribed!";
+    } else {
+      status.textContent = "Failed. Try again.";
+    }
+    status.style.color = "#f87171";
+    return;
+  }
+
+  status.textContent = "Subscribed successfully!";
+  status.style.color = "#4ade80";
+  document.getElementById("newsletterEmail").value = "";
+
+  setTimeout(function() { status.textContent = ""; }, 5000);
+}
+
+// ==============================
+// BACK TO TOP
+// ==============================
+
+window.addEventListener("scroll", function() {
+  var btn = document.getElementById("backToTop");
+  if (window.scrollY > 400) {
+    btn.classList.add("visible");
+  } else {
+    btn.classList.remove("visible");
+  }
+});
+
+// ==============================
+// SCROLL ANIMATIONS
+// ==============================
+
+function initScrollAnimations() {
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll(".scroll-animate").forEach(function(el) {
+    observer.observe(el);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", initScrollAnimations);

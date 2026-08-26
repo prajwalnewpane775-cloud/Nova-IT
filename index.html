@@ -783,8 +783,134 @@
   </div>
 </section>
 
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="section-heading">
+    <div class="mini-label">TESTIMONIALS</div>
+    <h2>What clients <span>say.</span></h2>
+    <p>Real feedback from the people we've worked with.</p>
+  </div>
+  <div class="testimonial-grid">
+    <div class="testimonial-card scroll-animate">
+      <div class="testimonial-stars">★★★★★</div>
+      <p>"NovaIT transformed our business with a stunning website. Their team was professional, fast and delivered beyond expectations."</p>
+      <div class="testimonial-author">
+        <img src="https://placehold.co/50x50/1e2d44/8ea5ff?text=R" alt="Rajan">
+        <div>
+          <h4>Rajan Sharma</h4>
+          <span>CEO, NepalTech Solutions</span>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card scroll-animate">
+      <div class="testimonial-stars">★★★★★</div>
+      <p>"The mobile app they built for us is smooth, beautiful and our customers love it. Best investment we've made this year."</p>
+      <div class="testimonial-author">
+        <img src="https://placehold.co/50x50/1e2d44/8ea5ff?text=S" alt="Sita">
+        <div>
+          <h4>Sita Gurung</h4>
+          <span>Founder, GreenMart</span>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card scroll-animate">
+      <div class="testimonial-stars">★★★★★</div>
+      <p>"Their cybersecurity audit saved us from a potential data breach. Highly recommend NovaIT for any security concerns."</p>
+      <div class="testimonial-author">
+        <img src="https://placehold.co/50x50/1e2d44/8ea5ff?text=A" alt="Amit">
+        <div>
+          <h4>Amit Thapa</h4>
+          <span>CTO, SecureBank Nepal</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <!-- AUTH MODAL -->
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="section-heading">
+    <div class="mini-label">FAQ</div>
+    <h2>Frequently asked <span>questions.</span></h2>
+    <p>Got questions? We've got answers.</p>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item scroll-animate" onclick="toggleFaq(this)">
+      <div class="faq-question">
+        <h4>What services does NovaIT offer?</h4>
+        <span class="faq-toggle">+</span>
+      </div>
+      <div class="faq-answer">
+        <p>We offer web development, mobile app development, UI/UX design, cybersecurity, cloud infrastructure and AI solutions. Our team handles everything from concept to deployment.</p>
+      </div>
+    </div>
+    <div class="faq-item scroll-animate" onclick="toggleFaq(this)">
+      <div class="faq-question">
+        <h4>How much does it cost to build a website?</h4>
+        <span class="faq-toggle">+</span>
+      </div>
+      <div class="faq-answer">
+        <p>Costs vary based on requirements. A simple website starts at NPR 25,000 while complex web applications can range from NPR 100,000+. Contact us for a free quote tailored to your needs.</p>
+      </div>
+    </div>
+    <div class="faq-item scroll-animate" onclick="toggleFaq(this)">
+      <div class="faq-question">
+        <h4>How long does it take to complete a project?</h4>
+        <span class="faq-toggle">+</span>
+      </div>
+      <div class="faq-answer">
+        <p>A basic website takes 1-2 weeks. Mobile apps and complex platforms take 4-8 weeks. We provide a detailed timeline after understanding your project requirements.</p>
+      </div>
+    </div>
+    <div class="faq-item scroll-animate" onclick="toggleFaq(this)">
+      <div class="faq-question">
+        <h4>Do you provide ongoing support after launch?</h4>
+        <span class="faq-toggle">+</span>
+      </div>
+      <div class="faq-answer">
+        <p>Yes! We offer maintenance packages including bug fixes, security updates, feature additions and performance monitoring. Our team is always just a message away.</p>
+      </div>
+    </div>
+    <div class="faq-item scroll-animate" onclick="toggleFaq(this)">
+      <div class="faq-question">
+        <h4>Is my data safe with NovaIT?</h4>
+        <span class="faq-toggle">+</span>
+      </div>
+      <div class="faq-answer">
+        <p>Absolutely. We follow industry-standard security practices including encrypted data storage, secure authentication, regular backups and compliance with data protection regulations.</p>
+      </div>
+    </div>
+    <div class="faq-item scroll-animate" onclick="toggleFaq(this)">
+      <div class="faq-question">
+        <h4>Can I get a custom solution for my business?</h4>
+        <span class="faq-toggle">+</span>
+      </div>
+      <div class="faq-answer">
+        <p>Yes! Every project we take on is custom-built to match your specific business needs. We don't use templates — we craft solutions from scratch using the best technologies for your use case.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter" id="newsletter">
+  <div class="newsletter-box scroll-animate">
+    <div class="newsletter-content">
+      <h2>Stay in the <span>loop.</span></h2>
+      <p>Get the latest tech insights, tips and updates from NovaIT delivered straight to your inbox.</p>
+    </div>
+    <form class="newsletter-form" onsubmit="handleNewsletter(event)">
+      <input type="email" id="newsletterEmail" placeholder="Enter your email" required>
+      <button type="submit" class="primary-btn">Subscribe</button>
+    </form>
+    <p class="newsletter-status" id="newsletterStatus"></p>
+  </div>
+</section>
+
+<!-- BACK TO TOP -->
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<!-- AUTH MODAL -->
 
   <div class="modal hidden" id="authModal">
 
