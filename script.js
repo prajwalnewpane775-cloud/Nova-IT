@@ -1137,6 +1137,20 @@ function switchService(index) {
 }
 
 // ==============================
+// SERVICE SUBTOPICS
+// ==============================
+
+function toggleSubtopic(el) {
+  var wasOpen = el.classList.contains("open");
+  el.parentElement.querySelectorAll(".panel-subtopic").forEach(function(s) {
+    s.classList.remove("open");
+  });
+  if (!wasOpen) {
+    el.classList.add("open");
+  }
+}
+
+// ==============================
 // SERVICE DETAIL MODAL
 // ==============================
 
