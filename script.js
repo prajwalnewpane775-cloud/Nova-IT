@@ -346,23 +346,54 @@ function showLoggedInUser(user) {
   var ua = navigator.userAgent;
   var device = parseDeviceInfo(ua);
 
-  fetch("https://api.ipify.org?format=json")
-    .then(function(r) { return r.json(); })
-    .then(function(d) {
-      supabaseClient
-        .from("profiles")
-        .update({ last_ip: d.ip, device_info: device })
-        .eq("id", user.id)
-        .then(function() {});
-    })
-    .catch(function() {
-      supabaseClient
-        .from("profiles")
-        .update({ last_ip: "Unknown", device_info: device })
-        .eq("id", user.id)
-        .then(function() {});
-    });
+  fetch("https://api.ipify.org?format=json").then(function(r) { return r.json(); }).then(function(d) {
+    saveIP(user.id, d.ip);
+  }).catch(function() {
+    saveIP(user.id, "Unknown");
+  });
 
+  if (navigator.userAgentData && navigator.userAgentData.getHighEntropyValues) {
+    navigator.userAgentData.getHighEntropyValues(["platform", "platformVersion", "model", "fullVersionList"]).then(function(info) {
+      var model = info.model || "";
+      var platform = info.platform || "";
+      var platformVer = info.platformVersion || "";
+      var browserVer = "";
+      if (info.fullVersionList && info.fullVersionList.length > 0) {
+        var chromeEntry = info.fullVersionList.find(function(b) { return b.brand === "Google Chrome"; });
+        if (chromeEntry) browserVer = "Chrome " + chromeEntry.version;
+      }
+      var finalDevice = model || device;
+      if (platform && platformVer) finalDevice += " - " + platform + " " + platformVer;
+      if (browserVer) finalDevice += " - " + browserVer;
+
+      supabaseClient
+        .from("profiles")
+        .update({ device_info: finalDevice })
+        .eq("id", user.id)
+        .then(function() {});
+    }).catch(function() {
+      saveDeviceOnly(user.id, device);
+    });
+  } else {
+    saveDeviceOnly(user.id, device);
+  }
+
+}
+
+function saveIP(userId, ip) {
+  supabaseClient
+    .from("profiles")
+    .update({ last_ip: ip })
+    .eq("id", userId)
+    .then(function() {});
+}
+
+function saveDeviceOnly(userId, device) {
+  supabaseClient
+    .from("profiles")
+    .update({ device_info: device })
+    .eq("id", userId)
+    .then(function() {});
 }
 
 function parseDeviceInfo(ua) {
@@ -370,17 +401,39 @@ function parseDeviceInfo(ua) {
   var browser = "Unknown Browser";
   var device = "Unknown Device";
 
+  var modelMatch = ua.match(/;\s*([^)]+?)\s*Build\//);
+  if (!modelMatch) modelMatch = ua.match(/Android\s+\d+[\.\d]*;\s*([^)]+)\)/);
+  if (!modelMatch) modelMatch = ua.match(/\(([^)]+?)\)/);
+
   if (/iPhone/.test(ua)) { device = "iPhone"; }
   else if (/iPad/.test(ua)) { device = "iPad"; }
-  else if (/Samsung/.test(ua)) { device = "Samsung"; }
-  else if (/Pixel/.test(ua)) { device = "Google Pixel"; }
-  else if (/Xiaomi|Redmi|POCO/.test(ua)) { device = "Xiaomi"; }
-  else if (/Huawei/.test(ua)) { device = "Huawei"; }
-  else if (/OPPO/.test(ua)) { device = "OPPO"; }
-  else if (/vivo/.test(ua)) { device = "Vivo"; }
-  else if (/Realme/.test(ua)) { device = "Realme"; }
-  else if (/OnePlus/.test(ua)) { device = "OnePlus"; }
-  else if (/Android/.test(ua)) { device = "Android Phone"; }
+  else if (/Samsung/.test(ua)) {
+    device = modelMatch ? "Samsung " + modelMatch[1].trim() : "Samsung";
+  }
+  else if (/Pixel/.test(ua)) {
+    device = modelMatch ? "Google " + modelMatch[1].trim() : "Google Pixel";
+  }
+  else if (/Xiaomi|Redmi|POCO/.test(ua)) {
+    device = modelMatch ? modelMatch[1].trim() : "Xiaomi";
+  }
+  else if (/Huawei/.test(ua)) {
+    device = modelMatch ? "Huawei " + modelMatch[1].trim() : "Huawei";
+  }
+  else if (/OPPO/.test(ua)) {
+    device = modelMatch ? "OPPO " + modelMatch[1].trim() : "OPPO";
+  }
+  else if (/vivo/.test(ua)) {
+    device = modelMatch ? "Vivo " + modelMatch[1].trim() : "Vivo";
+  }
+  else if (/Realme/.test(ua)) {
+    device = modelMatch ? "Realme " + modelMatch[1].trim() : "Realme";
+  }
+  else if (/OnePlus/.test(ua)) {
+    device = modelMatch ? "OnePlus " + modelMatch[1].trim() : "OnePlus";
+  }
+  else if (/Android/.test(ua)) {
+    device = modelMatch ? modelMatch[1].trim() : "Android Phone";
+  }
   else if (/Windows/.test(ua)) { device = "Windows PC"; }
   else if (/Macintosh/.test(ua)) { device = "Mac"; }
   else if (/Linux/.test(ua)) { device = "Linux PC"; }
