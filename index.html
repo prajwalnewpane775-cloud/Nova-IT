@@ -167,7 +167,10 @@
                 <span class="panel-tag">01 — FOUNDATION</span>
               </div>
             </div>
-            <p>Learn and explore modern technologies shaping the digital world. From web development to mobile applications, master the tools that power today's digital landscape.</p>
+            <div class="panel-content">
+              <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=300&fit=crop" alt="Digital Technology" class="panel-hero-img">
+              <p>Learn and explore modern technologies shaping the digital world. From web development to mobile applications, master the tools that power today's digital landscape.</p>
+            </div>
             <div class="panel-features">
               <div class="panel-feature">Web Development</div>
               <div class="panel-feature">Mobile Apps</div>
@@ -176,6 +179,7 @@
               <div class="panel-feature">API Integration</div>
               <div class="panel-feature">Responsive Design</div>
             </div>
+            <button class="service-learn-btn" onclick="openServiceModal(0)">Learn More →</button>
           </div>
 
           <div class="service-tab-panel" id="servicePanel1">
@@ -186,7 +190,10 @@
                 <span class="panel-tag">02 — PROTECTION</span>
               </div>
             </div>
-            <p>Understand digital security, privacy and responsible technology. Protect systems and data from modern cyber threats with industry-standard practices.</p>
+            <div class="panel-content">
+              <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&h=300&fit=crop" alt="Cyber Security" class="panel-hero-img">
+              <p>Understand digital security, privacy and responsible technology. Protect systems and data from modern cyber threats with industry-standard practices.</p>
+            </div>
             <div class="panel-features">
               <div class="panel-feature">Network Security</div>
               <div class="panel-feature">Ethical Hacking</div>
@@ -195,6 +202,7 @@
               <div class="panel-feature">Security Audits</div>
               <div class="panel-feature">Privacy Compliance</div>
             </div>
+            <button class="service-learn-btn" onclick="openServiceModal(1)">Learn More →</button>
           </div>
 
           <div class="service-tab-panel" id="servicePanel2">
@@ -205,7 +213,10 @@
                 <span class="panel-tag">03 — INFRASTRUCTURE</span>
               </div>
             </div>
-            <p>Discover databases, cloud platforms and modern application infrastructure. Scale your applications with reliable cloud solutions.</p>
+            <div class="panel-content">
+              <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&h=300&fit=crop" alt="Cloud Systems" class="panel-hero-img">
+              <p>Discover databases, cloud platforms and modern application infrastructure. Scale your applications with reliable cloud solutions.</p>
+            </div>
             <div class="panel-features">
               <div class="panel-feature">AWS / Azure</div>
               <div class="panel-feature">Databases</div>
@@ -214,6 +225,7 @@
               <div class="panel-feature">CI/CD Pipelines</div>
               <div class="panel-feature">Server Management</div>
             </div>
+            <button class="service-learn-btn" onclick="openServiceModal(2)">Learn More →</button>
           </div>
 
           <div class="service-tab-panel" id="servicePanel3">
@@ -224,7 +236,10 @@
                 <span class="panel-tag">04 — INTELLIGENCE</span>
               </div>
             </div>
-            <p>Explore intelligent systems and the future of AI-powered applications. Build smart solutions using machine learning and automation.</p>
+            <div class="panel-content">
+              <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=300&fit=crop" alt="Artificial Intelligence" class="panel-hero-img">
+              <p>Explore intelligent systems and the future of AI-powered applications. Build smart solutions using machine learning and automation.</p>
+            </div>
             <div class="panel-features">
               <div class="panel-feature">Machine Learning</div>
               <div class="panel-feature">Deep Learning</div>
@@ -233,9 +248,35 @@
               <div class="panel-feature">Data Science</div>
               <div class="panel-feature">Automation</div>
             </div>
+            <button class="service-learn-btn" onclick="openServiceModal(3)">Learn More →</button>
           </div>
 
         </div>
+
+<!-- SERVICE DETAIL MODAL -->
+<div class="service-modal hidden" id="serviceModal" onclick="closeServiceModal(event)">
+  <div class="service-modal-box">
+    <button class="service-modal-close" onclick="closeServiceModalDirect()">&times;</button>
+    <img class="service-modal-img" id="serviceModalImg" src="" alt="">
+    <div class="service-modal-body">
+      <div class="service-modal-tag" id="serviceModalTag"></div>
+      <h2 class="service-modal-title" id="serviceModalTitle"></h2>
+      <p class="service-modal-desc" id="serviceModalDesc"></p>
+      <div class="service-modal-section">
+        <h3>What We Do</h3>
+        <p id="serviceModalWhat"></p>
+      </div>
+      <div class="service-modal-section">
+        <h3>Technologies We Use</h3>
+        <div class="service-modal-tags" id="serviceModalTech"></div>
+      </div>
+      <div class="service-modal-section">
+        <h3>Why Choose NovaIT?</h3>
+        <p id="serviceModalWhy"></p>
+      </div>
+    </div>
+  </div>
+</div>
 
       </div>
 

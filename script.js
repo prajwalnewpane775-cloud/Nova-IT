@@ -1137,6 +1137,82 @@ function switchService(index) {
 }
 
 // ==============================
+// SERVICE DETAIL MODAL
+// ==============================
+
+var serviceData = [
+  {
+    title: "Digital Technology",
+    tag: "01 — FOUNDATION",
+    img: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=700&h=350&fit=crop",
+    desc: "We build cutting-edge digital solutions that power modern businesses. From responsive websites to native mobile apps, our team delivers end-to-end digital products.",
+    what: "NovaIT specializes in creating custom web applications, mobile apps, and digital platforms. We use modern frameworks like React, Next.js, Flutter and Node.js to build fast, scalable products. Our process covers ideation, design, development, testing and deployment — all under one roof.",
+    tech: ["React", "Next.js", "Flutter", "Node.js", "TypeScript", "Tailwind CSS", "PostgreSQL", "REST APIs"],
+    why: "Nepal's digital landscape is growing fast. NovaIT brings world-class development standards to local businesses. We don't just write code — we craft digital experiences that drive growth, engagement and revenue for our clients."
+  },
+  {
+    title: "Cyber Security",
+    tag: "02 — PROTECTION",
+    img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=700&h=350&fit=crop",
+    desc: "Protecting your digital assets is our top priority. We implement industry-standard security practices to safeguard your data, applications and infrastructure.",
+    what: "Our security team conducts thorough vulnerability assessments, penetration testing and security audits. We implement encryption, multi-factor authentication, intrusion detection systems and compliance frameworks. Every product we build has security baked in from day one.",
+    tech: ["SSL/TLS", "OAuth 2.0", "WAF", "Penetration Testing", "AES Encryption", "OWASP", "SIEM", "Zero Trust"],
+    why: "Cyber attacks are increasing every year in Nepal and globally. NovaIT ensures your business is protected with proactive security measures. We stay ahead of threats so you can focus on growth without worrying about data breaches."
+  },
+  {
+    title: "Cloud Systems",
+    tag: "03 — INFRASTRUCTURE",
+    img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=700&h=350&fit=crop",
+    desc: "Scalable, reliable and secure cloud infrastructure for your applications. We design systems that grow with your business.",
+    what: "NovaIT designs and manages cloud infrastructure on AWS, Google Cloud and Azure. We handle server setup, database management, CI/CD pipelines, containerization with Docker & Kubernetes, and automated deployments. Our DevOps practices ensure 99.9% uptime.",
+    tech: ["AWS", "Google Cloud", "Docker", "Kubernetes", "GitHub Actions", "PostgreSQL", "Redis", "Nginx"],
+    why: "Moving to the cloud reduces costs, improves performance and enables remote access. NovaIT helps Nepali businesses transition to cloud-first architecture with minimal downtime and maximum efficiency."
+  },
+  {
+    title: "Artificial Intelligence",
+    tag: "04 — INTELLIGENCE",
+    img: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=700&h=350&fit=crop",
+    desc: "Building smart solutions powered by AI and machine learning. Automate processes, gain insights and make data-driven decisions.",
+    what: "Our AI team builds custom machine learning models, natural language processing systems, computer vision solutions and recommendation engines. From chatbots to predictive analytics, we bring AI capabilities to real-world business problems in Nepal.",
+    tech: ["Python", "TensorFlow", "PyTorch", "OpenAI API", "Hugging Face", "Pandas", "Scikit-learn", "LangChain"],
+    why: "AI is transforming every industry. NovaIT makes artificial intelligence accessible to Nepali businesses. Whether it's automating customer support, analyzing data or building intelligent products — we make AI work for you."
+  }
+];
+
+function openServiceModal(index) {
+  var s = serviceData[index];
+  var modal = document.getElementById("serviceModal");
+
+  document.getElementById("serviceModalImg").src = s.img;
+  document.getElementById("serviceModalTag").textContent = s.tag;
+  document.getElementById("serviceModalTitle").textContent = s.title;
+  document.getElementById("serviceModalDesc").textContent = s.desc;
+  document.getElementById("serviceModalWhat").textContent = s.what;
+  document.getElementById("serviceModalWhy").textContent = s.why;
+
+  var techHtml = "";
+  s.tech.forEach(function(t) {
+    techHtml += '<span class="service-modal-tag-item">' + t + '</span>';
+  });
+  document.getElementById("serviceModalTech").innerHTML = techHtml;
+
+  modal.classList.remove("hidden");
+  document.body.classList.add("modal-open");
+}
+
+function closeServiceModal(event) {
+  if (event.target === event.currentTarget) {
+    document.getElementById("serviceModal").classList.add("hidden");
+    document.body.classList.remove("modal-open");
+  }
+}
+
+function closeServiceModalDirect() {
+  document.getElementById("serviceModal").classList.add("hidden");
+  document.body.classList.remove("modal-open");
+}
+
+// ==============================
 // SECURITY SECTION
 // ==============================
 
