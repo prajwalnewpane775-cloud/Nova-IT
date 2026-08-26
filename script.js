@@ -676,6 +676,17 @@ async function saveProfile() {
   alert("Profile updated successfully!");
 }
 
+function togglePassVisibility(btn) {
+  var input = btn.previousElementSibling;
+  if (input.type === "password") {
+    input.type = "text";
+    btn.textContent = "🙈";
+  } else {
+    input.type = "password";
+    btn.textContent = "👁";
+  }
+}
+
 async function changePassword() {
   const current = document.getElementById("currentPassword").value;
   const newPass = document.getElementById("newPassword").value;
