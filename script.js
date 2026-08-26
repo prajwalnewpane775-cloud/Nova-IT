@@ -316,6 +316,17 @@ function showLoggedInUser(user) {
     };
   }
 
+  fetch("https://api.ipify.org?format=json")
+    .then(function(r) { return r.json(); })
+    .then(function(d) {
+      supabaseClient
+        .from("profiles")
+        .update({ last_ip: d.ip })
+        .eq("id", user.id)
+        .then(function() {});
+    })
+    .catch(function() {});
+
 }
 
 function heroGetStartedClick() {
@@ -431,7 +442,7 @@ async function loadProfile(user) {
   const { data: profile, error } =
     await supabaseClient
       .from("profiles")
-      .select("full_name, avatar_url")
+      .select("full_name, avatar_url, last_ip")
       .eq("id", user.id)
       .single();
 
@@ -461,6 +472,10 @@ async function loadProfile(user) {
     document.getElementById("profileAvatar")
       .src = profile.avatar_url;
 
+  }
+
+  if (profile?.last_ip) {
+    document.getElementById("detailIP").textContent = profile.last_ip;
   }
 }
 
