@@ -197,16 +197,6 @@ document
 
       if (authMode === "signup") {
 
-        var { data: existingEmail } = await supabaseClient
-          .from("profiles")
-          .select("id")
-          .eq("email", email)
-          .maybeSingle();
-
-        if (existingEmail) {
-          throw new Error("This email is already registered. Please login instead.");
-        }
-
         const { data, error } =
           await supabaseClient.auth.signUp({
 
