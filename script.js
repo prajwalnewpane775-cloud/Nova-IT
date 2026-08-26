@@ -1151,6 +1151,77 @@ function toggleSubtopic(el) {
 }
 
 // ==============================
+// BLOG MODAL
+// ==============================
+
+var blogData = [
+  {
+    title: "The Future of AI in Nepal",
+    tag: "AI",
+    img: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=400&fit=crop",
+    meta: "Aug 15, 2026 • 5 min read",
+    text: `<p>Artificial Intelligence is no longer a futuristic concept — it is here, transforming businesses across Nepal. From smart chatbots handling customer queries to automated data analysis helping businesses make better decisions, AI is reshaping how companies operate.</p>
+    <p>In Nepal, industries like banking, healthcare, agriculture and education are beginning to adopt AI-powered solutions. Banks use AI for fraud detection and credit scoring. Hospitals are exploring AI-assisted diagnostics. Agricultural startups are using satellite imagery and machine learning to predict crop yields.</p>
+    <p>At NovaIT, we believe AI should be accessible to every Nepali business, not just large corporations. That is why we build affordable, custom AI solutions tailored to local needs. Whether it is a chatbot for your restaurant, a recommendation engine for your e-commerce store or predictive analytics for your supply chain — we make AI work for you.</p>
+    <p>The key challenges for AI adoption in Nepal include limited data availability, lack of AI talent and infrastructure constraints. However, these challenges also present opportunities. Nepali businesses that invest in AI early will have a significant competitive advantage as the technology matures.</p>
+    <p>Our advice? Start small. Identify one repetitive task in your business that takes too much time. Automate it with AI. Measure the results. Then expand. This incremental approach minimizes risk while delivering real value.</p>`
+  },
+  {
+    title: "Cyber Security Tips for Businesses",
+    tag: "Security",
+    img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&h=400&fit=crop",
+    meta: "Aug 10, 2026 • 7 min read",
+    text: `<p>Cyber attacks are increasing every year, and Nepali businesses are not immune. In 2025 alone, hundreds of websites and databases in Nepal were compromised. The good news? Most attacks can be prevented with basic security practices.</p>
+    <p><strong>1. Use Strong, Unique Passwords:</strong> Never reuse passwords across accounts. Use a password manager like Bitwarden or 1Password. Enable two-factor authentication (2FA) on every account that supports it.</p>
+    <p><strong>2. Keep Software Updated:</strong> Outdated software is the number one attack vector. Enable automatic updates for your operating system, browsers and applications. Patch your servers regularly.</p>
+    <p><strong>3. Train Your Team:</strong> Human error causes over 90% of security breaches. Train your employees to recognize phishing emails, suspicious links and social engineering attacks. Run regular security awareness sessions.</p>
+    <p><strong>4. Backup Your Data:</strong> Follow the 3-2-1 backup rule: 3 copies of your data, on 2 different media types, with 1 stored offsite. Test your backups regularly to ensure they can be restored.</p>
+    <p><strong>5. Implement SSL and HTTPS:</strong> Every website should use HTTPS. SSL certificates encrypt data between your users and your server, protecting sensitive information from interception.</p>
+    <p><strong>6. Monitor and Audit:</strong> Set up monitoring for unusual activity. Review access logs regularly. Conduct periodic security audits to identify and fix vulnerabilities before attackers find them.</p>
+    <p>At NovaIT, security is not an afterthought — it is built into every product we create. From secure coding practices to production monitoring, we ensure your digital assets are protected.</p>`
+  },
+  {
+    title: "Why Your Business Needs Cloud",
+    tag: "Cloud",
+    img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=400&fit=crop",
+    meta: "Aug 5, 2026 • 4 min read",
+    text: `<p>Cloud computing has revolutionized how businesses operate. Instead of buying and maintaining expensive servers, you can now rent computing power on demand. This shift has made technology accessible to businesses of all sizes, including startups in Nepal.</p>
+    <p><strong>Cost Savings:</strong> Cloud infrastructure eliminates upfront hardware costs. You pay only for what you use. A small business can start with just NPR 5,000 per month and scale up as it grows.</p>
+    <p><strong>Scalability:</strong> Need more resources during a sale? Scale up in minutes. Traffic dropped? Scale down and save. Cloud platforms like AWS, Google Cloud and Azure make this flexibility possible.</p>
+    <p><strong>Reliability:</strong> Cloud providers guarantee 99.9% uptime with built-in redundancy. Your data is replicated across multiple data centers, so even if one server fails, your application stays online.</p>
+    <p><strong>Security:</strong> Major cloud providers invest billions in security. They offer encryption, firewalls, DDoS protection and compliance certifications that most businesses cannot afford to implement on their own.</p>
+    <p><strong>Remote Access:</strong> Cloud-based tools can be accessed from anywhere with an internet connection. This is essential for remote teams and multi-location businesses.</p>
+    <p><strong>Getting Started:</strong> Start by migrating one application or service to the cloud. Use managed services to reduce operational complexity. At NovaIT, we help Nepali businesses plan and execute their cloud migration with minimal disruption and maximum benefit.</p>`
+  }
+];
+
+function openBlogModal(index) {
+  var b = blogData[index];
+  var modal = document.getElementById("blogModal");
+
+  document.getElementById("blogModalImg").src = b.img;
+  document.getElementById("blogModalTag").textContent = b.tag;
+  document.getElementById("blogModalTitle").textContent = b.title;
+  document.getElementById("blogModalMeta").textContent = b.meta;
+  document.getElementById("blogModalText").innerHTML = b.text;
+
+  modal.classList.remove("hidden");
+  document.body.classList.add("modal-open");
+}
+
+function closeBlogModal(event) {
+  if (event.target === event.currentTarget) {
+    document.getElementById("blogModal").classList.add("hidden");
+    document.body.classList.remove("modal-open");
+  }
+}
+
+function closeBlogModalDirect() {
+  document.getElementById("blogModal").classList.add("hidden");
+  document.body.classList.remove("modal-open");
+}
+
+// ==============================
 // SERVICE DETAIL MODAL
 // ==============================
 

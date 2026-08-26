@@ -584,36 +584,36 @@
     <p>Stay updated with the latest in technology.</p>
   </div>
   <div class="blog-grid">
-    <div class="blog-card">
-      <img src="https://placehold.co/600x300/0c121d/8ea5ff?text=AI+Future" alt="Blog">
+    <div class="blog-card" onclick="openBlogModal(0)">
+      <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=300&fit=crop" alt="AI Future">
       <div class="blog-content">
         <span class="blog-tag">AI</span>
-        <h3>The Future of AI in 2026</h3>
-        <p>Explore how artificial intelligence is shaping the next generation of technology.</p>
+        <h3>The Future of AI in Nepal</h3>
+        <p>Explore how artificial intelligence is shaping businesses in Nepal and what it means for the tech industry.</p>
         <div class="blog-meta">
           <span>Aug 15, 2026</span>
           <span>5 min read</span>
         </div>
       </div>
     </div>
-    <div class="blog-card">
-      <img src="https://placehold.co/600x300/0c121d/8ea5ff?text=Cyber+Security" alt="Blog">
+    <div class="blog-card" onclick="openBlogModal(1)">
+      <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&h=300&fit=crop" alt="Cyber Security">
       <div class="blog-content">
         <span class="blog-tag">Security</span>
-        <h3>Cyber Security Best Practices</h3>
-        <p>Learn how to protect your digital assets in an increasingly connected world.</p>
+        <h3>Cyber Security Tips for Businesses</h3>
+        <p>Essential security practices every Nepali business should implement to protect against online threats.</p>
         <div class="blog-meta">
           <span>Aug 10, 2026</span>
           <span>7 min read</span>
         </div>
       </div>
     </div>
-    <div class="blog-card">
-      <img src="https://placehold.co/600x300/0c121d/8ea5ff?text=Cloud" alt="Blog">
+    <div class="blog-card" onclick="openBlogModal(2)">
+      <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&h=300&fit=crop" alt="Cloud Computing">
       <div class="blog-content">
         <span class="blog-tag">Cloud</span>
-        <h3>Cloud Computing Guide</h3>
-        <p>A beginner's guide to understanding cloud platforms and modern infrastructure.</p>
+        <h3>Why Your Business Needs Cloud</h3>
+        <p>A practical guide to moving your business to the cloud and reducing costs while improving performance.</p>
         <div class="blog-meta">
           <span>Aug 5, 2026</span>
           <span>4 min read</span>
@@ -622,6 +622,20 @@
     </div>
   </div>
 </section>
+
+<!-- BLOG DETAIL MODAL -->
+<div class="blog-modal hidden" id="blogModal" onclick="closeBlogModal(event)">
+  <div class="blog-modal-box">
+    <button class="blog-modal-close" onclick="closeBlogModalDirect()">&times;</button>
+    <img class="blog-modal-img" id="blogModalImg" src="" alt="">
+    <div class="blog-modal-body">
+      <div class="blog-modal-tag" id="blogModalTag"></div>
+      <h2 class="blog-modal-title" id="blogModalTitle"></h2>
+      <div class="blog-modal-meta" id="blogModalMeta"></div>
+      <div class="blog-modal-text" id="blogModalText"></div>
+    </div>
+  </div>
+</div>
 
   <!-- SECURITY / ACCOUNT SECTION -->
 
