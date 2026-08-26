@@ -1462,7 +1462,7 @@ var teamMembers = [
     location: "Kathmandu, Nepal",
     exp: "17+ Years",
     speciality: "Full Stack Development & Sports Cinematography",
-    bio: "Seasoned developer with 17+ years of experience building scalable web applications and modern tech stacks. Also a passionate sports cameraman capturing dynamic visuals. Drives the core development at NovaIT with clean, efficient code.",
+    bio: "With over 17 years in the industry, Nick is a seasoned full stack developer and an acclaimed sports cameraman. He has covered live matches, tournaments and sporting events, capturing high-energy moments with precision. His deep understanding of motion, timing and visual storytelling translates directly into building fast, dynamic web applications. At NovaIT, he combines his technical expertise with his eye for detail to deliver world-class digital products.",
     facebook: "https://www.facebook.com/nickbista3"
   },
   {
