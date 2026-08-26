@@ -2931,7 +2931,8 @@ body.light .mobile-menu a:hover { color: #000; }
 
   #securityCamera,
   #securityPhotoPreview {
-    max-height: 200px;
+    max-height: none;
+    aspect-ratio: 4/3;
   }
 }
 
