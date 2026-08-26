@@ -568,8 +568,12 @@ async function loadProfile(user) {
 async function loadAdminUsers() {
   var { data, error } = await supabaseClient
     .from("profiles")
-    .select("id, full_name, avatar_url, last_ip, device_info, created_at")
+    .select("id, full_name, avatar_url, last_ip, created_at")
     .order("created_at", { ascending: false });
+
+  if (error) {
+    console.log("Admin query error:", error);
+  }
 
   if (error || !data) return;
 
