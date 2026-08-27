@@ -209,10 +209,6 @@ document
       return;
     }
 
-    const button =
-      document.getElementById("authButton");
-
-
     message.textContent = "";
 
     button.disabled = true;
