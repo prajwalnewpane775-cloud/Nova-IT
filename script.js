@@ -90,6 +90,12 @@ function switchAuth() {
     ? "signup"
     : "login";
 
+  var msg = document.getElementById("authMessage");
+  if (msg) {
+    msg.textContent = "";
+    msg.classList.remove("error", "success");
+  }
+
   updateAuthUI();
 }
 
@@ -181,6 +187,31 @@ document
     const button =
       document.getElementById("authButton");
 
+    message.textContent = "";
+
+    if (!email) {
+      showAuthMessage(message, "Please enter your email address.", "error");
+      return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      showAuthMessage(message, "Please enter a valid email address.", "error");
+      return;
+    }
+
+    if (authMode === "signup" && fullName.length < 2) {
+      showAuthMessage(message, "Please enter your full name.", "error");
+      return;
+    }
+
+    if (password.length < 6) {
+      showAuthMessage(message, "Password must be at least 6 characters.", "error");
+      return;
+    }
+
+    const button =
+      document.getElementById("authButton");
+
 
     message.textContent = "";
 
@@ -225,6 +256,8 @@ document
 
         message.textContent =
           "Account created! Check your email to verify your account.";
+        message.classList.remove("error");
+        message.classList.add("success");
 
         document
           .getElementById("authForm")
@@ -261,6 +294,8 @@ document
 
 message.textContent =
   "Login successful!";
+message.classList.remove("error");
+message.classList.add("success");
 
 setTimeout(() => {
 
@@ -275,8 +310,7 @@ setTimeout(() => {
 
     } catch (error) {
 
-      message.textContent =
-        error.message;
+      showAuthMessage(message, error.message, "error");
 
     }
 
@@ -290,6 +324,12 @@ setTimeout(() => {
 
   });
 
+
+function showAuthMessage(el, text, type) {
+  el.textContent = text;
+  el.classList.remove("error", "success");
+  el.classList.add(type);
+}
 
 // ==============================
 // SHOW LOGGED-IN USER
@@ -1901,6 +1941,30 @@ function initScrollAnimations() {
   document.querySelectorAll(".scroll-animate").forEach(function(el) {
     observer.observe(el);
   });
+
+  var statsObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (!entry.isIntersecting) return;
+      var stat = entry.target;
+      statsObserver.unobserve(stat);
+      var target = parseInt(stat.getAttribute("data-count"), 10) || 0;
+      var start = 0;
+      var duration = 1200;
+      var startTime = null;
+      function step(ts) {
+        if (!startTime) startTime = ts;
+        var progress = Math.min((ts - startTime) / duration, 1);
+        var value = Math.floor(progress * target);
+        stat.textContent = value.toLocaleString();
+        if (progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll(".feature-stat strong[data-count]").forEach(function(el) {
+    statsObserver.observe(el);
+  });
 }
 
 document.addEventListener("DOMContentLoaded", initScrollAnimations);
@@ -2030,3 +2094,53 @@ async function loadReviews() {
 }
 
 document.addEventListener("DOMContentLoaded", loadReviews);
+
+// ==============================
+// LEGAL MODALS
+// ==============================
+
+function openLegal(type) {
+  var title = document.getElementById("legalTitle");
+  var content = document.getElementById("legalContent");
+  var modal = document.getElementById("legalModal");
+
+  if (type === "terms") {
+    title.textContent = "Terms of Service";
+    content.innerHTML = termsContent;
+  } else {
+    title.textContent = "Privacy Policy";
+    content.innerHTML = privacyContent;
+  }
+
+  modal.classList.remove("hidden");
+  document.body.classList.add("modal-open");
+}
+
+function closeLegal() {
+  document.getElementById("legalModal").classList.add("hidden");
+  document.body.classList.remove("modal-open");
+}
+
+var privacyContent = `
+  <h3>1. Information We Collect</h3>
+  <p>We collect your <strong>name, email address</strong> and basic device information (device model, browser, operating system and IP address) when you create an account or interact with our platform.</p>
+  <h3>2. How We Use Your Data</h3>
+  <p>Your information is used to provide account services, secure your session, display your profile and improve our platform experience. IP addresses and device details help us maintain platform security.</p>
+  <h3>3. Data Storage</h3>
+  <p>All data is securely stored using Supabase, which encrypts information in transit and at rest. Your password is hashed and never stored in plain text.</p>
+  <h3>4. Your Rights</h3>
+  <p>You can request to view, update or delete your personal data at any time by contacting <strong>prajwalnewpane775@gmail.com</strong> or calling <strong>+977 9804335063</strong>.</p>
+`;
+
+var termsContent = `
+  <h3>1. Acceptance of Terms</h3>
+  <p>By accessing NovaIT, you agree to these Terms of Service and our Privacy Policy. If you do not agree, please do not use the platform.</p>
+  <h3>2. Account Responsibilities</h3>
+  <p>You are responsible for keeping your login credentials secure and for all activity under your account. Never share your password with others.</p>
+  <h3>3. Acceptable Use</h3>
+  <p>You may not misuse the platform, attempt unauthorized access, upload harmful content or interfere with other users' experience.</p>
+  <h3>4. Purchases via Brothers Mobile Center</h3>
+  <p>Orders placed through our WhatsApp ordering system are subject to product availability and confirmation by our team.</p>
+  <h3>5. Contact</h3>
+  <p>For questions about these terms, contact <strong>prajwalnewpane775@gmail.com</strong> or <strong>+977 9804335063</strong>.</p>
+`;

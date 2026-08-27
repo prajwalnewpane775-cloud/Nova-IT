@@ -120,6 +120,69 @@
     </section>
 
 
+    <!-- PREMIUM FEATURES -->
+    <section class="features" id="features">
+
+      <div class="section-heading">
+        <div class="mini-label">WHY NOVAIT</div>
+        <h2>Built for the <span>modern digital age.</span></h2>
+        <p>Everything you need in one secure platform — designed for speed, scale and total control.</p>
+      </div>
+
+      <div class="features-grid">
+
+        <div class="feature-card" onclick="this.classList.toggle('active')">
+          <div class="feature-icon">⚡</div>
+          <h3>Lightning Speed</h3>
+          <p>Optimized infrastructure delivering instant load times and smooth interactions on any device.</p>
+          <span class="feature-more">Explore →</span>
+        </div>
+
+        <div class="feature-card" onclick="this.classList.toggle('active')">
+          <div class="feature-icon">🛡️</div>
+          <h3>Bank-Level Security</h3>
+          <p>End-to-end encryption, secure authentication and continuous monitoring keep your data safe.</p>
+          <span class="feature-more">Explore →</span>
+        </div>
+
+        <div class="feature-card" onclick="this.classList.toggle('active')">
+          <div class="feature-icon">📊</div>
+          <h3>Real-Time Analytics</h3>
+          <p>Track users, devices and activity with live dashboards built for smart decision-making.</p>
+          <span class="feature-more">Explore →</span>
+        </div>
+
+        <div class="feature-card" onclick="this.classList.toggle('active')">
+          <div class="feature-icon">☁️</div>
+          <h3>Cloud Powered</h3>
+          <p>Supabase-backed storage and authentication that scales automatically with your growth.</p>
+          <span class="feature-more">Explore →</span>
+        </div>
+
+      </div>
+
+      <div class="feature-stats">
+        <div class="feature-stat">
+          <strong data-count="500">0</strong>
+          <span>Security checks passed</span>
+        </div>
+        <div class="feature-stat">
+          <strong data-count="247">0</strong>
+          <span>24/7 platform uptime</span>
+        </div>
+        <div class="feature-stat">
+          <strong data-count="100">0</strong>
+          <span>Client satisfaction %</span>
+        </div>
+        <div class="feature-stat">
+          <strong data-count="4">0</strong>
+          <span>Core service pillars</span>
+        </div>
+      </div>
+
+    </section>
+
+
     <!-- SERVICES -->
     <section class="services" id="services">
 
@@ -738,10 +801,9 @@
       ✓ PROTECTED
     </div>
 
-  </div>
+</div>
 
-</section>
-
+    </section>
 <!-- BROTHERS MOBILE CENTER -->
 <section class="mobile-center" id="mobilecenter" style="display:none">
   <div class="section-heading">
@@ -1445,7 +1507,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 
 
-  <script src="script.js?v=36"></script>
+  <script src="script.js?v=37"></script>
 
   <!-- LOGIN SECURITY PHOTO -->
 
@@ -1527,7 +1589,48 @@
 </div>
 <!-- FOOTER -->
 <footer class="site-footer">
-  <p>&copy; 2026 NovaIT. All rights reserved.</p>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="logo">
+        <div class="logo-icon">N</div>
+        <span>Nova<span>IT</span></span>
+      </div>
+      <p>Next-generation IT platform built for the modern digital age — secure, fast and always evolving.</p>
+    </div>
+    <div class="footer-links">
+      <h4>Company</h4>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#team">Team</a>
+      <a href="#blog">Blog</a>
+    </div>
+    <div class="footer-links">
+      <h4>Support</h4>
+      <a href="#contact">Contact</a>
+      <a href="#faq">FAQ</a>
+      <a href="javascript:void(0)" onclick="openLegal('privacy')">Privacy Policy</a>
+      <a href="javascript:void(0)" onclick="openLegal('terms')">Terms of Service</a>
+    </div>
+    <div class="footer-links">
+      <h4>Connect</h4>
+      <a href="#mobilecenter">Mobile Center</a>
+      <a href="https://wa.me/9779804335063" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="mailto:prajwalnewpane775@gmail.com">Email Us</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 NovaIT. All rights reserved. Made in Nepal 🇳🇵</p>
+  </div>
 </footer>
+
+<!-- LEGAL MODAL -->
+<div class="modal hidden" id="legalModal" onclick="if(event.target===this)closeLegal()">
+  <div class="legal-box" onclick="event.stopPropagation()">
+    <button class="dash-close" onclick="closeLegal()">&times;</button>
+    <span class="section-tag">NOVAIT</span>
+    <h2 id="legalTitle">Privacy Policy</h2>
+    <div id="legalContent" class="legal-content"></div>
+  </div>
+</div>
 </body>
 </html>
