@@ -994,36 +994,10 @@ body.modal-open {
   width: min(420px, 100%);
   padding: 40px;
   position: relative;
-  overflow: hidden;
   border: 1px solid #263248;
   border-radius: 22px;
-  background: rgba(12, 18, 29, 0.88);
+  background: #0c121d;
   box-shadow: 0 40px 100px rgba(0,0,0,.6);
-}
-
-.auth-bg {
-  position: absolute;
-  inset: 0;
-  background-image: url("https://zffruusmcezndbjskkyi.supabase.co/storage/v1/object/public/team-photo/prajwal.jpg");
-  background-size: cover;
-  background-position: center 20%;
-  z-index: 0;
-}
-
-.auth-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(7,11,18,.82) 0%, rgba(7,11,18,.72) 40%, rgba(12,18,29,.95) 100%);
-  z-index: 1;
-}
-
-.auth-box > *:not(.auth-bg):not(.auth-overlay) {
-  position: relative;
-  z-index: 2;
-}
-
-body.light .auth-overlay {
-  background: linear-gradient(180deg, rgba(255,255,255,.78) 0%, rgba(255,255,255,.68) 40%, rgba(255,255,255,.95) 100%);
 }
 
 .auth-box.slide-from-top {
