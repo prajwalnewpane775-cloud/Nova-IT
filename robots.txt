@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://prajwalnewpane775-cloud.github.io/Nova-IT/sitemap.xml

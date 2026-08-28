@@ -4337,6 +4337,128 @@ body.light .legal-content h3 { color: #1a1a2e; }
   background: #f9fafb;
 }
 
+/* ADMIN STATS */
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.admin-stat-card {
+  background: #111c2c;
+  border: 1px solid #1e2d44;
+  border-radius: 14px;
+  padding: 16px;
+  text-align: center;
+  transition: .2s;
+}
+
+.admin-stat-card:hover {
+  border-color: #5477ff;
+  transform: translateY(-2px);
+}
+
+.admin-stat-icon {
+  font-size: 22px;
+  margin-bottom: 6px;
+}
+
+.admin-stat-value {
+  font-size: 26px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.admin-stat-label {
+  font-size: 11px;
+  color: #8899b0;
+  margin-top: 2px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+/* ADMIN TABS */
+.admin-tabs {
+  display: flex;
+  gap: 8px;
+  margin-top: 18px;
+  flex-wrap: wrap;
+}
+
+.admin-tab {
+  padding: 9px 16px;
+  border: 1px solid #1e2d44;
+  border-radius: 10px;
+  background: #111c2c;
+  color: #8899b0;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.admin-tab:hover {
+  border-color: #5477ff;
+  color: #dbe4f5;
+}
+
+.admin-tab.active {
+  background: linear-gradient(135deg, #5477ff, #6d5cff);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 6px 16px rgba(84,119,255,.3);
+}
+
+.admin-btn-danger {
+  padding: 6px 12px;
+  border: 1px solid rgba(239,68,68,.35);
+  border-radius: 8px;
+  background: rgba(239,68,68,.1);
+  color: #f87171;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.admin-btn-danger:hover {
+  background: rgba(239,68,68,.25);
+}
+
+.admin-rating {
+  color: #fbbf24;
+}
+
+body.light .admin-stat-card {
+  background: #ffffff;
+  border-color: #e3e8f1;
+}
+
+body.light .admin-stat-card:hover {
+  border-color: #5477ff;
+}
+
+body.light .admin-stat-value { color: #1a1a2e; }
+body.light .admin-stat-label { color: #718096; }
+
+body.light .admin-tab {
+  background: #ffffff;
+  border-color: #e3e8f1;
+  color: #5a6a86;
+}
+
+body.light .admin-tab.active {
+  color: #fff;
+  border-color: transparent;
+}
+
+@media (max-width: 600px) {
+  .admin-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 768px) {
   .testimonial-grid { grid-template-columns: 1fr; }
   .newsletter-form { flex-direction: column; }

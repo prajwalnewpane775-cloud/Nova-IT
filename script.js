@@ -172,6 +172,15 @@ document
 
     event.preventDefault();
 
+    const message =
+      document.getElementById("authMessage");
+
+    const loginGate = rateLimitLogin();
+    if (loginGate) {
+      showAuthMessage(message, loginGate, "error");
+      return;
+    }
+
     const email =
       document.getElementById("email").value.trim();
 
@@ -180,9 +189,6 @@ document
 
     const fullName =
       document.getElementById("fullName").value.trim();
-
-    const message =
-      document.getElementById("authMessage");
 
     const button =
       document.getElementById("authButton");
@@ -298,6 +304,8 @@ message.textContent =
 message.classList.remove("error");
 message.classList.add("success");
 
+localStorage.removeItem("novaLoginFails");
+
 setTimeout(() => {
 
   closeAuth();
@@ -308,6 +316,10 @@ setTimeout(() => {
 
 
     } catch (error) {
+
+      if (authMode === "login") {
+        recordFailedLogin();
+      }
 
       showAuthMessage(message, error.message, "error");
 
@@ -322,6 +334,45 @@ setTimeout(() => {
         : "Sign In";
 
   });
+
+
+function rateLimitLogin() {
+  var stored = localStorage.getItem("novaLoginLock");
+  if (!stored) return null;
+
+  try {
+    var data = JSON.parse(stored);
+    if (data.waitUntil && Date.now() < data.waitUntil) {
+      var mins = Math.max(1, Math.ceil((data.waitUntil - Date.now()) / 60000));
+      return "Too many attempts. Try again in " + mins + " min.";
+    }
+    localStorage.removeItem("novaLoginLock");
+  } catch (e) {}
+
+  return null;
+}
+
+function recordFailedLogin() {
+  var now = Date.now();
+  var count = 1;
+  var windowStart = now;
+
+  try {
+    var prev = JSON.parse(localStorage.getItem("novaLoginFails") || "null");
+    if (prev && now - prev.windowStart < 10 * 60000) {
+      count = prev.count + 1;
+      windowStart = prev.windowStart;
+    }
+  } catch (e) {}
+
+  if (count >= 5) {
+    localStorage.setItem("novaLoginLock", JSON.stringify({ waitUntil: now + 10 * 60000 }));
+    localStorage.removeItem("novaLoginFails");
+    return;
+  }
+
+  localStorage.setItem("novaLoginFails", JSON.stringify({ count: count, windowStart: windowStart }));
+}
 
 
 function showAuthMessage(el, text, type) {
@@ -655,21 +706,37 @@ async function loadProfile(user) {
   if (user.email === "prajwalnewpane775@gmail.com") {
     document.getElementById("adminSection").style.display = "";
     loadAdminUsers();
+    loadAdminMessages();
+    loadAdminNews();
+    loadAdminReviews();
   }
 }
 
 async function loadAdminUsers() {
   var { data, error } = await supabaseClient
     .from("profiles")
-    .select("id, full_name, avatar_url, last_ip, device_info, last_login")
+    .select("id, email, full_name, avatar_url, last_ip, device_info, last_login")
     .order("last_login", { ascending: false, nullsFirst: false });
 
   if (error || !data) return;
 
   var tbody = document.getElementById("adminUserTable");
 
-    if (data.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#9ca3af">No users found</td></tr>';
+  var statsUsers = document.getElementById("statUsers");
+  if (statsUsers) statsUsers.textContent = data.length;
+
+  var today = new Date().toDateString();
+  var todayCount = 0;
+  data.forEach(function(u) {
+    if (u.last_login && new Date(u.last_login).toDateString() === today) {
+      todayCount++;
+    }
+  });
+  var statsToday = document.getElementById("statToday");
+  if (statsToday) statsToday.textContent = todayCount;
+
+  if (data.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#9ca3af">No users found</td></tr>';
     return;
   }
 
@@ -680,6 +747,10 @@ async function loadAdminUsers() {
     var device = u.device_info || "—";
     var lastSeen = u.last_login ? new Date(u.last_login).toLocaleString() : "—";
     var initials = name.charAt(0).toUpperCase();
+    var isAdmin = u.email === "prajwalnewpane775@gmail.com";
+    var delBtn = isAdmin
+      ? '<span style="font-size:11px;color:#55637a">Owner</span>'
+      : '<button type="button" class="admin-btn-danger" onclick="deleteAdminUser(\'' + u.id + '\')">Delete</button>';
 
     html += '<tr>';
     html += '<td><div style="display:flex;align-items:center;gap:8px">';
@@ -690,6 +761,181 @@ async function loadAdminUsers() {
     html += '<td style="font-size:12px;color:#8ea5ff">' + device + '</td>';
     html += '<td><span class="ip-badge">' + ip + '</span></td>';
     html += '<td style="font-size:12px;color:#9ca3af">' + lastSeen + '</td>';
+    html += '<td>' + delBtn + '</td>';
+    html += '</tr>';
+  });
+
+  tbody.innerHTML = html;
+}
+
+async function deleteAdminUser(userId) {
+  if (!confirm("Delete this user's profile? This cannot be undone.")) return;
+
+  var { error } = await supabaseClient
+    .from("profiles")
+    .delete()
+    .eq("id", userId);
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+
+  showToast("User deleted");
+  loadAdminUsers();
+}
+
+function switchAdminTab(name) {
+  document.querySelectorAll(".admin-tab").forEach(function(btn) {
+    btn.classList.toggle("active", btn.getAttribute("data-tab") === name);
+  });
+  document.querySelectorAll(".admin-tab-panel").forEach(function(panel) {
+    panel.classList.toggle("hidden", panel.id !== "adminTab-" + name);
+  });
+
+  if (name === "messages") loadAdminMessages();
+  if (name === "newsletter") loadAdminNews();
+  if (name === "reviews") loadAdminReviews();
+  if (name === "whatsapp") loadAdminWhatsApp();
+}
+
+async function loadAdminWhatsApp() {
+  var { data, error } = await supabaseClient
+    .from("whatsapp_clicks")
+    .select("id, product, ip, user_agent, created_at")
+    .order("created_at", { ascending: false })
+    .limit(50);
+
+  var tbody = document.getElementById("adminWhatsAppTable");
+  if (!tbody) return;
+
+  if (error) {
+    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:#f87171">' + error.message + '</td></tr>';
+    return;
+  }
+
+  if (!data || data.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:#9ca3af">No WhatsApp clicks yet</td></tr>';
+    return;
+  }
+
+  var html = "";
+  data.forEach(function(c) {
+    var date = c.created_at ? new Date(c.created_at).toLocaleString() : "—";
+    html += '<tr>';
+    html += '<td style="color:#8ea5ff">' + (c.product || "general") + '</td>';
+    html += '<td><span class="ip-badge">' + (c.ip || "—") + '</span></td>';
+    html += '<td style="font-size:12px;max-width:220px;color:#9ca3af">' + (c.user_agent || "—").substring(0, 60) + '</td>';
+    html += '<td style="font-size:12px;color:#9ca3af">' + date + '</td>';
+    html += '</tr>';
+  });
+
+  tbody.innerHTML = html;
+}
+
+async function loadAdminMessages() {
+  var { data, error } = await supabaseClient
+    .from("messages")
+    .select("id, name, email, message, created_at")
+    .order("created_at", { ascending: false });
+
+  var tbody = document.getElementById("adminMessagesTable");
+  if (!tbody) return;
+
+  if (error || !data) {
+    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:#f87171">' + (error ? error.message : "No data") + '</td></tr>';
+    return;
+  }
+
+  var statMessages = document.getElementById("statMessages");
+  if (statMessages) statMessages.textContent = data.length;
+
+  if (data.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:#9ca3af">No messages</td></tr>';
+    return;
+  }
+
+  var html = "";
+  data.forEach(function(m) {
+    var date = m.created_at ? new Date(m.created_at).toLocaleString() : "—";
+    html += '<tr>';
+    html += '<td>' + (m.name || "—") + '</td>';
+    html += '<td style="color:#9ca3af;font-size:12px">' + (m.email || "—") + '</td>';
+    html += '<td style="font-size:12px;max-width:260px">' + (m.message || "—") + '</td>';
+    html += '<td style="font-size:12px;color:#9ca3af">' + date + '</td>';
+    html += '</tr>';
+  });
+
+  tbody.innerHTML = html;
+}
+
+async function loadAdminNews() {
+  var { data, error } = await supabaseClient
+    .from("newsletter")
+    .select("id, email, created_at")
+    .order("created_at", { ascending: false });
+
+  var tbody = document.getElementById("adminNewsTable");
+  if (!tbody) return;
+
+  if (error || !data) {
+    tbody.innerHTML = '<tr><td colspan="2" style="text-align:center;color:#f87171">' + (error ? error.message : "No data") + '</td></tr>';
+    return;
+  }
+
+  var statNews = document.getElementById("statNews");
+  if (statNews) statNews.textContent = data.length;
+
+  if (data.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="2" style="text-align:center;color:#9ca3af">No subscribers</td></tr>';
+    return;
+  }
+
+  var html = "";
+  data.forEach(function(n) {
+    var date = n.created_at ? new Date(n.created_at).toLocaleString() : "—";
+    html += '<tr>';
+    html += '<td style="color:#8ea5ff;font-size:12px">' + n.email + '</td>';
+    html += '<td style="font-size:12px;color:#9ca3af">' + date + '</td>';
+    html += '</tr>';
+  });
+
+  tbody.innerHTML = html;
+}
+
+async function loadAdminReviews() {
+  var { data, error } = await supabaseClient
+    .from("reviews")
+    .select("id, name, stars, review, created_at")
+    .order("created_at", { ascending: false });
+
+  var tbody = document.getElementById("adminReviewsTable");
+  if (!tbody) return;
+
+  if (error || !data) {
+    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:#f87171">' + (error ? error.message : "No data") + '</td></tr>';
+    return;
+  }
+
+  if (data.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:#9ca3af">No reviews</td></tr>';
+    return;
+  }
+
+  var stars = function(r) {
+    var s = "";
+    for (var i = 0; i < 5; i++) s += i < r ? "★" : "☆";
+    return s;
+  };
+
+  var html = "";
+  data.forEach(function(rv) {
+    var date = rv.created_at ? new Date(rv.created_at).toLocaleString() : "—";
+    html += '<tr>';
+    html += '<td>' + (rv.name || "—") + '</td>';
+    html += '<td class="admin-rating">' + stars(rv.stars || 0) + '</td>';
+    html += '<td style="font-size:12px;max-width:280px">' + (rv.review || "—") + '</td>';
+    html += '<td style="font-size:12px;color:#9ca3af">' + date + '</td>';
     html += '</tr>';
   });
 
@@ -1662,6 +1908,48 @@ function clearSiteData() {
   settingsSetTheme(false);
   showToast("Site data cleared");
 }
+
+// ==============================
+// WHATSAPP CLICK TRACKING
+// ==============================
+
+function trackWhatsAppClick(product) {
+  var payload = {
+    product: product || "general",
+    user_agent: navigator.userAgent || ""
+  };
+
+  fetch("https://api.ipify.org?format=json")
+    .then(function(r) { return r.json(); })
+    .then(function(d) { payload.ip = d.ip; logWhatsAppClick(payload); })
+    .catch(function() { payload.ip = "Unknown"; logWhatsAppClick(payload); });
+}
+
+function logWhatsAppClick(payload) {
+  supabaseClient
+    .from("whatsapp_clicks")
+    .insert([payload])
+    .then(function(res) {
+      if (res && res.error) console.log("Tracking skipped:", res.error.message);
+    })
+    .catch(function(e) { console.log("Tracking skipped:", e.message); });
+}
+
+document.addEventListener("click", function(e) {
+  var anchor = e.target.closest('a[href*="wa.me"]');
+  if (!anchor) return;
+
+  var text = (anchor.textContent || "").trim();
+  var product = anchor.getAttribute("data-product");
+  if (!product) {
+    var m = (anchor.getAttribute("href") || "").match(/buy%20([^&]+)/i);
+    if (m) product = decodeURIComponent(m[1].replace(/\+/g, " "));
+  }
+  if (!product && text) {
+    product = text.replace(/[^\w\s]/g, "").trim().substring(0, 40) || "general";
+  }
+  trackWhatsAppClick(product || "general");
+});
 
 // ==============================
 // CONTACT FORM
