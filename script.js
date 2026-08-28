@@ -297,8 +297,6 @@ setTimeout(() => {
 
   closeAuth();
 
-  securityVerifiedUserId = null;
-
   openSecurityPhoto();
 
 }, 700);
@@ -334,13 +332,6 @@ function showAuthMessage(el, text, type) {
 // ==============================
 
 function showLoggedInUser(user) {
-
-  if (securityVerifiedUserId !== user.id) {
-
-    openSecurityPhoto();
-    return;
-
-  }
 
   const navLogin =
     document.querySelector(".nav-login");
@@ -523,10 +514,6 @@ supabaseClient.auth.onAuthStateChange(
 
     if (session) {
 
-      if (event === "SIGNED_IN") {
-        securityVerifiedUserId = null;
-      }
-
       showLoggedInUser(session.user);
 
     }
@@ -572,16 +559,6 @@ async function openDashboard() {
   if (!user) {
     openAuth("login");
     return;
-  }
-
-  if (securityVerifiedUserId !== user.id) {
-
-    closeAuth();
-
-    openSecurityPhoto();
-
-    return;
-
   }
 
   document.getElementById("profileAvatar").src = "https://placehold.co/90x90/111827/8ea5ff?text=N";
@@ -757,8 +734,6 @@ async function logoutUser() {
   }
 
   closeDashboard();
-
-  securityVerifiedUserId = null;
 
   showToast("Logged out successfully!");
 
@@ -1092,38 +1067,17 @@ async function forgotPassword() {
 
 let securityStream = null;
 let securityPhotoBlob = null;
-let securityCameraStarting = false;
-let securityModalOpen = false;
-let securityVerifiedUserId = null;
 
 
 // OPEN SECURITY PHOTO
 function openSecurityPhoto() {
-
-  if (securityModalOpen) return;
-
-  securityModalOpen = true;
 
   const modal =
     document.getElementById("securityPhotoModal");
 
   modal.classList.remove("hidden");
 
-  const video = document.getElementById("securityCamera");
-  video.classList.remove("hidden");
-
-  document.getElementById("securityCanvas").classList.add("hidden");
-  document.getElementById("securityPreview").classList.add("hidden");
   document.getElementById("securityPhotoMessage").textContent = "";
-
-  document.getElementById("startCameraBtn").classList.remove("hidden");
-  document.getElementById("capturePhotoBtn").classList.add("hidden");
-  document.getElementById("retakePhotoBtn").classList.add("hidden");
-  document.getElementById("continueSecurityBtn").classList.add("hidden");
-
-  securityPhotoBlob = null;
-
-  stopSecurityCamera();
 
   startSecurityCamera();
 }
@@ -1132,10 +1086,6 @@ function openSecurityPhoto() {
 // START CAMERA
 async function startSecurityCamera() {
 
-  if (securityCameraStarting) return;
-
-  securityCameraStarting = true;
-
   const video =
     document.getElementById("securityCamera");
 
@@ -1143,8 +1093,6 @@ async function startSecurityCamera() {
     document.getElementById("securityPhotoMessage");
 
   try {
-
-    stopSecurityCamera();
 
     securityStream =
       await navigator.mediaDevices.getUserMedia({
@@ -1175,8 +1123,6 @@ async function startSecurityCamera() {
       "Camera permission is required to continue.";
 
   }
-
-  securityCameraStarting = false;
 }
 
 
@@ -1271,10 +1217,6 @@ function retakeSecurityPhoto() {
     .getElementById("capturePhotoBtn")
     .classList.remove("hidden");
 
-  document
-    .getElementById("securityCamera")
-    .classList.remove("hidden");
-
   startSecurityCamera();
 }
 
@@ -1346,9 +1288,6 @@ async function continueAfterSecurityPhoto() {
     .getElementById("securityPhotoModal")
     .classList.add("hidden");
 
-  securityModalOpen = false;
-
-  securityVerifiedUserId = user.id;
 
   // GO TO HOME PAGE
   showLoggedInUser(user);
@@ -1358,25 +1297,8 @@ async function continueAfterSecurityPhoto() {
 }
 
 
-// FORCE FRESH PAGE ON TAB REOPEN / REFRESH
-window.addEventListener("pageshow", function (event) {
-  if (event.persisted) {
-    window.location.reload();
-  }
-});
-
-window.addEventListener("beforeunload", function () {
-  securityVerifiedUserId = null;
-  securityModalOpen = false;
-  stopSecurityCamera();
-});
-
-
 // STOP CAMERA
 function stopSecurityCamera() {
-
-  const video = document.getElementById("securityCamera");
-  if (video) video.srcObject = null;
 
   if (securityStream) {
 
