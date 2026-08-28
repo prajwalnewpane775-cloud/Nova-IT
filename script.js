@@ -297,7 +297,7 @@ setTimeout(() => {
 
   closeAuth();
 
-  sessionStorage.removeItem("novait_security_verified");
+  securityVerifiedUserId = null;
 
   openSecurityPhoto();
 
@@ -335,7 +335,7 @@ function showAuthMessage(el, text, type) {
 
 function showLoggedInUser(user) {
 
-  if (sessionStorage.getItem("novait_security_verified") !== user.id) {
+  if (securityVerifiedUserId !== user.id) {
 
     openSecurityPhoto();
     return;
@@ -524,7 +524,7 @@ supabaseClient.auth.onAuthStateChange(
     if (session) {
 
       if (event === "SIGNED_IN") {
-        sessionStorage.removeItem("novait_security_verified");
+        securityVerifiedUserId = null;
       }
 
       showLoggedInUser(session.user);
@@ -574,9 +574,7 @@ async function openDashboard() {
     return;
   }
 
-  if (sessionStorage.getItem("novait_security_verified") !== user.id) {
-
-    sessionStorage.removeItem("novait_security_verified");
+  if (securityVerifiedUserId !== user.id) {
 
     closeAuth();
 
@@ -760,8 +758,7 @@ async function logoutUser() {
 
   closeDashboard();
 
-  localStorage.removeItem("novait_security_pending");
-  sessionStorage.removeItem("novait_security_verified");
+  securityVerifiedUserId = null;
 
   showToast("Logged out successfully!");
 
@@ -1097,6 +1094,7 @@ let securityStream = null;
 let securityPhotoBlob = null;
 let securityCameraStarting = false;
 let securityModalOpen = false;
+let securityVerifiedUserId = null;
 
 
 // OPEN SECURITY PHOTO
@@ -1350,9 +1348,7 @@ async function continueAfterSecurityPhoto() {
 
   securityModalOpen = false;
 
-  localStorage.removeItem("novait_security_pending");
-
-  sessionStorage.setItem("novait_security_verified", user.id);
+  securityVerifiedUserId = user.id;
 
   // GO TO HOME PAGE
   showLoggedInUser(user);
