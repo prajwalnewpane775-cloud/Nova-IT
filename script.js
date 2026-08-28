@@ -333,6 +333,13 @@ function showAuthMessage(el, text, type) {
 
 function showLoggedInUser(user) {
 
+  if (securityVerifiedUserId !== user.id) {
+
+    openSecurityPhoto();
+    return;
+
+  }
+
   const navLogin =
     document.querySelector(".nav-login");
 
@@ -514,6 +521,10 @@ supabaseClient.auth.onAuthStateChange(
 
     if (session) {
 
+      if (event === "SIGNED_IN") {
+        securityVerifiedUserId = null;
+      }
+
       showLoggedInUser(session.user);
 
     }
@@ -559,6 +570,16 @@ async function openDashboard() {
   if (!user) {
     openAuth("login");
     return;
+  }
+
+  if (securityVerifiedUserId !== user.id) {
+
+    closeAuth();
+
+    openSecurityPhoto();
+
+    return;
+
   }
 
   document.getElementById("profileAvatar").src = "https://placehold.co/90x90/111827/8ea5ff?text=N";
@@ -734,6 +755,9 @@ async function logoutUser() {
   }
 
   closeDashboard();
+
+  securityVerifiedUserId = null;
+  securityModalOpen = false;
 
   showToast("Logged out successfully!");
 
@@ -1067,10 +1091,16 @@ async function forgotPassword() {
 
 let securityStream = null;
 let securityPhotoBlob = null;
+let securityVerifiedUserId = null;
+let securityModalOpen = false;
 
 
 // OPEN SECURITY PHOTO
 function openSecurityPhoto() {
+
+  if (securityModalOpen) return;
+
+  securityModalOpen = true;
 
   const modal =
     document.getElementById("securityPhotoModal");
@@ -1288,6 +1318,9 @@ async function continueAfterSecurityPhoto() {
     .getElementById("securityPhotoModal")
     .classList.add("hidden");
 
+  securityModalOpen = false;
+
+  securityVerifiedUserId = user.id;
 
   // GO TO HOME PAGE
   showLoggedInUser(user);
@@ -1300,6 +1333,9 @@ async function continueAfterSecurityPhoto() {
 // STOP CAMERA
 function stopSecurityCamera() {
 
+  const video = document.getElementById("securityCamera");
+  if (video) video.srcObject = null;
+
   if (securityStream) {
 
     securityStream
@@ -1311,6 +1347,13 @@ function stopSecurityCamera() {
   }
 
 }
+
+// FORCE FRESH PAGE ON TAB REOPEN / BACK
+window.addEventListener("pageshow", function (event) {
+  if (event.persisted) {
+    window.location.reload();
+  }
+});
 // ==============================
 // LOADER
 // ==============================
