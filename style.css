@@ -3024,7 +3024,7 @@ body.light .setting-block input[type="password"] {
   .settings-sidebar {
     border-right: none;
     border-bottom: 1px solid #1e2d44;
-    padding: 12px 14px;
+    padding: 12px 52px 12px 14px;
     display: flex;
     align-items: center;
     gap: 10px;
