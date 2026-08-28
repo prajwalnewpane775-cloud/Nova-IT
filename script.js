@@ -574,6 +574,18 @@ async function openDashboard() {
     return;
   }
 
+  if (sessionStorage.getItem("novait_security_verified") !== user.id) {
+
+    sessionStorage.removeItem("novait_security_verified");
+
+    closeAuth();
+
+    openSecurityPhoto();
+
+    return;
+
+  }
+
   document.getElementById("profileAvatar").src = "https://placehold.co/90x90/111827/8ea5ff?text=N";
   document.getElementById("profileName").textContent = "Loading...";
   document.getElementById("profileEmail").textContent = "";
@@ -1094,6 +1106,14 @@ function openSecurityPhoto() {
   modal.classList.remove("hidden");
 
   document.getElementById("securityPhotoMessage").textContent = "";
+
+  document.getElementById("securityPreview").classList.add("hidden");
+  document.getElementById("startCameraBtn").classList.remove("hidden");
+  document.getElementById("capturePhotoBtn").classList.add("hidden");
+  document.getElementById("retakePhotoBtn").classList.add("hidden");
+  document.getElementById("continueSecurityBtn").classList.add("hidden");
+
+  securityPhotoBlob = null;
 
   startSecurityCamera();
 }
