@@ -297,6 +297,8 @@ setTimeout(() => {
 
   closeAuth();
 
+  localStorage.setItem("novait_security_pending", "1");
+
   openSecurityPhoto();
 
 }, 700);
@@ -332,6 +334,13 @@ function showAuthMessage(el, text, type) {
 // ==============================
 
 function showLoggedInUser(user) {
+
+  if (localStorage.getItem("novait_security_pending") === "1") {
+
+    openSecurityPhoto();
+    return;
+
+  }
 
   const navLogin =
     document.querySelector(".nav-login");
@@ -513,6 +522,10 @@ supabaseClient.auth.onAuthStateChange(
   (event, session) => {
 
     if (session) {
+
+      if (event === "SIGNED_IN") {
+        localStorage.setItem("novait_security_pending", "1");
+      }
 
       showLoggedInUser(session.user);
 
@@ -734,6 +747,8 @@ async function logoutUser() {
   }
 
   closeDashboard();
+
+  localStorage.removeItem("novait_security_pending");
 
   showToast("Logged out successfully!");
 
@@ -1288,6 +1303,7 @@ async function continueAfterSecurityPhoto() {
     .getElementById("securityPhotoModal")
     .classList.add("hidden");
 
+  localStorage.removeItem("novait_security_pending");
 
   // GO TO HOME PAGE
   showLoggedInUser(user);
