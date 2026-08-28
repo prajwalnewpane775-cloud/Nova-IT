@@ -2014,6 +2014,35 @@ function switchService(index) {
 }
 
 // ==============================
+// FEATURE CARDS (WHY NOVAIT)
+// ==============================
+
+function toggleFeature(card) {
+  var wasOpen = card.classList.contains("active");
+  document.querySelectorAll(".feature-card.active").forEach(function(c) {
+    c.classList.remove("active");
+  });
+  if (!wasOpen) {
+    card.classList.add("active");
+  }
+}
+
+function featureAction(btn, action) {
+  if (action === "open-dashboard" || action === "open-admin") {
+    openDashboard();
+    return;
+  }
+  if (action === "open-login") {
+    openAuth("login");
+    return;
+  }
+  if (action === "open-signup") {
+    openAuth("signup");
+    return;
+  }
+}
+
+// ==============================
 // MOBILE CENTER TABS
 // ==============================
 

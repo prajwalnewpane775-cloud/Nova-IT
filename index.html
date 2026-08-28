@@ -29,7 +29,7 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="apple-touch-icon" href="favicon.svg">
 
-  <link rel="stylesheet" href="style.css?v=62">
+  <link rel="stylesheet" href="style.css?v=63">
 </head>
 
 <body>
@@ -155,32 +155,64 @@
 
       <div class="features-grid">
 
-        <div class="feature-card" onclick="this.classList.toggle('active')">
+        <div class="feature-card" onclick="toggleFeature(this)">
           <div class="feature-icon">⚡</div>
           <h3>Lightning Speed</h3>
           <p>Optimized infrastructure delivering instant load times and smooth interactions on any device.</p>
           <span class="feature-more">Explore →</span>
+          <div class="feature-detail">
+            <ul>
+              <li>CDN-served assets with cache-busted updates</li>
+              <li>Lazy-loaded images and deferred scripts</li>
+              <li>Single-page experience with zero reloads</li>
+            </ul>
+            <button class="feature-action" onclick="event.stopPropagation(); featureAction(this,'open-dashboard')">Open Dashboard</button>
+          </div>
         </div>
 
-        <div class="feature-card" onclick="this.classList.toggle('active')">
+        <div class="feature-card" onclick="toggleFeature(this)">
           <div class="feature-icon">🛡️</div>
           <h3>Bank-Level Security</h3>
           <p>End-to-end encryption, secure authentication and continuous monitoring keep your data safe.</p>
           <span class="feature-more">Explore →</span>
+          <div class="feature-detail">
+            <ul>
+              <li>Supabase-managed email &amp; password auth</li>
+              <li>Per-account lockout after repeated failed logins</li>
+              <li>Row-level security protects every profile</li>
+            </ul>
+            <button class="feature-action" onclick="event.stopPropagation(); featureAction(this,'open-signup')">Create Secure Account</button>
+          </div>
         </div>
 
-        <div class="feature-card" onclick="this.classList.toggle('active')">
+        <div class="feature-card" onclick="toggleFeature(this)">
           <div class="feature-icon">📊</div>
           <h3>Real-Time Analytics</h3>
           <p>Track users, devices and activity with live dashboards built for smart decision-making.</p>
           <span class="feature-more">Explore →</span>
+          <div class="feature-detail">
+            <ul>
+              <li>Latest login recorded for every account</li>
+              <li>WhatsApp order clicks logged live</li>
+              <li>Admin panel with user, review &amp; message stats</li>
+            </ul>
+            <button class="feature-action" onclick="event.stopPropagation(); featureAction(this,'open-admin')">View Admin Panel</button>
+          </div>
         </div>
 
-        <div class="feature-card" onclick="this.classList.toggle('active')">
+        <div class="feature-card" onclick="toggleFeature(this)">
           <div class="feature-icon">☁️</div>
           <h3>Cloud Powered</h3>
           <p>Supabase-backed storage and authentication that scales automatically with your growth.</p>
           <span class="feature-more">Explore →</span>
+          <div class="feature-detail">
+            <ul>
+              <li>All data synced to cloud, accessible anywhere</li>
+              <li>Automatic backups and fault-tolerant storage</li>
+              <li>OAuth-ready infrastructure for future scale</li>
+            </ul>
+            <button class="feature-action" onclick="event.stopPropagation(); featureAction(this,'open-login')">Login to Your Cloud</button>
+          </div>
         </div>
 
       </div>
@@ -1914,7 +1946,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 
 
-  <script src="script.js?v=62"></script>
+  <script src="script.js?v=63"></script>
 
   <!-- LOGIN SECURITY PHOTO -->
 
