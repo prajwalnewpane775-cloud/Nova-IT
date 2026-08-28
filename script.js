@@ -333,13 +333,6 @@ function showAuthMessage(el, text, type) {
 
 function showLoggedInUser(user) {
 
-  if (securityVerifiedUserId !== user.id) {
-
-    openSecurityPhoto();
-    return;
-
-  }
-
   const navLogin =
     document.querySelector(".nav-login");
 
