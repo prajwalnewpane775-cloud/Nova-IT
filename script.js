@@ -286,6 +286,11 @@ document
           await supabaseClient
             .from("profiles")
             .upsert({ id: data.user.id, email: email }, { onConflict: "id" });
+
+          await supabaseClient
+            .from("profiles")
+            .update({ last_login: new Date().toISOString() })
+            .eq("id", data.user.id);
         }
 
 message.textContent =
@@ -649,8 +654,8 @@ async function loadProfile(user) {
 async function loadAdminUsers() {
   var { data, error } = await supabaseClient
     .from("profiles")
-    .select("id, full_name, avatar_url, last_ip, device_info, created_at")
-    .order("created_at", { ascending: false });
+    .select("id, full_name, avatar_url, last_ip, device_info, last_login")
+    .order("last_login", { ascending: false, nullsFirst: false });
 
   if (error || !data) return;
 
@@ -666,7 +671,7 @@ async function loadAdminUsers() {
     var name = u.full_name || "Unknown";
     var ip = u.last_ip || "—";
     var device = u.device_info || "—";
-    var lastSeen = u.created_at ? new Date(u.created_at).toLocaleString() : "—";
+    var lastSeen = u.last_login ? new Date(u.last_login).toLocaleString() : "—";
     var initials = name.charAt(0).toUpperCase();
 
     html += '<tr>';
