@@ -9,7 +9,7 @@
 
   <title>NovaIT — Digital Technology Platform</title>
 
-  <link rel="stylesheet" href="style.css?v=56">
+  <link rel="stylesheet" href="style.css?v=57">
 </head>
 
 <body>
@@ -1316,76 +1316,269 @@
 
 <div class="modal hidden" id="settingsModal" onclick="if(event.target===this)closeSettings()">
 
-  <div class="dashboard-box settings-box" onclick="event.stopPropagation()">
+  <div class="settings-window" onclick="event.stopPropagation()">
     <button class="dash-close" onclick="closeSettings()">&times;</button>
 
-    <div class="settings-header">
-      <span class="section-tag">ACCOUNT SETTINGS</span>
-      <h2>Settings</h2>
-      <p>Manage your NovaIT experience</p>
-    </div>
+    <aside class="settings-sidebar">
 
-    <div class="settings-grid">
-
-      <div class="settings-item" onclick="settingsProfile()">
-        <div class="settings-icon">👤</div>
-        <div class="settings-label">Edit Profile</div>
-        <div class="settings-hint">Name & photo</div>
+      <div class="settings-sidebar-header">
+        <span class="settings-app-logo">⚡</span>
+        <div>
+          <div class="settings-app-name">NovaIT</div>
+          <div class="settings-app-sub">Account Settings</div>
+        </div>
       </div>
 
-      <div class="settings-item" onclick="settingsSecurity()">
-        <div class="settings-icon">🔐</div>
-        <div class="settings-label">Security</div>
-        <div class="settings-hint">Change password</div>
+      <nav class="settings-nav">
+        <button type="button" class="settings-nav-item active" data-tab="profile" onclick="switchSettingsTab('profile')">
+          <span class="sn-icon">👤</span>
+          <span class="sn-label">Profile</span>
+        </button>
+        <button type="button" class="settings-nav-item" data-tab="security" onclick="switchSettingsTab('security')">
+          <span class="sn-icon">🔐</span>
+          <span class="sn-label">Security</span>
+        </button>
+        <button type="button" class="settings-nav-item" data-tab="appearance" onclick="switchSettingsTab('appearance')">
+          <span class="sn-icon">🎨</span>
+          <span class="sn-label">Appearance</span>
+        </button>
+        <button type="button" class="settings-nav-item" data-tab="notifications" onclick="switchSettingsTab('notifications')">
+          <span class="sn-icon">🔔</span>
+          <span class="sn-label">Notifications</span>
+        </button>
+        <button type="button" class="settings-nav-item" data-tab="privacy" onclick="switchSettingsTab('privacy')">
+          <span class="sn-icon">🛡️</span>
+          <span class="sn-label">Privacy &amp; Data</span>
+        </button>
+        <button type="button" class="settings-nav-item" data-tab="support" onclick="switchSettingsTab('support')">
+          <span class="sn-icon">💬</span>
+          <span class="sn-label">Support</span>
+        </button>
+      </nav>
+
+      <div class="settings-sidebar-footer">
+        <div class="settings-version">NovaIT v1.0</div>
+        <button type="button" class="settings-logout" onclick="logoutUser()">🚪 Logout</button>
       </div>
 
-      <div class="settings-item" onclick="toggleTheme()">
-        <div class="settings-icon">🌙</div>
-        <div class="settings-label">Theme</div>
-        <div class="settings-hint" id="settingsThemeHint">Dark / Light</div>
+    </aside>
+
+    <section class="settings-content">
+
+      <!-- PROFILE -->
+      <div class="settings-panel" id="settingsPanel-profile">
+
+        <div class="settings-panel-title">Profile</div>
+        <div class="settings-panel-sub">Your personal information</div>
+
+        <div class="settings-card">
+          <div class="setting-row">
+            <div class="avatar-wrapper settings-avatar">
+              <img id="settingsAvatar" src="https://placehold.co/64x64/111827/8ea5ff?text=N" alt="Avatar">
+              <div class="settings-avatar-dot"></div>
+            </div>
+            <div class="setting-row-info">
+              <div class="setting-row-name" id="settingsProfileName">NovaIT User</div>
+              <div class="setting-row-email" id="settingsProfileEmail">user@email.com</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-card">
+          <div class="setting-block">
+            <label class="setting-label" for="settingsFullName">Full Name</label>
+            <input type="text" id="settingsFullName" maxlength="80" placeholder="Enter your full name">
+          </div>
+          <div class="setting-actions">
+            <button type="button" class="settings-btn primary" onclick="saveSettingsProfile()">Save Profile</button>
+            <span class="setting-saved-msg" id="settingsProfileMsg"></span>
+          </div>
+        </div>
+
       </div>
 
-      <div class="settings-item" onclick="toggleNotifications()">
-        <div class="settings-icon">🔔</div>
-        <div class="settings-label">Notifications</div>
-        <div class="settings-hint" id="settingsNotifHint">Click to toggle</div>
+      <!-- SECURITY -->
+      <div class="settings-panel hidden" id="settingsPanel-security">
+
+        <div class="settings-panel-title">Security</div>
+        <div class="settings-panel-sub">Protect your account</div>
+
+        <div class="settings-card">
+          <div class="setting-block">
+            <label class="setting-label" for="settingsCurrentPass">Current Password</label>
+            <div class="settings-pass-wrap">
+              <input type="password" id="settingsCurrentPass" placeholder="Enter current password">
+              <button type="button" class="password-toggle" onclick="togglePassVisibility(this)">👁</button>
+            </div>
+          </div>
+          <div class="setting-block">
+            <label class="setting-label" for="settingsNewPass">New Password</label>
+            <div class="settings-pass-wrap">
+              <input type="password" id="settingsNewPass" placeholder="Min 6 characters">
+              <button type="button" class="password-toggle" onclick="togglePassVisibility(this)">👁</button>
+            </div>
+          </div>
+          <div class="setting-actions">
+            <button type="button" class="settings-btn primary" onclick="changeSettingsPassword()">Update Password</button>
+            <span class="setting-saved-msg" id="settingsPassMsg"></span>
+          </div>
+        </div>
+
+        <div class="settings-card">
+          <div class="setting-row">
+            <div class="setting-row-info">
+              <div class="setting-row-name">Account Status</div>
+              <div class="setting-row-email">Session secured with SSL</div>
+            </div>
+            <span class="settings-badge success">ACTIVE</span>
+          </div>
+        </div>
+
       </div>
 
-      <div class="settings-item" onclick="settingsPrivacy()">
-        <div class="settings-icon">🛡️</div>
-        <div class="settings-label">Privacy</div>
-        <div class="settings-hint">Data & security info</div>
+      <!-- APPEARANCE -->
+      <div class="settings-panel hidden" id="settingsPanel-appearance">
+
+        <div class="settings-panel-title">Appearance</div>
+        <div class="settings-panel-sub">Customize how NovaIT looks</div>
+
+        <div class="settings-card">
+          <div class="setting-row">
+            <div class="setting-row-info">
+              <div class="setting-row-name">Theme Mode</div>
+              <div class="setting-row-email">Switch between dark &amp; light</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="settingsThemeSwitch" onchange="settingsSetTheme(this.checked)">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="settings-card">
+          <div class="setting-row">
+            <div class="setting-row-info">
+              <div class="setting-row-name">Interface Language</div>
+              <div class="setting-row-email">English (default)</div>
+            </div>
+            <span class="settings-badge">EN</span>
+          </div>
+        </div>
+
       </div>
 
-      <div class="settings-item" onclick="settingsDevice()">
-        <div class="settings-icon">📱</div>
-        <div class="settings-label">Device Info</div>
-        <div class="settings-hint">Your current device</div>
+      <!-- NOTIFICATIONS -->
+      <div class="settings-panel hidden" id="settingsPanel-notifications">
+
+        <div class="settings-panel-title">Notifications</div>
+        <div class="settings-panel-sub">Choose what you want to hear about</div>
+
+        <div class="settings-card">
+          <div class="setting-row">
+            <div class="setting-row-info">
+              <div class="setting-row-name">Login Alerts</div>
+              <div class="setting-row-email">Remind me about sign-in activity</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="notifLogin" onchange="saveNotifPref('login', this.checked)">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="settings-card">
+          <div class="setting-row">
+            <div class="setting-row-info">
+              <div class="setting-row-name">Product Updates</div>
+              <div class="setting-row-email">New features &amp; improvements</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="notifUpdates" onchange="saveNotifPref('updates', this.checked)">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="settings-card">
+          <div class="setting-row">
+            <div class="setting-row-info">
+              <div class="setting-row-name">Offers &amp; Promotions</div>
+              <div class="setting-row-email">Special mobile deals &amp; discounts</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="notifOffers" onchange="saveNotifPref('offers', this.checked)">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+
       </div>
 
-      <div class="settings-item" onclick="settingsHelp()">
-        <div class="settings-icon">❓</div>
-        <div class="settings-label">Help & Support</div>
-        <div class="settings-hint">WhatsApp contact</div>
+      <!-- PRIVACY -->
+      <div class="settings-panel hidden" id="settingsPanel-privacy">
+
+        <div class="settings-panel-title">Privacy &amp; Data</div>
+        <div class="settings-panel-sub">What we store and your controls</div>
+
+        <div class="settings-card">
+          <div class="setting-block">
+            <div class="setting-row-info">
+              <div class="setting-row-name">Your Device</div>
+              <div class="setting-row-email" id="settingsDeviceInfo">Detecting...</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-card">
+          <div class="setting-block">
+            <div class="setting-row-info">
+              <div class="setting-row-name">Stored Data</div>
+              <div class="setting-row-email">Name, email, IP address &amp; device info are stored securely for account management.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-card">
+          <div class="setting-row">
+            <div class="setting-row-info">
+              <div class="setting-row-name">Local Preferences</div>
+              <div class="setting-row-email">Theme &amp; notification choices saved in your browser</div>
+            </div>
+            <button type="button" class="settings-btn ghost" onclick="clearSiteData()">Clear Data</button>
+          </div>
+        </div>
+
       </div>
 
-      <div class="settings-item" onclick="clearSiteData()">
-        <div class="settings-icon">🧹</div>
-        <div class="settings-label">Clear Data</div>
-        <div class="settings-hint">Reset saved preferences</div>
+      <!-- SUPPORT -->
+      <div class="settings-panel hidden" id="settingsPanel-support">
+
+        <div class="settings-panel-title">Support</div>
+        <div class="settings-panel-sub">We&apos;re here to help</div>
+
+        <div class="settings-card">
+          <div class="setting-row">
+            <div class="setting-row-info">
+              <div class="setting-row-name">WhatsApp Support</div>
+              <div class="setting-row-email">Chat with our team</div>
+            </div>
+            <button type="button" class="settings-btn primary" onclick="settingsHelp()">Contact</button>
+          </div>
+        </div>
+
+        <div class="settings-card">
+          <div class="setting-row">
+            <div class="setting-row-info">
+              <div class="setting-row-name">About NovaIT</div>
+              <div class="setting-row-email">NovaIT v1.0 &middot; Morang, Biratnagar</div>
+            </div>
+            <span class="settings-badge">v1.0</span>
+          </div>
+        </div>
+
       </div>
 
-      <div class="settings-item" onclick="logoutUser()">
-        <div class="settings-icon danger">🚪</div>
-        <div class="settings-label danger-label">Logout</div>
-        <div class="settings-hint">Sign out of account</div>
-      </div>
-
-    </div>
-
-    <div class="settings-footer">
-      NovaIT Settings &middot; v1
-    </div>
+    </section>
 
   </div>
 
@@ -1590,7 +1783,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 
 
-  <script src="script.js?v=56"></script>
+  <script src="script.js?v=57"></script>
 
   <!-- LOGIN SECURITY PHOTO -->
 

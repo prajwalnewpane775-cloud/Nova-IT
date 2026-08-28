@@ -1467,11 +1467,9 @@ function toggleTheme() {
     localStorage.setItem("theme", "dark");
   }
 
-  const themeHint = document.getElementById("settingsThemeHint");
-  if (themeHint) {
-    themeHint.textContent = body.classList.contains("light")
-      ? "Light mode active"
-      : "Dark mode active";
+  const themeSwitch = document.getElementById("settingsThemeSwitch");
+  if (themeSwitch) {
+    themeSwitch.checked = body.classList.contains("light");
   }
 }
 
@@ -1491,21 +1489,8 @@ function toggleTheme() {
 function openSettings() {
   document.getElementById("settingsModal").classList.remove("hidden");
   document.body.classList.add("modal-open");
-
-  const themeHint = document.getElementById("settingsThemeHint");
-  if (themeHint) {
-    themeHint.textContent = document.body.classList.contains("light")
-      ? "Light mode active"
-      : "Dark mode active";
-  }
-
-  const notifHint = document.getElementById("settingsNotifHint");
-  const notifPref = localStorage.getItem("nova_notifications");
-  if (notifHint) {
-    notifHint.textContent = notifPref === "off"
-      ? "Off"
-      : "On";
-  }
+  switchSettingsTab("profile");
+  populateSettings();
 }
 
 function closeSettings() {
@@ -1513,59 +1498,168 @@ function closeSettings() {
   document.body.classList.remove("modal-open");
 }
 
-async function settingsProfile() {
-  closeSettings();
-  await openDashboard();
-  editProfile();
+function switchSettingsTab(name) {
+  document.querySelectorAll(".settings-nav-item").forEach(function(btn) {
+    btn.classList.toggle("active", btn.getAttribute("data-tab") === name);
+  });
+  document.querySelectorAll(".settings-panel").forEach(function(panel) {
+    panel.classList.toggle("hidden", panel.id !== "settingsPanel-" + name);
+  });
 }
 
-async function settingsSecurity() {
-  closeSettings();
-  await openDashboard();
-  const sec = document.querySelector(".security-section");
-  if (sec) sec.scrollIntoView({ behavior: "smooth" });
+async function populateSettings() {
+  const {
+    data: { user }
+  } = await supabaseClient.auth.getUser();
+
+  if (!user) return;
+
+  const profileName = document.getElementById("settingsProfileName");
+  const profileEmail = document.getElementById("settingsProfileEmail");
+  const fullNameInput = document.getElementById("settingsFullName");
+  const avatarImg = document.getElementById("settingsAvatar");
+
+  if (profileEmail) profileEmail.textContent = user.email;
+  if (fullNameInput) fullNameInput.value = user.user_metadata?.full_name || "";
+
+  if (user.user_metadata?.avatar_url && avatarImg) {
+    avatarImg.src = user.user_metadata.avatar_url;
+  }
+
+  const { data: profile } = await supabaseClient
+    .from("profiles")
+    .select("full_name, avatar_url")
+    .eq("id", user.id)
+    .single();
+
+  const name = profile?.full_name || user.user_metadata?.full_name || "NovaIT User";
+  if (profileName) profileName.textContent = name;
+  if (fullNameInput && !fullNameInput.value) fullNameInput.value = name !== "NovaIT User" ? name : "";
+  if (profile?.avatar_url && avatarImg) avatarImg.src = profile.avatar_url;
+
+  var device = parseDeviceInfo(navigator.userAgent);
+  var deviceEl = document.getElementById("settingsDeviceInfo");
+  if (deviceEl) deviceEl.textContent = device;
+
+  var themeSwitch = document.getElementById("settingsThemeSwitch");
+  if (themeSwitch) themeSwitch.checked = document.body.classList.contains("light");
+
+  var saved = JSON.parse(localStorage.getItem("nova_notif") || "{}");
+  var loginSw = document.getElementById("notifLogin");
+  var updSw = document.getElementById("notifUpdates");
+  var offSw = document.getElementById("notifOffers");
+  if (loginSw) loginSw.checked = saved.login !== false;
+  if (updSw) updSw.checked = saved.updates !== false;
+  if (offSw) offSw.checked = saved.offers !== false;
 }
 
-function settingsPrivacy() {
-  showToast("Your data is private. Only your name, email, IP and device are stored securely.");
+async function saveSettingsProfile() {
+  const input = document.getElementById("settingsFullName");
+  const msg = document.getElementById("settingsProfileMsg");
+  const newName = input.value.trim();
+
+  if (!newName) {
+    msg.textContent = "Please enter your name.";
+    msg.className = "setting-saved-msg error";
+    return;
+  }
+
+  const {
+    data: { user }
+  } = await supabaseClient.auth.getUser();
+
+  if (!user) return;
+
+  const { error } = await supabaseClient
+    .from("profiles")
+    .update({ full_name: newName })
+    .eq("id", user.id);
+
+  if (error) {
+    msg.textContent = error.message;
+    msg.className = "setting-saved-msg error";
+    return;
+  }
+
+  document.getElementById("settingsProfileName").textContent = newName;
+  msg.textContent = "Profile saved!";
+  msg.className = "setting-saved-msg success";
+  showToast("Profile updated successfully!");
 }
 
-async function settingsDevice() {
-  var ua = navigator.userAgent;
-  var device = parseDeviceInfo(ua);
-  showToast("Device: " + device);
+async function changeSettingsPassword() {
+  const current = document.getElementById("settingsCurrentPass").value;
+  const newPass = document.getElementById("settingsNewPass").value;
+  const msg = document.getElementById("settingsPassMsg");
+
+  if (!current || !newPass) {
+    msg.textContent = "Please fill both password fields.";
+    msg.className = "setting-saved-msg error";
+    return;
+  }
+
+  if (newPass.length < 6) {
+    msg.textContent = "New password must be at least 6 characters.";
+    msg.className = "setting-saved-msg error";
+    return;
+  }
+
+  const { data: { user } } = await supabaseClient.auth.getUser();
+
+  const { error: signInError } = await supabaseClient.auth.signInWithPassword({
+    email: user.email,
+    password: current
+  });
+
+  if (signInError) {
+    msg.textContent = "Current password is incorrect.";
+    msg.className = "setting-saved-msg error";
+    return;
+  }
+
+  const { error } = await supabaseClient.auth.updateUser({ password: newPass });
+
+  if (error) {
+    msg.textContent = error.message;
+    msg.className = "setting-saved-msg error";
+    return;
+  }
+
+  document.getElementById("settingsCurrentPass").value = "";
+  document.getElementById("settingsNewPass").value = "";
+  msg.textContent = "Password updated!";
+  msg.className = "setting-saved-msg success";
+  showToast("Password changed successfully!");
+}
+
+function settingsSetTheme(isLight) {
+  const body = document.body;
+  const toggle = document.getElementById("themeToggle");
+
+  body.classList.toggle("light", isLight);
+
+  if (toggle) {
+    toggle.textContent = isLight ? "☀️" : "🌙";
+  }
+
+  localStorage.setItem("theme", isLight ? "light" : "dark");
+}
+
+function saveNotifPref(key, checked) {
+  var saved = JSON.parse(localStorage.getItem("nova_notif") || "{}");
+  saved[key] = checked;
+  localStorage.setItem("nova_notif", JSON.stringify(saved));
+  showToast(checked ? "Notifications enabled" : "Notifications disabled");
 }
 
 function settingsHelp() {
   window.open("https://wa.me/9779804335063", "_blank");
 }
 
-function toggleNotifications() {
-  var pref = localStorage.getItem("nova_notifications");
-  if (pref === "off") {
-    localStorage.setItem("nova_notifications", "on");
-  } else {
-    localStorage.setItem("nova_notifications", "off");
-  }
-  var notifHint = document.getElementById("settingsNotifHint");
-  if (notifHint) {
-    notifHint.textContent = pref === "off" ? "On" : "Off";
-  }
-  if (pref === "off") {
-    showToast("Notifications enabled");
-  } else {
-    showToast("Notifications muted");
-  }
-}
-
 function clearSiteData() {
-  localStorage.removeItem("nova_notifications");
+  localStorage.removeItem("nova_notif");
   localStorage.removeItem("theme");
-  document.body.classList.remove("light");
-  var toggle = document.getElementById("themeToggle");
-  if (toggle) toggle.textContent = "🌙";
-  var notifHint = document.getElementById("settingsNotifHint");
-  if (notifHint) notifHint.textContent = "Click to toggle";
+  settingsSetTheme(false);
   showToast("Site data cleared");
 }
 
