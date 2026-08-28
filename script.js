@@ -175,14 +175,14 @@ document
     const message =
       document.getElementById("authMessage");
 
-    const loginGate = rateLimitLogin();
+    const email =
+      document.getElementById("email").value.trim();
+
+    const loginGate = rateLimitLogin(email);
     if (loginGate) {
       showAuthMessage(message, loginGate, "error");
       return;
     }
-
-    const email =
-      document.getElementById("email").value.trim();
 
     const password =
       document.getElementById("password").value;
@@ -304,7 +304,7 @@ message.textContent =
 message.classList.remove("error");
 message.classList.add("success");
 
-localStorage.removeItem("novaLoginFails");
+localStorage.removeItem("novaLoginFails_" + (email || "").toLowerCase());
 
 setTimeout(() => {
 
@@ -318,7 +318,7 @@ setTimeout(() => {
     } catch (error) {
 
       if (authMode === "login") {
-        recordFailedLogin();
+        recordFailedLogin(email);
       }
 
       showAuthMessage(message, error.message, "error");
@@ -336,29 +336,33 @@ setTimeout(() => {
   });
 
 
-function rateLimitLogin() {
-  var stored = localStorage.getItem("novaLoginLock");
+function rateLimitLogin(email) {
+  var key = "novaLoginLock_" + (email || "").toLowerCase();
+  localStorage.removeItem("novaLoginLock");
+  var stored = localStorage.getItem(key);
   if (!stored) return null;
 
   try {
     var data = JSON.parse(stored);
     if (data.waitUntil && Date.now() < data.waitUntil) {
       var mins = Math.max(1, Math.ceil((data.waitUntil - Date.now()) / 60000));
-      return "Too many attempts. Try again in " + mins + " min.";
+      return "Too many attempts for this email. Try again in " + mins + " min.";
     }
-    localStorage.removeItem("novaLoginLock");
+    localStorage.removeItem(key);
   } catch (e) {}
 
   return null;
 }
 
-function recordFailedLogin() {
+function recordFailedLogin(email) {
   var now = Date.now();
   var count = 1;
   var windowStart = now;
+  var key = "novaLoginFails_" + (email || "").toLowerCase();
+  localStorage.removeItem("novaLoginFails");
 
   try {
-    var prev = JSON.parse(localStorage.getItem("novaLoginFails") || "null");
+    var prev = JSON.parse(localStorage.getItem(key) || "null");
     if (prev && now - prev.windowStart < 10 * 60000) {
       count = prev.count + 1;
       windowStart = prev.windowStart;
@@ -366,12 +370,12 @@ function recordFailedLogin() {
   } catch (e) {}
 
   if (count >= 5) {
-    localStorage.setItem("novaLoginLock", JSON.stringify({ waitUntil: now + 10 * 60000 }));
-    localStorage.removeItem("novaLoginFails");
+    localStorage.setItem("novaLoginLock_" + (email || "").toLowerCase(), JSON.stringify({ waitUntil: now + 10 * 60000 }));
+    localStorage.removeItem(key);
     return;
   }
 
-  localStorage.setItem("novaLoginFails", JSON.stringify({ count: count, windowStart: windowStart }));
+  localStorage.setItem(key, JSON.stringify({ count: count, windowStart: windowStart }));
 }
 
 
