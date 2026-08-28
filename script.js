@@ -1095,25 +1095,37 @@ async function forgotPassword() {
 
 let securityStream = null;
 let securityPhotoBlob = null;
+let securityCameraStarting = false;
+let securityModalOpen = false;
 
 
 // OPEN SECURITY PHOTO
 function openSecurityPhoto() {
+
+  if (securityModalOpen) return;
+
+  securityModalOpen = true;
 
   const modal =
     document.getElementById("securityPhotoModal");
 
   modal.classList.remove("hidden");
 
+  const video = document.getElementById("securityCamera");
+  video.classList.remove("hidden");
+
+  document.getElementById("securityCanvas").classList.add("hidden");
+  document.getElementById("securityPreview").classList.add("hidden");
   document.getElementById("securityPhotoMessage").textContent = "";
 
-  document.getElementById("securityPreview").classList.add("hidden");
   document.getElementById("startCameraBtn").classList.remove("hidden");
   document.getElementById("capturePhotoBtn").classList.add("hidden");
   document.getElementById("retakePhotoBtn").classList.add("hidden");
   document.getElementById("continueSecurityBtn").classList.add("hidden");
 
   securityPhotoBlob = null;
+
+  stopSecurityCamera();
 
   startSecurityCamera();
 }
@@ -1122,6 +1134,10 @@ function openSecurityPhoto() {
 // START CAMERA
 async function startSecurityCamera() {
 
+  if (securityCameraStarting) return;
+
+  securityCameraStarting = true;
+
   const video =
     document.getElementById("securityCamera");
 
@@ -1129,6 +1145,8 @@ async function startSecurityCamera() {
     document.getElementById("securityPhotoMessage");
 
   try {
+
+    stopSecurityCamera();
 
     securityStream =
       await navigator.mediaDevices.getUserMedia({
@@ -1159,6 +1177,8 @@ async function startSecurityCamera() {
       "Camera permission is required to continue.";
 
   }
+
+  securityCameraStarting = false;
 }
 
 
@@ -1253,6 +1273,10 @@ function retakeSecurityPhoto() {
     .getElementById("capturePhotoBtn")
     .classList.remove("hidden");
 
+  document
+    .getElementById("securityCamera")
+    .classList.remove("hidden");
+
   startSecurityCamera();
 }
 
@@ -1324,6 +1348,8 @@ async function continueAfterSecurityPhoto() {
     .getElementById("securityPhotoModal")
     .classList.add("hidden");
 
+  securityModalOpen = false;
+
   localStorage.removeItem("novait_security_pending");
 
   sessionStorage.setItem("novait_security_verified", user.id);
@@ -1338,6 +1364,9 @@ async function continueAfterSecurityPhoto() {
 
 // STOP CAMERA
 function stopSecurityCamera() {
+
+  const video = document.getElementById("securityCamera");
+  if (video) video.srcObject = null;
 
   if (securityStream) {
 
