@@ -2645,6 +2645,10 @@ body.light .nav-settings:hover {
   box-shadow: 0 6px 18px rgba(84,119,255,.35);
 }
 
+.settings-mobile-head {
+  display: none;
+}
+
 .settings-app-name {
   font-size: 15px;
   font-weight: 700;
@@ -3002,23 +3006,59 @@ body.light .setting-block input[type="password"] {
 }
 
 @media (max-width: 640px) {
+  .modal {
+    padding: 0;
+    align-items: flex-end;
+  }
+
   .settings-window {
     grid-template-columns: 1fr;
-    max-height: 90vh;
+    width: 100%;
+    max-height: 93dvh;
+    border-radius: 22px 22px 0 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
   }
 
   .settings-sidebar {
     border-right: none;
     border-bottom: 1px solid #1e2d44;
-    padding: 16px 16px 12px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-direction: row;
   }
 
   .settings-sidebar-header {
-    padding: 0 0 12px;
-    margin-bottom: 10px;
+    display: none;
   }
 
+  .settings-mobile-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .settings-mobile-head .settings-app-logo {
+    width: 34px;
+    height: 34px;
+    font-size: 16px;
+  }
+
+  .settings-mobile-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    white-space: nowrap;
+  }
+
+  body.light .settings-mobile-title { color: #1a1a2e; }
+
   .settings-nav {
+    flex: 1;
     flex-direction: row;
     overflow-x: auto;
     padding: 0;
@@ -3040,8 +3080,14 @@ body.light .setting-block input[type="password"] {
   }
 
   .settings-content {
-    max-height: 56vh;
-    padding: 22px 18px;
+    flex: 1;
+    overflow-y: auto;
+    max-height: none;
+    padding: 20px 16px;
+  }
+
+  .settings-panel-title {
+    font-size: 19px;
   }
 }
 
