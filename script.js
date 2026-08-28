@@ -346,6 +346,13 @@ function showLoggedInUser(user) {
     };
   }
 
+  const navSettings =
+    document.getElementById("navSettingsBtn");
+
+  if (navSettings) {
+    navSettings.style.display = "grid";
+  }
+
   const mobileBtn =
     document.getElementById("mobileAccountBtn");
 
@@ -765,6 +772,15 @@ async function logoutUser() {
   if (mobileLogout) {
     mobileLogout.style.display = "none";
   }
+
+  const navSettings =
+    document.getElementById("navSettingsBtn");
+
+  if (navSettings) {
+    navSettings.style.display = "none";
+  }
+
+  closeSettings();
 
   var mobileCenter = document.getElementById("mobilecenter");
   if (mobileCenter) mobileCenter.style.display = "none";
@@ -1450,6 +1466,13 @@ function toggleTheme() {
     toggle.textContent = "🌙";
     localStorage.setItem("theme", "dark");
   }
+
+  const themeHint = document.getElementById("settingsThemeHint");
+  if (themeHint) {
+    themeHint.textContent = body.classList.contains("light")
+      ? "Light mode active"
+      : "Dark mode active";
+  }
 }
 
 (function () {
@@ -1460,6 +1483,91 @@ function toggleTheme() {
     if (toggle) toggle.textContent = "☀️";
   }
 })();
+
+// ==============================
+// SETTINGS MODAL
+// ==============================
+
+function openSettings() {
+  document.getElementById("settingsModal").classList.remove("hidden");
+  document.body.classList.add("modal-open");
+
+  const themeHint = document.getElementById("settingsThemeHint");
+  if (themeHint) {
+    themeHint.textContent = document.body.classList.contains("light")
+      ? "Light mode active"
+      : "Dark mode active";
+  }
+
+  const notifHint = document.getElementById("settingsNotifHint");
+  const notifPref = localStorage.getItem("nova_notifications");
+  if (notifHint) {
+    notifHint.textContent = notifPref === "off"
+      ? "Off"
+      : "On";
+  }
+}
+
+function closeSettings() {
+  document.getElementById("settingsModal").classList.add("hidden");
+  document.body.classList.remove("modal-open");
+}
+
+async function settingsProfile() {
+  closeSettings();
+  await openDashboard();
+  editProfile();
+}
+
+async function settingsSecurity() {
+  closeSettings();
+  await openDashboard();
+  const sec = document.querySelector(".security-section");
+  if (sec) sec.scrollIntoView({ behavior: "smooth" });
+}
+
+function settingsPrivacy() {
+  showToast("Your data is private. Only your name, email, IP and device are stored securely.");
+}
+
+async function settingsDevice() {
+  var ua = navigator.userAgent;
+  var device = parseDeviceInfo(ua);
+  showToast("Device: " + device);
+}
+
+function settingsHelp() {
+  window.open("https://wa.me/9779804335063", "_blank");
+}
+
+function toggleNotifications() {
+  var pref = localStorage.getItem("nova_notifications");
+  if (pref === "off") {
+    localStorage.setItem("nova_notifications", "on");
+  } else {
+    localStorage.setItem("nova_notifications", "off");
+  }
+  var notifHint = document.getElementById("settingsNotifHint");
+  if (notifHint) {
+    notifHint.textContent = pref === "off" ? "On" : "Off";
+  }
+  if (pref === "off") {
+    showToast("Notifications enabled");
+  } else {
+    showToast("Notifications muted");
+  }
+}
+
+function clearSiteData() {
+  localStorage.removeItem("nova_notifications");
+  localStorage.removeItem("theme");
+  document.body.classList.remove("light");
+  var toggle = document.getElementById("themeToggle");
+  if (toggle) toggle.textContent = "🌙";
+  var notifHint = document.getElementById("settingsNotifHint");
+  if (notifHint) notifHint.textContent = "Click to toggle";
+  showToast("Site data cleared");
+}
 
 // ==============================
 // CONTACT FORM

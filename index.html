@@ -9,7 +9,7 @@
 
   <title>NovaIT — Digital Technology Platform</title>
 
-  <link rel="stylesheet" href="style.css?v=55">
+  <link rel="stylesheet" href="style.css?v=56">
 </head>
 
 <body>
@@ -32,6 +32,7 @@
 
   <div class="nav-right">
     <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">🌙</button>
+    <button class="nav-settings" id="navSettingsBtn" onclick="openSettings()" title="Settings" style="display:none">⚙️</button>
     <button class="nav-login" onclick="openAuth('login')">Login</button>
     <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
       <span></span><span></span><span></span>
@@ -1311,6 +1312,85 @@
     </div>
 
   </div>
+  <!-- SETTINGS MODAL -->
+
+<div class="modal hidden" id="settingsModal" onclick="if(event.target===this)closeSettings()">
+
+  <div class="dashboard-box settings-box" onclick="event.stopPropagation()">
+    <button class="dash-close" onclick="closeSettings()">&times;</button>
+
+    <div class="settings-header">
+      <span class="section-tag">ACCOUNT SETTINGS</span>
+      <h2>Settings</h2>
+      <p>Manage your NovaIT experience</p>
+    </div>
+
+    <div class="settings-grid">
+
+      <div class="settings-item" onclick="settingsProfile()">
+        <div class="settings-icon">👤</div>
+        <div class="settings-label">Edit Profile</div>
+        <div class="settings-hint">Name & photo</div>
+      </div>
+
+      <div class="settings-item" onclick="settingsSecurity()">
+        <div class="settings-icon">🔐</div>
+        <div class="settings-label">Security</div>
+        <div class="settings-hint">Change password</div>
+      </div>
+
+      <div class="settings-item" onclick="toggleTheme()">
+        <div class="settings-icon">🌙</div>
+        <div class="settings-label">Theme</div>
+        <div class="settings-hint" id="settingsThemeHint">Dark / Light</div>
+      </div>
+
+      <div class="settings-item" onclick="toggleNotifications()">
+        <div class="settings-icon">🔔</div>
+        <div class="settings-label">Notifications</div>
+        <div class="settings-hint" id="settingsNotifHint">Click to toggle</div>
+      </div>
+
+      <div class="settings-item" onclick="settingsPrivacy()">
+        <div class="settings-icon">🛡️</div>
+        <div class="settings-label">Privacy</div>
+        <div class="settings-hint">Data & security info</div>
+      </div>
+
+      <div class="settings-item" onclick="settingsDevice()">
+        <div class="settings-icon">📱</div>
+        <div class="settings-label">Device Info</div>
+        <div class="settings-hint">Your current device</div>
+      </div>
+
+      <div class="settings-item" onclick="settingsHelp()">
+        <div class="settings-icon">❓</div>
+        <div class="settings-label">Help & Support</div>
+        <div class="settings-hint">WhatsApp contact</div>
+      </div>
+
+      <div class="settings-item" onclick="clearSiteData()">
+        <div class="settings-icon">🧹</div>
+        <div class="settings-label">Clear Data</div>
+        <div class="settings-hint">Reset saved preferences</div>
+      </div>
+
+      <div class="settings-item" onclick="logoutUser()">
+        <div class="settings-icon danger">🚪</div>
+        <div class="settings-label danger-label">Logout</div>
+        <div class="settings-hint">Sign out of account</div>
+      </div>
+
+    </div>
+
+    <div class="settings-footer">
+      NovaIT Settings &middot; v1
+    </div>
+
+  </div>
+
+</div>
+
   <!-- USER DASHBOARD -->
 
 <div class="modal hidden" id="dashboardModal" onclick="if(event.target===this)closeDashboard()">
@@ -1510,7 +1590,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 
 
-  <script src="script.js?v=55"></script>
+  <script src="script.js?v=56"></script>
 
   <!-- LOGIN SECURITY PHOTO -->
 
