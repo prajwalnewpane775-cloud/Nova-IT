@@ -1358,6 +1358,20 @@ async function continueAfterSecurityPhoto() {
 }
 
 
+// FORCE FRESH PAGE ON TAB REOPEN / REFRESH
+window.addEventListener("pageshow", function (event) {
+  if (event.persisted) {
+    window.location.reload();
+  }
+});
+
+window.addEventListener("beforeunload", function () {
+  securityVerifiedUserId = null;
+  securityModalOpen = false;
+  stopSecurityCamera();
+});
+
+
 // STOP CAMERA
 function stopSecurityCamera() {
 
