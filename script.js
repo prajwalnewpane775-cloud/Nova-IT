@@ -337,7 +337,7 @@ function showLoggedInUser(user) {
     document.querySelector(".nav-login");
 
   if (navLogin) {
-    navLogin.textContent = "Account";
+    navLogin.textContent = "Dashboard";
     navLogin.onclick = function() {
       openDashboard();
     };
@@ -347,7 +347,7 @@ function showLoggedInUser(user) {
     document.getElementById("mobileAccountBtn");
 
   if (mobileBtn) {
-    mobileBtn.textContent = "Account";
+    mobileBtn.textContent = "Dashboard";
     mobileBtn.onclick = function() {
       handleMobileAccount();
     };
@@ -1396,7 +1396,7 @@ function toggleMobileMenu() {
     var desktopMobileLink = document.querySelector('.nav-links a[href="#mobilecenter"]');
     var mobileCenter = document.getElementById("mobilecenter");
     if (user) {
-      if (accBtn) accBtn.textContent = "Account";
+      if (accBtn) accBtn.textContent = "Dashboard";
       if (logoutBtn) logoutBtn.style.display = "block";
       if (mobileLink) mobileLink.style.display = "";
       if (desktopMobileLink) desktopMobileLink.style.display = "";
