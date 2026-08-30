@@ -4785,3 +4785,188 @@ body.light .admin-tab.active {
 @media (max-width: 768px) {
   .mobile-products { grid-template-columns: 1fr; }
 }
+
+/* === NOVA AI ASSISTANT === */
+.nova-bot-launcher {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4776ff, #8c5cff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 9990;
+  box-shadow: 0 10px 28px rgba(84, 119, 255, .45);
+  transition: transform .25s, box-shadow .25s;
+}
+.nova-bot-launcher:hover { transform: scale(1.08); box-shadow: 0 12px 34px rgba(84, 119, 255, .6); }
+.nova-bot-icon { font-size: 28px; line-height: 1; }
+.nova-bot-pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid rgba(84, 119, 255, .55);
+  animation: novaPulse 2s ease-out infinite;
+}
+@keyframes novaPulse {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.55); opacity: 0; }
+}
+
+.nova-bot-window {
+  position: fixed;
+  right: 24px;
+  bottom: 94px;
+  width: 360px;
+  max-width: calc(100vw - 32px);
+  height: 500px;
+  max-height: calc(100vh - 120px);
+  background: #0d1526;
+  border: 1px solid rgba(84, 119, 255, .35);
+  border-radius: 18px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 9991;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, .6);
+  animation: novaBotIn .3s ease;
+}
+@keyframes novaBotIn {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.nova-bot-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, #4776ff, #8c5cff);
+  color: #fff;
+}
+.nova-bot-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.nova-bot-head strong { display: block; font-size: 14px; letter-spacing: .3px; }
+.nova-bot-head small { font-size: 11px; opacity: .85; }
+.nova-bot-close {
+  margin-left: auto;
+  background: rgba(255, 255, 255, .18);
+  border: none;
+  color: #fff;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-size: 16px;
+  cursor: pointer;
+  line-height: 1;
+}
+.nova-bot-close:hover { background: rgba(255, 255, 255, .3); }
+
+.nova-bot-messages {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #0d1526;
+}
+.nova-msg {
+  max-width: 85%;
+  padding: 10px 13px;
+  border-radius: 14px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  white-space: pre-line;
+  word-wrap: break-word;
+}
+.nova-msg.bot {
+  align-self: flex-start;
+  background: #15203a;
+  color: #eef2ff;
+  border-bottom-left-radius: 4px;
+}
+.nova-msg.user {
+  align-self: flex-end;
+  background: linear-gradient(135deg, #4776ff, #6d5cff);
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+.nova-msg b { color: #8aa5ff; }
+.nova-msg.user b { color: #fff; }
+
+.nova-quick {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 10px;
+}
+.nova-quick-btn {
+  background: transparent;
+  border: 1px solid rgba(84, 119, 255, .5);
+  color: #8aa5ff;
+  padding: 6px 11px;
+  border-radius: 20px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background .2s, color .2s;
+}
+.nova-quick-btn:hover { background: #5477ff; color: #fff; }
+
+.nova-bot-input {
+  display: flex;
+  gap: 8px;
+  padding: 12px;
+  background: #0d1526;
+  border-top: 1px solid rgba(84, 119, 255, .2);
+}
+.nova-bot-input input {
+  flex: 1;
+  background: #15203a;
+  border: 1px solid rgba(84, 119, 255, .3);
+  border-radius: 12px;
+  padding: 10px 13px;
+  color: #f5f7fb;
+  font-size: 13.5px;
+  outline: none;
+}
+.nova-bot-input input::placeholder { color: #7c8db5; }
+.nova-bot-input button {
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #4776ff, #8c5cff);
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.nova-bot-input button:hover { filter: brightness(1.15); }
+
+body.light .nova-bot-window { background: #ffffff; border-color: rgba(84, 119, 255, .35); }
+body.light .nova-bot-messages { background: #ffffff; }
+body.light .nova-msg.bot { background: #f1f5ff; color: #1f2937; border: 1px solid #e5eafb; }
+body.light .nova-msg b { color: #5477ff; }
+body.light .nova-quick-btn { border-color: rgba(84, 119, 255, .5); color: #5477ff; }
+body.light .nova-quick-btn:hover { background: #5477ff; color: #fff; }
+body.light .nova-bot-input { background: #ffffff; border-top-color: #e5eafb; }
+body.light .nova-bot-input input { background: #f1f5ff; border-color: #dbe3f9; color: #1f2937; }
+body.light .nova-bot-input input::placeholder { color: #8ea0c8; }
+
+@media (max-width: 480px) {
+  .nova-bot-window { right: 16px; left: 16px; width: auto; }
+  .nova-bot-launcher { right: 18px; bottom: 18px; }
+}

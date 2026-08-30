@@ -29,7 +29,7 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="apple-touch-icon" href="favicon.svg">
 
-  <link rel="stylesheet" href="style.css?v=63">
+  <link rel="stylesheet" href="style.css?v=64">
 </head>
 
 <body>
@@ -1946,7 +1946,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 
 
-  <script src="script.js?v=63"></script>
+  <script src="script.js?v=64"></script>
 
   <!-- LOGIN SECURITY PHOTO -->
 
@@ -2071,5 +2071,33 @@
     <div id="legalContent" class="legal-content"></div>
   </div>
 </div>
+
+<!-- NOVA AI ASSISTANT -->
+<div class="nova-bot-launcher" id="novaBotLauncher" onclick="toggleBot()">
+  <div class="nova-bot-pulse"></div>
+  <span class="nova-bot-icon">🤖</span>
+</div>
+
+<div class="nova-bot-window hidden" id="novaBotWindow">
+  <div class="nova-bot-head">
+    <div class="nova-bot-avatar">🤖</div>
+    <div>
+      <strong>Nova Assistant</strong>
+      <small>Online · replies instantly</small>
+    </div>
+    <button class="nova-bot-close" onclick="toggleBot()">×</button>
+  </div>
+  <div class="nova-bot-messages" id="novaBotMessages">
+    <div class="nova-msg bot">
+      Namaste! 🙏 I'm <b>Nova Assistant</b> from NovaIT. Ma timlai <b>services</b>, <b>mobile accessories</b>, <b>account/login</b> ra <b>order placement</b> ma help garna sakchhu. K sodhna chahanchhau?
+      <div class="nova-quick" id="novaQuickChips"></div>
+    </div>
+  </div>
+  <form class="nova-bot-input" onsubmit="sendBotMessage(event)">
+    <input type="text" id="novaBotText" placeholder="Type your question..." autocomplete="off">
+    <button type="submit">➤</button>
+  </form>
+</div>
+
 </body>
 </html>

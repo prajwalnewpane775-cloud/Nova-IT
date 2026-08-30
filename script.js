@@ -2673,3 +2673,169 @@ var termsContent = `
   <h3>5. Contact</h3>
   <p>For questions about these terms, contact <strong>prajwalnewpane775@gmail.com</strong> or <strong>+977 9804335063</strong>.</p>
 `;
+
+/* ================= NOVA AI ASSISTANT ================= */
+var BOT_WA = "9779804335063";
+
+var botQuick = ["Services", "Mobile Accessories", "Order Enquiry", "Open Dashboard", "Account Help"];
+
+function botChips() {
+  var wrap = document.getElementById("novaQuickChips");
+  if (!wrap) return;
+  wrap.innerHTML = botQuick.map(function(q) {
+    return '<button class="nova-quick-btn" type="button" onclick="botSendQuick(\'' + q + '\')">' + q + "</button>";
+  }).join("");
+}
+
+function botSendQuick(q) {
+  addUserMsg(q);
+  if (q === "Open Dashboard") {
+    botLoading(function() {
+      addBotMsg("Pani khola hai! 🚀 Tapainko account panel khulchha.", false);
+      setTimeout(function() { openDashboard(); }, 500);
+    });
+    return;
+  }
+  if (q === "Order Enquiry") {
+    botLoading(function() {
+      addBotMsg("WhatsApp khola! WhatsApp order garne link:" + '<br><a class="nova-quick-btn" target="_blank" rel="noopener" href="https://wa.me/' + BOT_WA + '?text=' + encodeURIComponent("Namaste NovaIT! Mala euta order enquiry garna chiyo.") + '" style="text-decoration:none;display:inline-block;margin-top:8px;background:#5477ff;color:#fff">📲 Open WhatsApp</a>', false);
+    });
+    return;
+  }
+  botReply(q);
+}
+
+function addUserMsg(text) {
+  var box = document.getElementById("novaBotMessages");
+  var d = document.createElement("div");
+  d.className = "nova-msg user";
+  d.textContent = text;
+  box.appendChild(d);
+  box.scrollTop = box.scrollHeight;
+}
+
+function addBotMsg(html, quick) {
+  var box = document.getElementById("novaBotMessages");
+  var d = document.createElement("div");
+  d.className = "nova-msg bot";
+  d.innerHTML = html;
+  if (quick) {
+    var c = document.createElement("div");
+    c.className = "nova-quick";
+    c.innerHTML = botQuick.map(function(q) {
+      return '<button class="nova-quick-btn" type="button" onclick="botSendQuick(\'' + q + '\')">' + q + "</button>";
+    }).join("");
+    d.appendChild(c);
+  }
+  box.appendChild(d);
+  box.scrollTop = box.scrollHeight;
+}
+
+function botLoading(action) {
+  var box = document.getElementById("novaBotMessages");
+  var d = document.createElement("div");
+  d.className = "nova-msg bot nova-typing";
+  d.innerHTML = '<span class="nova-dot"></span><span class="nova-dot"></span><span class="nova-dot"></span>';
+  box.appendChild(d);
+  box.scrollTop = box.scrollHeight;
+  setTimeout(function() {
+    d.remove();
+    action();
+  }, 600);
+}
+
+function toggleBot() {
+  var w = document.getElementById("novaBotWindow");
+  var open = w.classList.toggle("hidden");
+  if (!open) { document.getElementById("novaBotText").focus(); botChips(); }
+  else { w.classList.add("hidden"); }
+}
+
+function sendBotMessage(e) {
+  e.preventDefault();
+  var inp = document.getElementById("novaBotText");
+  var txt = inp.value.trim();
+  if (!txt) return;
+  inp.value = "";
+  addUserMsg(txt);
+  botLoading(function() { botReply(txt); });
+}
+
+function bHas(text) {
+  var keys = Array.prototype.slice.call(arguments, 1);
+  var t = text.toLowerCase();
+  return keys.some(function(k) { return t.indexOf(k) !== -1; });
+}
+
+function botReply(text) {
+  var t = text.toLowerCase();
+  var answer = null;
+
+  /* Greeting */
+  if (bHas(text, "namaste", "namaskar", "namaskara", "hello", "hi", "hey", "hlo", "suprabhat", "ramro", "k xa", "k cha")) {
+    answer = "Namaste! 🙏 Tapainlai kasto help chahiyeko chha?\n\n<b>• Services</b> ko barema janne\n<b>• Mobile Accessories</b>\n<b>• Order garna</b>\n<b>• Account/Login</b>";
+  }
+
+  /* Services */
+  else if (bHas(text, "service", "seva", "service k", "k k service", "what do you do", "what you offer", "k kam", "kaam", "work")) {
+    answer = "NovaIT le yahi kura haru offer garchha 🧑‍💻:<br><br><b>🛠 IT & Software</b> — Development, Hosting, Maintenance<br><b>💡 Digital Solutions</b> — Custom builds for business<br><b>📦 Mobile & Accessories</b> — Products store<br><b>🛡 Security</b> — Data & account protection<br><br>Details ko lagi mudda click garnus 👇";
+  }
+  else if (bHas(text, "web", "website", "app", "development", "software", "platform", "hosting", "server", "cloud", "ai", "automation")) {
+    answer = "NovaIT ko <b>IT & Software</b> services:\n\n🖥 <b>Website Development</b> — Business/brand site\n📱 <b>App Development</b> — Android/Web apps\n🔧 <b>Maintenance</b> — Updating & fixing\n☁ <b>Hosting/Cloud</b> — Uptime & security\n🤖 <b>AI & Automation</b> — Smart tools\n\n<b>Order garna</b> click garnus 👇";
+  }
+  else if (bHas(text, "price", "cost", "rate", "charge", "kitno", "kati", "paise", "paisa", "payment", "pay")) {
+    answer = "Pricing project anusar hunchha bro 💰 — website, app, hosting sab farkincha.\n\nExact price ko lagi WhatsApp ma message garnus, team le taratura <b>free quote</b> pathauchha!\n\n👉 <b>Order enqury</b> click garnus";
+  }
+
+  /* Mobile accessories */
+  else if (bHas(text, "mobile", "phone", "phone case", "cover", "charger", "powerbank", "power bank", "accessor", "back cover", "tempered", "case")) {
+    answer = "📦 <b>Mobile Accessories</b> available chhan:\n\n📱 Phone Cases & Covers\n🔌 Chargers & Cables\n🔋 Power Banks\n🛡 Screen Guards (Tempered)\n🎧 Earphones<br><br>Order/stock ko lagi <b>Order Enquiry</b> click garnus! 👇";
+  }
+
+  /* Order enquiry / WhatsApp */
+  else if (bHas(text, "order", "buy", "kin", "kina", "product", "stock", "available", "delivery", "ship", "supplier", "whatsapp")) {
+    answer = "Orders WhatsApp ma hunchha bro! ✅\n\n1️⃣ Tapainlai line product/model bhanun\n2️⃣ Hamro team confirm garchha\n3️⃣ <b>Biratnagar</b> vitra <b>HOM DELIVERY</b>! 🚚\n\nClick garnus, WhatsApp directly khulchha 👇";
+  }
+  else if (bHas(text, "delivery", "deliver", "courier", "home", "location", "biratnagar", "address", "pathau", "paisi")) {
+    answer = "📍 Hamro main <b>Biratnagar</b> (Morang, Koshi).\n🚚 <b>Home Delivery</b>: Biratnagar vitra — usually <b>same/next day</b>!\n🏧 Payment: Cash on Delivery / Bank / eSewa\n\nOrder garnu chha? <b>Order Enquiry</b> click garnus 👇";
+  }
+
+  /* Account / login */
+  else if (bHas(text, "login", "log in", "signin", "sign in", "password", "passcode", "forgot pass", "reset", "account", "dashboard", "panel", "create account", "signup", "sign up", "register", "logout")) {
+    answer = "🔐 <b>Account help</b>:\n\n• Naya account: <b>Create Secure Account</b>\n• Login: <b>Open Dashboard</b> – jaha login box khulchha\n• Password bhul chha: Login page bata <b>&quot;Forgot Password&quot;</b> press garnus\n• Security: Pahilay novo device/login bata system le ma garchha!\n\nTapainlai kun chahiyo? 👇";
+  }
+  else if (bHas(text, "signup", "sign up", "register", "create", "naya account", "new account")) {
+    answer = "Naya account banauna click garnus 👇<br><br>Email + password halah, ratirautai login garna sakinchha. 🔐";
+  }
+  else if (bHas(text, "forgot", "bhul", "reset pass", "change pass")) {
+    answer = "Password bhulinchha bha ani login page ma <b>&quot;Forgot Password?&quot;</b> link chha — email halaunu, reset link aunchha. 📧<br><br>Security ko lagi pani <b>Login Help</b> click garnus. 👇";
+  }
+
+  /* Contact */
+  else if (bHas(text, "contact", "call", "phone", "number", "email", "gmail", "reach", "sampar", "location", "bhitra", "helpline", "support")) {
+    answer = "NovaIT sanga samparka:\n\n📞 <b>+977 9804335063</b> (Call/WhatsApp)\n📧 <b>prajwalnewpane775@gmail.com</b>\n📍 <b>Biratnagar, Morang, Nepal</b>\n\nWhatsApp ma kholna click garnus 👇";
+  }
+
+  /* Security */
+  else if (bHas(text, "security", "safe", "secure", "privacy", "data", "hack", "protect", "gum", "guarantee")) {
+    answer = "🛡 <b>Security</b> garhantiyo chha!\n\n• Encrypted data storage\n• Secure login (rate-limit + per-account lock)\n• Regular backups\n• Privacy policy protected\n\nNovaIT finance data lai serious lina chhaina. 😌";
+  }
+
+  /* Legal */
+  else if (bHas(text, "privacy", "policy", "terms", "condition", "legality", "rule")) {
+    answer = "⚖ <b>Legal</b>: <b>Privacy Policy</b> + <b>Terms</b> duitai hamro site madhya <b>footer</b> ma links chha — click garnus, details dekhnucha.";
+  }
+
+  /* Payments */
+  else if (bHas(text, "esewa", "easypaisa", "khalti", "bank", "card", "cash", "payment", "tva", "vat")) {
+    answer = "💳 <b>Payment options</b>:\n\n• Cash on Delivery\n• Bank Transfer\n• eSewa / Khalti\n\nPayment tesko order confirm pahichhah garnu chha — WhatsApp click garnus 👇";
+  }
+
+  /* Language fallback - Nepali */
+  if (!answer) {
+    answer = "Maile tyo kura bujhina sakiyena bro 😕 — tar tapainlai yo madat garna sakchhu:\n\n<b>• Services</b>\n<b>• Mobile Accessories</b>\n<b>• Order Enquiry</b>\n<b>• Account/Login Help</b>\n<b>• Contact</b>";
+  }
+
+  addBotMsg(answer, true);
+}
+botChips();
