@@ -2691,14 +2691,14 @@ function botSendQuick(q) {
   addUserMsg(q);
   if (q === "Open Dashboard") {
     botLoading(function() {
-      addBotMsg("Pani khola hai! 🚀 Tapainko account panel khulchha.", false);
+      addBotMsg("Opening your dashboard now! 🚀", false);
       setTimeout(function() { openDashboard(); }, 500);
     });
     return;
   }
   if (q === "Order Enquiry") {
     botLoading(function() {
-      addBotMsg("WhatsApp khola! WhatsApp order garne link:" + '<br><a class="nova-quick-btn" target="_blank" rel="noopener" href="https://wa.me/' + BOT_WA + '?text=' + encodeURIComponent("Namaste NovaIT! Mala euta order enquiry garna chiyo.") + '" style="text-decoration:none;display:inline-block;margin-top:8px;background:#5477ff;color:#fff">📲 Open WhatsApp</a>', false);
+      addBotMsg("Opening WhatsApp for your order enquiry:" + '<br><a class="nova-quick-btn" target="_blank" rel="noopener" href="https://wa.me/' + BOT_WA + '?text=' + encodeURIComponent("Namaste NovaIT! I would like to make an order enquiry.") + '" style="text-decoration:none;display:inline-block;margin-top:8px;background:#5477ff;color:#fff">📲 Open WhatsApp</a>', false);
     });
     return;
   }
@@ -2772,68 +2772,68 @@ function botReply(text) {
   var answer = null;
 
   /* Greeting */
-  if (bHas(text, "namaste", "namaskar", "namaskara", "hello", "hi", "hey", "hlo", "suprabhat", "ramro", "k xa", "k cha")) {
-    answer = "Namaste! 🙏 Tapainlai kasto help chahiyeko chha?\n\n<b>• Services</b> ko barema janne\n<b>• Mobile Accessories</b>\n<b>• Order garna</b>\n<b>• Account/Login</b>";
+  if (bHas(text, "namaste", "namaskar", "namaskara", "hello", "hi", "hey", "hlo", "suprabhat", "welcome")) {
+    answer = "Hello! 🙏 How can I help you today?\n\n<b>• Services</b> we offer\n<b>• Mobile Accessories</b>\n<b>• Place an Order</b>\n<b>• Account / Login help</b>";
   }
 
   /* Services */
-  else if (bHas(text, "service", "seva", "service k", "k k service", "what do you do", "what you offer", "k kam", "kaam", "work")) {
-    answer = "NovaIT le yahi kura haru offer garchha 🧑‍💻:<br><br><b>🛠 IT & Software</b> — Development, Hosting, Maintenance<br><b>💡 Digital Solutions</b> — Custom builds for business<br><b>📦 Mobile & Accessories</b> — Products store<br><b>🛡 Security</b> — Data & account protection<br><br>Details ko lagi mudda click garnus 👇";
+  else if (bHas(text, "service", "what do you do", "what you offer", "services", "work")) {
+    answer = "NovaIT offers these services 🧑‍💻:<br><br><b>🛠 IT & Software</b> — Development, Hosting, Maintenance<br><b>💡 Digital Solutions</b> — Custom builds for business<br><b>📦 Mobile & Accessories</b> — Product store<br><b>🛡 Security</b> — Data & account protection<br><br>Click an option below for details 👇";
   }
   else if (bHas(text, "web", "website", "app", "development", "software", "platform", "hosting", "server", "cloud", "ai", "automation")) {
-    answer = "NovaIT ko <b>IT & Software</b> services:\n\n🖥 <b>Website Development</b> — Business/brand site\n📱 <b>App Development</b> — Android/Web apps\n🔧 <b>Maintenance</b> — Updating & fixing\n☁ <b>Hosting/Cloud</b> — Uptime & security\n🤖 <b>AI & Automation</b> — Smart tools\n\n<b>Order garna</b> click garnus 👇";
+    answer = "NovaIT <b>IT & Software</b> services:\n\n🖥 <b>Website Development</b> — Business/brand websites\n📱 <b>App Development</b> — Android/Web apps\n🔧 <b>Maintenance</b> — Updates & fixes\n☁ <b>Hosting/Cloud</b> — Uptime & security\n🤖 <b>AI & Automation</b> — Smart tools\n\nClick <b>Order Enquiry</b> below 👇";
   }
-  else if (bHas(text, "price", "cost", "rate", "charge", "kitno", "kati", "paise", "paisa", "payment", "pay")) {
-    answer = "Pricing project anusar hunchha bro 💰 — website, app, hosting sab farkincha.\n\nExact price ko lagi WhatsApp ma message garnus, team le taratura <b>free quote</b> pathauchha!\n\n👉 <b>Order enqury</b> click garnus";
+  else if (bHas(text, "price", "cost", "rate", "charge", "payment", "quote", "pricing")) {
+    answer = "Pricing depends on the project 💰 — website, app, hosting all vary.\n\nFor an exact <b>FREE quote</b>, message us on WhatsApp and our team will reply quickly!\n\n👉 Click <b>Order Enquiry</b> below";
   }
 
   /* Mobile accessories */
   else if (bHas(text, "mobile", "phone", "phone case", "cover", "charger", "powerbank", "power bank", "accessor", "back cover", "tempered", "case")) {
-    answer = "📦 <b>Mobile Accessories</b> available chhan:\n\n📱 Phone Cases & Covers\n🔌 Chargers & Cables\n🔋 Power Banks\n🛡 Screen Guards (Tempered)\n🎧 Earphones<br><br>Order/stock ko lagi <b>Order Enquiry</b> click garnus! 👇";
+    answer = "📦 <b>Mobile Accessories</b> available:\n\n📱 Phone Cases & Covers\n🔌 Chargers & Cables\n🔋 Power Banks\n🛡 Screen Guards (Tempered)\n🎧 Earphones<br><br>To Order / check stock, click <b>Order Enquiry</b>! 👇";
   }
 
   /* Order enquiry / WhatsApp */
-  else if (bHas(text, "order", "buy", "kin", "kina", "product", "stock", "available", "delivery", "ship", "supplier", "whatsapp")) {
-    answer = "Orders WhatsApp ma hunchha bro! ✅\n\n1️⃣ Tapainlai line product/model bhanun\n2️⃣ Hamro team confirm garchha\n3️⃣ <b>Biratnagar</b> vitra <b>HOM DELIVERY</b>! 🚚\n\nClick garnus, WhatsApp directly khulchha 👇";
+  else if (bHas(text, "order", "buy", "product", "stock", "available", "supplier", "whatsapp", "purchase")) {
+    answer = "Orders are taken on WhatsApp! ✅\n\n1️⃣ Tell us the product/model you want\n2️⃣ Our team confirms availability\n3️⃣ <b>Home Delivery</b> within <b>Biratnagar</b>! 🚚\n\nClick below — WhatsApp opens directly 👇";
   }
-  else if (bHas(text, "delivery", "deliver", "courier", "home", "location", "biratnagar", "address", "pathau", "paisi")) {
-    answer = "📍 Hamro main <b>Biratnagar</b> (Morang, Koshi).\n🚚 <b>Home Delivery</b>: Biratnagar vitra — usually <b>same/next day</b>!\n🏧 Payment: Cash on Delivery / Bank / eSewa\n\nOrder garnu chha? <b>Order Enquiry</b> click garnus 👇";
+  else if (bHas(text, "delivery", "deliver", "courier", "home", "location", "biratnagar", "address", "shipping")) {
+    answer = "📍 Our main base is <b>Biratnagar</b> (Morang, Koshi).\n🚚 <b>Home Delivery</b>: within Biratnagar — usually <b>same/next day</b>!\n🏧 Payment: Cash on Delivery / Bank / eSewa\n\nWant to order? Click <b>Order Enquiry</b> 👇";
   }
 
   /* Account / login */
   else if (bHas(text, "login", "log in", "signin", "sign in", "password", "passcode", "forgot pass", "reset", "account", "dashboard", "panel", "create account", "signup", "sign up", "register", "logout")) {
-    answer = "🔐 <b>Account help</b>:\n\n• Naya account: <b>Create Secure Account</b>\n• Login: <b>Open Dashboard</b> – jaha login box khulchha\n• Password bhul chha: Login page bata <b>&quot;Forgot Password&quot;</b> press garnus\n• Security: Pahilay novo device/login bata system le ma garchha!\n\nTapainlai kun chahiyo? 👇";
+    answer = "🔐 <b>Account help</b>:\n\n• New account: <b>Create Secure Account</b>\n• Login: <b>Open Dashboard</b> — the login box will appear\n• Forgot password: Click <b>&quot;Forgot Password&quot;</b> on the login page\n• Security: The system monitors new device logins automatically!\n\nWhich one do you need? 👇";
   }
-  else if (bHas(text, "signup", "sign up", "register", "create", "naya account", "new account")) {
-    answer = "Naya account banauna click garnus 👇<br><br>Email + password halah, ratirautai login garna sakinchha. 🔐";
+  else if (bHas(text, "signup", "sign up", "register", "create", "new account")) {
+    answer = "To create a new account, click below 👇<br><br>Just enter your email + password and you can log in right away. 🔐";
   }
-  else if (bHas(text, "forgot", "bhul", "reset pass", "change pass")) {
-    answer = "Password bhulinchha bha ani login page ma <b>&quot;Forgot Password?&quot;</b> link chha — email halaunu, reset link aunchha. 📧<br><br>Security ko lagi pani <b>Login Help</b> click garnus. 👇";
+  else if (bHas(text, "forgot", "reset pass", "change pass", "reset password")) {
+    answer = "If you forgot your password, on the login page click <b>&quot;Forgot Password?&quot;</b> — enter your email and a reset link will be sent. 📧<br><br>For more security tips, click <b>Account Help</b> below. 👇";
   }
 
   /* Contact */
-  else if (bHas(text, "contact", "call", "phone", "number", "email", "gmail", "reach", "sampar", "location", "bhitra", "helpline", "support")) {
-    answer = "NovaIT sanga samparka:\n\n📞 <b>+977 9804335063</b> (Call/WhatsApp)\n📧 <b>prajwalnewpane775@gmail.com</b>\n📍 <b>Biratnagar, Morang, Nepal</b>\n\nWhatsApp ma kholna click garnus 👇";
+  else if (bHas(text, "contact", "call", "phone", "number", "email", "gmail", "reach", "location", "helpline", "support", "address")) {
+    answer = "You can reach NovaIT at:\n\n📞 <b>+977 9804335063</b> (Call/WhatsApp)\n📧 <b>prajwalnewpane775@gmail.com</b>\n📍 <b>Biratnagar, Morang, Nepal</b>\n\nClick below to open WhatsApp 👇";
   }
 
   /* Security */
-  else if (bHas(text, "security", "safe", "secure", "privacy", "data", "hack", "protect", "gum", "guarantee")) {
-    answer = "🛡 <b>Security</b> garhantiyo chha!\n\n• Encrypted data storage\n• Secure login (rate-limit + per-account lock)\n• Regular backups\n• Privacy policy protected\n\nNovaIT finance data lai serious lina chhaina. 😌";
+  else if (bHas(text, "security", "safe", "secure", "privacy", "data", "hack", "protect", "guarantee", "encryp")) {
+    answer = "🛡 <b>Security</b> is our priority!\n\n• Encrypted data storage\n• Secure login (rate-limiting + per-account lock)\n• Regular backups\n• Privacy policy protected\n\nYour data is serious business to us. 😌";
   }
 
   /* Legal */
-  else if (bHas(text, "privacy", "policy", "terms", "condition", "legality", "rule")) {
-    answer = "⚖ <b>Legal</b>: <b>Privacy Policy</b> + <b>Terms</b> duitai hamro site madhya <b>footer</b> ma links chha — click garnus, details dekhnucha.";
+  else if (bHas(text, "privacy", "policy", "terms", "condition", "legality", "rule", "legal")) {
+    answer = "⚖ <b>Legal</b>: Both <b>Privacy Policy</b> and <b>Terms</b> are available in the site <b>footer</b> — click them for full details.";
   }
 
   /* Payments */
-  else if (bHas(text, "esewa", "easypaisa", "khalti", "bank", "card", "cash", "payment", "tva", "vat")) {
-    answer = "💳 <b>Payment options</b>:\n\n• Cash on Delivery\n• Bank Transfer\n• eSewa / Khalti\n\nPayment tesko order confirm pahichhah garnu chha — WhatsApp click garnus 👇";
+  else if (bHas(text, "esewa", "easypaisa", "khalti", "bank", "card", "cash", "payment", "vat")) {
+    answer = "💳 <b>Payment options</b>:\n\n• Cash on Delivery\n• Bank Transfer\n• eSewa / Khalti\n\nTo confirm an order with your payment method, click WhatsApp below 👇";
   }
 
-  /* Language fallback - Nepali */
+  /* Fallback */
   if (!answer) {
-    answer = "Maile tyo kura bujhina sakiyena bro 😕 — tar tapainlai yo madat garna sakchhu:\n\n<b>• Services</b>\n<b>• Mobile Accessories</b>\n<b>• Order Enquiry</b>\n<b>• Account/Login Help</b>\n<b>• Contact</b>";
+    answer = "I'm sorry, I couldn't understand that 😕 — but I can help you with these:\n\n<b>• Services</b>\n<b>• Mobile Accessories</b>\n<b>• Order Enquiry</b>\n<b>• Account/Login Help</b>\n<b>• Contact</b>";
   }
 
   addBotMsg(answer, true);
